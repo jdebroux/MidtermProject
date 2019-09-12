@@ -19,8 +19,7 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String username, String password, Boolean enabled, String role) {
-		this.id = id;
+	public User(String username, String password, Boolean enabled, String role) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;

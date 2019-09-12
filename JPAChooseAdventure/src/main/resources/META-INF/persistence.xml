@@ -14,10 +14,9 @@
 		<!-- end entities -->
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/FIXME?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=MST" />
-			<property name="javax.persistence.jdbc.user" value="FIXME" />
-			<property name="javax.persistence.jdbc.password"
-				value="FIXME" />
+				value="jdbc:mysql://localhost:3306/nationalparks?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=MST" />
+			<property name="javax.persistence.jdbc.user" value="notVisitor" />
+			<property name="javax.persistence.jdbc.password" value="notVisitor" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 

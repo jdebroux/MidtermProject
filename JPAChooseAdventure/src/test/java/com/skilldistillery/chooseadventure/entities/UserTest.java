@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
@@ -40,8 +41,11 @@ class UserTest {
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	@DisplayName("Tests if user entity is mapped correctly")
+	void test1() {
+		assertEquals("admin", user.getUsername());
+		assertEquals("admin", user.getPassword());
+//		fail("Not yet implemented");
 	}
 
 }
