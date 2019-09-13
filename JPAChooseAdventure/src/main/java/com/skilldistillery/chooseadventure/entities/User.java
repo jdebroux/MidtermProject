@@ -1,5 +1,6 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,25 +14,44 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
-	private Boolean enabled;
-	private String role;
+	private Boolean active;
+	@Column(name = "first_name")
+	private String firstName;
+	@Column(name = "last_name")
+	private String lastName;
+	@Column(name = "email_address")
+	private String email;
+	private String privilege;
 
 	public User() {
 	}
 
-	public User(String username, String password, Boolean enabled, String role) {
+	public User(int id, String username, String password, Boolean active, String firstName, String lastName,
+			String privilege) {
+		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
+		this.active = active;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.privilege = privilege;
+	}
+
+	public User(String username, String password, Boolean active, String firstName, String lastName, String email,
+			String privilege) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.active = active;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.privilege = privilege;
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUsername() {
@@ -51,19 +71,59 @@ public class User {
 	}
 
 	public Boolean getEnabled() {
-		return enabled;
+		return active;
 	}
 
 	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
+		this.active = enabled;
 	}
 
 	public String getRole() {
-		return role;
+		return privilege;
 	}
 
 	public void setRole(String role) {
-		this.role = role;
+		this.privilege = role;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
 	}
 
 	@Override
@@ -90,7 +150,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", active=" + active
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privilege="
+				+ privilege + "]";
 	}
 }
