@@ -2,7 +2,7 @@
 <!DOCTYPE html>  
 <html lang="en">  
 <head>  
-  <title>Bootstrap Case</title>  
+  <title>Choose Adventure</title>  
   <meta charset="utf-8">  
   <meta charset="UTF-8">
 <meta name="viewport"
