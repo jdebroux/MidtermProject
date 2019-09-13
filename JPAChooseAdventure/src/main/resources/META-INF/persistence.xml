@@ -10,7 +10,18 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
 		<!-- entities here -->
+		<class>com.skilldistillery.chooseadventure.entities.Activity</class>
+		<class>com.skilldistillery.chooseadventure.entities.GeoFeature</class>
+		<class>com.skilldistillery.chooseadventure.entities.Location</class>
+		<class>com.skilldistillery.chooseadventure.entities.NationalPark</class>
+		<class>com.skilldistillery.chooseadventure.entities.NationalParkActivity</class>
+		<class>com.skilldistillery.chooseadventure.entities.Region</class>
+		<class>com.skilldistillery.chooseadventure.entities.Trip</class>
+		<class>com.skilldistillery.chooseadventure.entities.TripActivity</class>
+		<class>com.skilldistillery.chooseadventure.entities.TripComment</class>
 		<class>com.skilldistillery.chooseadventure.entities.User</class>
+		<class>com.skilldistillery.chooseadventure.entities.VisitorType</class>
+		<class>com.skilldistillery.chooseadventure.entities.Wildlife</class>
 		<!-- end entities -->
 		<properties>
 			<property name="javax.persistence.jdbc.url"

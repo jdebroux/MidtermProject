@@ -47,5 +47,4 @@ class UserTest {
 		assertEquals("admin", user.getPassword());
 //		fail("Not yet implemented");
 	}
-
 }
