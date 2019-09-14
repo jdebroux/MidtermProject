@@ -1,6 +1,8 @@
 package com.skilldistillery.chooseadventure.entities;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +18,6 @@ public class NationalParkActivity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "national_park_id")
-	private int nationalParkId;
-	
-	@Column(name = "activity_id")
-	private int activityId;
-	
 	@ManyToOne
 	@JoinColumn(name="activity_id")
 	private Activity activity;
@@ -31,30 +27,9 @@ public class NationalParkActivity {
 	private NationalPark nationalPark;
 	
 	@OneToMany(mappedBy="nationalParkActivity")
-	private TripActivity tripActivity;
+	private List<TripActivity> tripActivities;
 
 	public NationalParkActivity() {
-	}
-
-	public NationalParkActivity(int nationalParkId, int activityId) {
-		this.nationalParkId = nationalParkId;
-		this.activityId = activityId;
-	}
-
-	public int getNationalParkId() {
-		return nationalParkId;
-	}
-
-	public void setNationalParkId(int nationalParkId) {
-		this.nationalParkId = nationalParkId;
-	}
-
-	public int getActivityId() {
-		return activityId;
-	}
-
-	public void setActivityId(int activityId) {
-		this.activityId = activityId;
 	}
 
 	public int getId() {
@@ -77,12 +52,12 @@ public class NationalParkActivity {
 		this.nationalPark = nationalPark;
 	}
 
-	public TripActivity getTripActivity() {
-		return tripActivity;
+	public List<TripActivity> getTripActivities() {
+		return new ArrayList<>(tripActivities);
 	}
 
-	public void setTripActivity(TripActivity tripActivity) {
-		this.tripActivity = tripActivity;
+	public void setTripActivities(List<TripActivity> tripActivities) {
+		this.tripActivities = tripActivities;
 	}
 
 	@Override
