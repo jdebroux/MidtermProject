@@ -1,5 +1,8 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +33,7 @@ public class User {
 	private String email;
 	
 	@OneToMany(mappedBy="user")
-	private Trip trip;
+	private List<Trip> trips;
 
 	public User() {
 	}
@@ -115,12 +118,12 @@ public class User {
 		this.email = email;
 	}
 	
-	public Trip getTrip() {
-		return trip;
+	public List<Trip> getTrips() {
+		return new ArrayList<>(trips);
 	}
 
-	public void setTrip(Trip trip) {
-		this.trip = trip;
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
 	}
 
 	@Override

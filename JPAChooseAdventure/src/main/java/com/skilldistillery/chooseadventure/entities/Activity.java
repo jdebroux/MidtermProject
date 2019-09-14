@@ -1,5 +1,8 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +23,7 @@ public class Activity {
 	private String link;
 	
 	@OneToMany(mappedBy="activity")
-	private NationalParkActivity nationalParkActivity;
+	private List<NationalParkActivity> nationalParkActivities;
 	
 
 	public Activity() {
@@ -29,6 +32,25 @@ public class Activity {
 	public Activity(String name, String link) {
 		this.name = name;
 		this.link = link;
+	}
+	
+	public void addNationalParkActivity(NationalParkActivity nationalParkActivity) {
+		if(nationalParkActivities == null) nationalParkActivities = new ArrayList<>();
+		
+		if(!nationalParkActivities.contains(nationalParkActivity)) {
+			nationalParkActivities.add(nationalParkActivity);
+			if(nationalParkActivity.getActivity() != null) {
+				nationalParkActivity.getActivity().getNationalParkActivities().remove(nationalParkActivity);
+			}
+			nationalParkActivity.setActivity(this);
+		}
+	}
+	
+	public void removeNationalParkActivity(NationalParkActivity nationalParkActivity) {
+		nationalParkActivity.setActivity(null);
+		if(nationalParkActivities != null) {
+			nationalParkActivities.remove(nationalParkActivity);
+		}
 	}
 
 	public String getName() {
@@ -49,6 +71,14 @@ public class Activity {
 
 	public int getId() {
 		return id;
+	}
+
+	public List<NationalParkActivity> getNationalParkActivities() {
+		return new ArrayList<>(nationalParkActivities);
+	}
+
+	public void setNationalParkActivities(List<NationalParkActivity> nationalParkActivities) {
+		this.nationalParkActivities = nationalParkActivities;
 	}
 
 	@Override

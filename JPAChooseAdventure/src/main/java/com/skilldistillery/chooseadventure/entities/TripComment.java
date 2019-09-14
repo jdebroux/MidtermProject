@@ -23,9 +23,6 @@ public class TripComment {
 	
 	private String description;
 	
-	@Column(name = "trip_id")
-	private int tripId;
-	
 	@Column(name = "create_date")
 	private Date createDate;
 	
@@ -36,9 +33,8 @@ public class TripComment {
 	public TripComment() {
 	}
 
-	public TripComment(String title, int tripId, Date createDate, String description) {
+	public TripComment(String title, Date createDate, String description) {
 		this.title = title;
-		this.tripId = tripId;
 		this.createDate = createDate;
 		this.description = description;
 	}
@@ -49,14 +45,6 @@ public class TripComment {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public int getTripId() {
-		return tripId;
-	}
-
-	public void setTripId(int tripId) {
-		this.tripId = tripId;
 	}
 
 	public Date getCreateDate() {
@@ -111,7 +99,7 @@ public class TripComment {
 
 	@Override
 	public String toString() {
-		return "TripComment [id=" + id + ", title=" + title + ", tripId=" + tripId + ", createDate=" + createDate
+		return "TripComment [id=" + id + ", title=" + title + ", createDate=" + createDate
 				+ ", description=" + description + "]";
 	}
 }
