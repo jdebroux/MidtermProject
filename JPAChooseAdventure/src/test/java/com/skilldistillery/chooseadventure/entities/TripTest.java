@@ -46,6 +46,5 @@ class TripTest {
 	void test1() {
 		assertEquals("admin", trip.getName()); //TODO
 		assertEquals(5, trip.getUserId());
-//		fail("Not yet implemented");
 	}
 }

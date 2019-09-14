@@ -46,6 +46,5 @@ class LocationTest {
 	void test1() {
 		assertEquals("Maine", location.getState());
 		assertEquals(1, location.getRegionId());
-//		fail("Not yet implemented");
 	}
 }

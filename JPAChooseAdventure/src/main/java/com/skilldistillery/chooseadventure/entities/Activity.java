@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Activity {
@@ -12,15 +13,20 @@ public class Activity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
+	
 	@Column(name = "link_wiki")
 	private String link;
+	
+	@OneToMany(mappedBy="activity")
+	private NationalParkActivity nationalParkActivity;
+	
 
 	public Activity() {
 	}
 
 	public Activity(String name, String link) {
-		super();
 		this.name = name;
 		this.link = link;
 	}
@@ -69,6 +75,6 @@ public class Activity {
 
 	@Override
 	public String toString() {
-		return "Activity [id=" + id + ", name=" + name + ", link=" + link + "]";
+		return "Activity [id=" + id + ", name=" + name + "]";
 	}
 }

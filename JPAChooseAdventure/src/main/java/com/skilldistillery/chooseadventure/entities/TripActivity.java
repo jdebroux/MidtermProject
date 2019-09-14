@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +16,20 @@ public class TripActivity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "trip_id")
 	private int tripId;
+	
 	@Column(name = "national_park_activity_id")
 	private int NationalParkActivityId;
+	
+	@ManyToOne
+	@JoinColumn(name="national_park_activity_id")
+	private NationalParkActivity nationalParkActivity;
+	
+	@ManyToOne
+	@JoinColumn(name="trip_id")
+	private Trip trip;
 
 	public TripActivity() {
 	}
@@ -46,6 +58,22 @@ public class TripActivity {
 
 	public int getId() {
 		return id;
+	}
+	
+	public NationalParkActivity getNationalParkActivity() {
+		return nationalParkActivity;
+	}
+
+	public void setNationalParkActivity(NationalParkActivity nationalParkActivity) {
+		this.nationalParkActivity = nationalParkActivity;
+	}
+
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
 	@Override

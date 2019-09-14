@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class NationalParkActivity {
@@ -12,10 +15,23 @@ public class NationalParkActivity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "national_park_id")
 	private int nationalParkId;
+	
 	@Column(name = "activity_id")
 	private int activityId;
+	
+	@ManyToOne
+	@JoinColumn(name="activity_id")
+	private Activity activity;
+	
+	@ManyToOne
+	@JoinColumn(name="national_park_id")
+	private NationalPark nationalPark;
+	
+	@OneToMany(mappedBy="nationalParkActivity")
+	private TripActivity tripActivity;
 
 	public NationalParkActivity() {
 	}
@@ -44,6 +60,30 @@ public class NationalParkActivity {
 	public int getId() {
 		return id;
 	}
+	
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	public NationalPark getNationalPark() {
+		return nationalPark;
+	}
+
+	public void setNationalPark(NationalPark nationalPark) {
+		this.nationalPark = nationalPark;
+	}
+
+	public TripActivity getTripActivity() {
+		return tripActivity;
+	}
+
+	public void setTripActivity(TripActivity tripActivity) {
+		this.tripActivity = tripActivity;
+	}
 
 	@Override
 	public int hashCode() {
@@ -69,7 +109,6 @@ public class NationalParkActivity {
 
 	@Override
 	public String toString() {
-		return "NationalParkActivity [id=" + id + ", nationalParkId=" + nationalParkId + ", activityId=" + activityId
-				+ "]";
+		return "NationalParkActivity [id=" + id + "]";
 	}
 }

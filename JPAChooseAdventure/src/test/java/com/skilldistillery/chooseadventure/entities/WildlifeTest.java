@@ -45,6 +45,5 @@ class WildlifeTest {
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
 		assertEquals("Bald Eagle", wildlife.getName());
-//		fail("Not yet implemented");
 	}
 }

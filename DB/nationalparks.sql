@@ -121,7 +121,6 @@ DROP TABLE IF EXISTS `wildlife` ;
 CREATE TABLE IF NOT EXISTS `wildlife` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `link_wiki` VARCHAR(5000) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -167,30 +166,6 @@ CREATE TABLE IF NOT EXISTS `trip_comment` (
   CONSTRAINT `fk_comment_trip1`
     FOREIGN KEY (`trip_id`)
     REFERENCES `trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `national_park_wildlife`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `national_park_wildlife` ;
-
-CREATE TABLE IF NOT EXISTS `national_park_wildlife` (
-  `national_park_id` INT NOT NULL,
-  `wildlife_id` INT NOT NULL,
-  PRIMARY KEY (`national_park_id`, `wildlife_id`),
-  INDEX `fk_national_park_has_wildlife_wildlife1_idx` (`wildlife_id` ASC),
-  INDEX `fk_national_park_has_wildlife_national_park1_idx` (`national_park_id` ASC),
-  CONSTRAINT `fk_national_park_has_wildlife_national_park1`
-    FOREIGN KEY (`national_park_id`)
-    REFERENCES `national_park` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_national_park_has_wildlife_wildlife1`
-    FOREIGN KEY (`wildlife_id`)
-    REFERENCES `wildlife` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -258,11 +233,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `national_park_has_visitor_type`
+-- Table `national_park_visitor_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `national_park_has_visitor_type` ;
+DROP TABLE IF EXISTS `national_park_visitor_type` ;
 
-CREATE TABLE IF NOT EXISTS `national_park_has_visitor_type` (
+CREATE TABLE IF NOT EXISTS `national_park_visitor_type` (
   `national_park_id` INT NOT NULL,
   `visitor_type_id` INT NOT NULL,
   PRIMARY KEY (`national_park_id`, `visitor_type_id`),
@@ -301,6 +276,30 @@ CREATE TABLE IF NOT EXISTS `trip_activity` (
   CONSTRAINT `fk_trip_activity_np_activity`
     FOREIGN KEY (`national_park_activity_id`)
     REFERENCES `national_park_activity` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `national_park_wildlife`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `national_park_wildlife` ;
+
+CREATE TABLE IF NOT EXISTS `national_park_wildlife` (
+  `national_park_id` INT NOT NULL,
+  `wildlife_id` INT NOT NULL,
+  PRIMARY KEY (`national_park_id`, `wildlife_id`),
+  INDEX `fk_national_park_has_wildlife_wildlife1_idx` (`wildlife_id` ASC),
+  INDEX `fk_national_park_has_wildlife_national_park1_idx` (`national_park_id` ASC),
+  CONSTRAINT `fk_national_park_has_wildlife_national_park1`
+    FOREIGN KEY (`national_park_id`)
+    REFERENCES `national_park` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_national_park_has_wildlife_wildlife1`
+    FOREIGN KEY (`wildlife_id`)
+    REFERENCES `wildlife` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -478,23 +477,34 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `trip`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `user_id`) VALUES (1, 'Yosemite', 58, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `user_id`) VALUES (2, 'Wind Cave', 55, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `wildlife`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (1, 'Bald Eagle', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (2, 'Sea Turtle', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (3, 'Bison', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (4, 'Elk', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (5, 'Bear', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (6, 'Moose', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (7, 'Bats', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (8, 'Gators', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (9, 'Birds', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (10, 'Wolves', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (11, 'Whales', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (12, 'Marmots', NULL);
-INSERT INTO `wildlife` (`id`, `name`, `link_wiki`) VALUES (13, 'Bighorn', NULL);
+INSERT INTO `wildlife` (`id`, `name`) VALUES (1, 'Bald Eagle');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (2, 'Sea Turtle');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (3, 'Bison');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (4, 'Elk');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (5, 'Bear');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (6, 'Moose');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (7, 'Bats');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (8, 'Gators');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (9, 'Birds');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (10, 'Wolves');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (11, 'Whales');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (12, 'Marmots');
+INSERT INTO `wildlife` (`id`, `name`) VALUES (13, 'Bighorn');
 
 COMMIT;
 
@@ -524,14 +534,200 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (1, 'Forest');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (1, 'Volcanic');
 INSERT INTO `geo_feature` (`id`, `name`) VALUES (2, 'Mountains');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (3, 'Ocean');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (4, 'Lake');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (5, 'Desert');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (6, 'Glacier');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (7, 'Volcano');
-INSERT INTO `geo_feature` (`id`, `name`) VALUES (8, 'Waterfall');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (3, 'Rivers');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (4, 'Ocean');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (5, 'Old Growth');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (6, 'Forests');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (7, 'Geysers');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (8, 'Redwoods');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (9, 'Glaciers');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (10, 'Lava Tubes');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (11, 'Waterfalls');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (12, 'Cactus');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (13, 'Canyons');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (14, 'Sandstone Formations');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (15, 'Lakes');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (16, 'Rain Forest');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (17, 'Swamp');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (18, 'Caves');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (19, 'Desert');
+INSERT INTO `geo_feature` (`id`, `name`) VALUES (20, 'Sand Dunes');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trip_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip_comment` (`id`, `trip_id`, `create_date`, `description`, `title`) VALUES (1, 2, '2019-09-14', 'omg totes yes', 'Wind Cave Extravaganza');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `national_park_geo_feature`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (1, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (2, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (3, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (4, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (4, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (4, 1);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (5, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (5, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (5, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (5, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (5, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (6, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (7, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (7, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (7, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (7, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (7, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (8, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (8, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (9, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (9, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (9, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (10, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (10, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (11, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (12, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (13, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (13, 17);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (13, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (14, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (14, 15);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (14, 1);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (15, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (16, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (17, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (17, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (17, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (18, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (19, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (19, 17);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (20, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (20, 9);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (20, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (21, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (21, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (21, 9);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (21, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (22, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (22, 9);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (22, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (22, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (23, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (23, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (23, 14);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (23, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (24, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (24, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (24, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (24, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (24, 7);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (25, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (25, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (26, 20);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (27, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (27, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (27, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (28, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (28, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (28, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (29, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (29, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (29, 1);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (29, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (30, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (30, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (30, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (30, 1);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (31, 7);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (31, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (31, 15);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (32, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (32, 15);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (33, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (33, 12);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (34, 9);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (35, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (35, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (35, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (35, 9);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (36, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (36, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (36, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (37, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (37, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (37, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (38, 15);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (38, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (38, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (38, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (39, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (39, 10);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (40, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (41, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (42, 1);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (42, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (42, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (42, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (43, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (43, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (44, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (44, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (44, 16);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (45, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (45, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (46, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (47, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (48, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (48, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (48, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (49, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (49, 12);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (50, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (50, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (51, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (51, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (51, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (52, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (52, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (53, 4);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (54, 15);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (54, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (55, 18);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (56, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (56, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (57, 11);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (57, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (57, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (57, 7);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (58, 2);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (58, 3);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (58, 5);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (58, 6);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (58, 13);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (59, 19);
+INSERT INTO `national_park_geo_feature` (`national_park_id`, `geo_feature_id`) VALUES (59, 14);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `national_park_activity`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (1, 55, 5);
 
 COMMIT;
 
@@ -544,6 +740,557 @@ USE `nationalparks`;
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (1, 'Handicapped');
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (2, 'Youth');
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (3, 'Senior');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `national_park_visitor_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_visitor_type` (`national_park_id`, `visitor_type_id`) VALUES (55, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trip_activity`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip_activity` (`id`, `trip_id`, `national_park_activity_id`) VALUES (1, 2, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `national_park_wildlife`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (1, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (2, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (3, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (4, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (5, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (6, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (7, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (8, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (9, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (10, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (11, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (12, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (13, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (14, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (15, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (16, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (17, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (18, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (19, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (20, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (21, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (22, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (23, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (24, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (25, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (26, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (27, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (28, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (29, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (30, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (31, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (32, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (33, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (34, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (35, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (36, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 11);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (37, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (38, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (39, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (40, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (41, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (42, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (43, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (44, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 1);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (45, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (46, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 8);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (47, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 5);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (48, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (49, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (50, 13);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (51, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (52, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (53, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (54, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (55, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (56, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (57, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (58, 12);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 2);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 3);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 4);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 6);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 7);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 9);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 10);
+INSERT INTO `national_park_wildlife` (`national_park_id`, `wildlife_id`) VALUES (59, 12);
 
 COMMIT;
 
