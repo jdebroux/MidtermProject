@@ -1,5 +1,8 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +19,7 @@ public class Region {
 	private String name;
 	
 	@OneToMany(mappedBy="region")
-	private Location location;
+	private List<Location> locations;
 
 	public Region() {
 	}
@@ -37,12 +40,12 @@ public class Region {
 		return id;
 	}
 	
-	public Location getLocation() {
-		return location;
+	public List<Location> getLocations() {
+		return new ArrayList<>(locations);
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 
 	@Override

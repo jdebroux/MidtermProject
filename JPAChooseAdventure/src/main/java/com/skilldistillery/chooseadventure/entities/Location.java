@@ -1,6 +1,5 @@
 package com.skilldistillery.chooseadventure.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,9 +21,6 @@ public class Location {
 	
 	private Double longitude;
 	
-	@Column(name = "region_id")
-	private int regionId;
-	
 	@ManyToOne
 	@JoinColumn(name="region_id")
 	private Region region;
@@ -35,11 +31,10 @@ public class Location {
 	public Location() {
 	}
 
-	public Location(String state, Double latitude, Double longitude, int regionId) {
+	public Location(String state, Double latitude, Double longitude) {
 		this.state = state;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.regionId = regionId;
 	}
 
 	public String getState() {
@@ -64,14 +59,6 @@ public class Location {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
-	}
-
-	public int getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(int regionId) {
-		this.regionId = regionId;
 	}
 
 	public int getId() {

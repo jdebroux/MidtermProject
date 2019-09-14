@@ -1,5 +1,8 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,16 +21,11 @@ public class Trip {
 	
 	private String name;
 	
-	@Column(name="national_park_id")
-	private int nationalParkId;
-	@Column(name="user_id")
-	private int userId;
+	@OneToMany(mappedBy="trip")
+	private List<TripActivity> tripActivities;
 
 	@OneToMany(mappedBy="trip")
-	private TripActivity tripActivity;
-
-	@OneToMany(mappedBy="trip")
-	private TripComment tripComment;
+	private List<TripComment> tripComments;
 	
 	@ManyToOne
 	@JoinColumn(name="national_park_id")
@@ -56,36 +54,20 @@ public class Trip {
 		return id;
 	}
 
-	public int getNationalParkId() {
-		return nationalParkId;
+	public List<TripActivity> getTripActivities() {
+		return new ArrayList<>(tripActivities);
 	}
 
-	public void setNationalParkId(int nationalParkId) {
-		this.nationalParkId = nationalParkId;
+	public void setTripActivities(List<TripActivity> tripActivities) {
+		this.tripActivities = tripActivities;
 	}
 
-	public int getUserId() {
-		return userId;
+	public List<TripComment> getTripComments() {
+		return new ArrayList<>(tripComments);
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
-	public TripActivity getTripActivity() {
-		return tripActivity;
-	}
-
-	public void setTripActivity(TripActivity tripActivity) {
-		this.tripActivity = tripActivity;
-	}
-
-	public TripComment getTripComment() {
-		return tripComment;
-	}
-
-	public void setTripComment(TripComment tripComment) {
-		this.tripComment = tripComment;
+	public void setTripComments(List<TripComment> tripComments) {
+		this.tripComments = tripComments;
 	}
 
 	public NationalPark getNationalPark() {
@@ -128,7 +110,7 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", name=" + name + ", tripComment=" + tripComment + ", nationalPark=" + nationalPark
+		return "Trip [id=" + id + ", name=" + name + ", nationalPark=" + nationalPark
 				+ ", user=" + user + "]";
 	}
 }
