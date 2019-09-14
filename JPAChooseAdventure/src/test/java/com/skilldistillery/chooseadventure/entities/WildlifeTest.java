@@ -45,5 +45,6 @@ class WildlifeTest {
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
 		assertEquals("Bald Eagle", wildlife.getName());
+		assertEquals(45, wildlife.getNationalParks().size());
 	}
 }
