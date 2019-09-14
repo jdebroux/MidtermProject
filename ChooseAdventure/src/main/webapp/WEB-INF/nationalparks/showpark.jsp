@@ -19,12 +19,8 @@
 </div>
 
 <div>
-		<h3>
-			<a href="/">Main Menu</a>
-		</h3>
-		<h2>Chess Game Results</h2>
 		<c:choose>
-			<c:when test="${! empty chess.id }">
+			<c:when test="${! empty national_park.id }">
 
 				<ul style="list-style: none;">
 					<li>${national_park.name}</li>
