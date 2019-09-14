@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
+	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private User user;
