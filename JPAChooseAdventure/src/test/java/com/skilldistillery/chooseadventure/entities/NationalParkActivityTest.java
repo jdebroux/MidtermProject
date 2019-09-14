@@ -46,6 +46,5 @@ class NationalParkActivityTest {
 	void test1() {
 		assertEquals(9, npa.getNationalParkId()); //TODO
 		assertEquals(8, npa.getActivityId());
-//		fail("Not yet implemented");
 	}
 }

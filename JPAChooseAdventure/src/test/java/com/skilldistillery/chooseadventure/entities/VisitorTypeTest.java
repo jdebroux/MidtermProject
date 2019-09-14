@@ -45,6 +45,5 @@ class VisitorTypeTest {
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
 		assertEquals("Handicapped", visitorType.getName());
-//		fail("Not yet implemented");
 	}
 }

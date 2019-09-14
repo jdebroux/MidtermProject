@@ -1,9 +1,16 @@
 package com.skilldistillery.chooseadventure.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,14 +20,36 @@ public class GeoFeature {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
 
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinTable(name="national_park", joinColumns=@JoinColumn(name="geo_feature_id"),
+	inverseJoinColumns=@JoinColumn(name="national_park_id"))
+	private List<NationalPark> nationalParks;
+	
 	public GeoFeature() {
 	}
 
 	public GeoFeature(String name) {
-		super();
 		this.name = name;
+	}
+	
+	public void addNationalPark(NationalPark nationalPark) {
+		if(nationalParks == null) {
+			nationalParks = new ArrayList<>();
+		}
+		if(!nationalParks.contains(nationalPark)) {
+			nationalParks.add(nationalPark);
+			nationalPark.addGeoFeature(this);
+		}
+	}
+	
+	public void removeNationalPark(NationalPark nationalPark) {
+		if(nationalParks != null && nationalParks.contains(nationalPark)) {
+			nationalParks.remove(nationalPark);
+			nationalPark.removeGeoFeature(this);
+		}
 	}
 
 	public String getName() {

@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Trip {
@@ -12,11 +15,27 @@ public class Trip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
+	
 	@Column(name="national_park_id")
 	private int nationalParkId;
 	@Column(name="user_id")
 	private int userId;
+
+	@OneToMany(mappedBy="trip")
+	private TripActivity tripActivity;
+
+	@OneToMany(mappedBy="trip")
+	private TripComment tripComment;
+	
+	@ManyToOne
+	@JoinColumn(name="national_park_id")
+	private NationalPark nationalPark;
+
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public Trip() {
 	}
@@ -52,7 +71,39 @@ public class Trip {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	
+	public TripActivity getTripActivity() {
+		return tripActivity;
+	}
 
+	public void setTripActivity(TripActivity tripActivity) {
+		this.tripActivity = tripActivity;
+	}
+
+	public TripComment getTripComment() {
+		return tripComment;
+	}
+
+	public void setTripComment(TripComment tripComment) {
+		this.tripComment = tripComment;
+	}
+
+	public NationalPark getNationalPark() {
+		return nationalPark;
+	}
+
+	public void setNationalPark(NationalPark nationalPark) {
+		this.nationalPark = nationalPark;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,6 +128,7 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", name=" + name + ", nationalParkId=" + nationalParkId + ", userId=" + userId + "]";
+		return "Trip [id=" + id + ", name=" + name + ", tripComment=" + tripComment + ", nationalPark=" + nationalPark
+				+ ", user=" + user + "]";
 	}
 }

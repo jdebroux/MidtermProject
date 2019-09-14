@@ -45,6 +45,5 @@ class RegionTest {
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
 		assertEquals("Northeast", region.getName());
-//		fail("Not yet implemented");
 	}
 }

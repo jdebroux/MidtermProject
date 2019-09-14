@@ -46,6 +46,5 @@ class TripCommentTest {
 	void test1() {
 		assertEquals("admin", tc.getTitle()); //TODO
 		assertEquals(5, tc.getTripId());
-//		fail("Not yet implemented");
 	}
 }
