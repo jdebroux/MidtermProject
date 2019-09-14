@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Location {
@@ -12,11 +15,22 @@ public class Location {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String state;
+	
 	private Double latitude;
+	
 	private Double longitude;
+	
 	@Column(name = "region_id")
 	private int regionId;
+	
+	@ManyToOne
+	@JoinColumn(name="region_id")
+	private Region region;
+	
+	@OneToOne(mappedBy="location")
+	private NationalPark nationalPark;
 
 	public Location() {
 	}
@@ -63,7 +77,23 @@ public class Location {
 	public int getId() {
 		return id;
 	}
+	
+	public Region getRegion() {
+		return region;
+	}
 
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public NationalPark getNationalPark() {
+		return nationalPark;
+	}
+
+	public void setNationalPark(NationalPark nationalPark) {
+		this.nationalPark = nationalPark;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,7 +118,7 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", state=" + state + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", regionId=" + regionId + "]";
+		return "Location [id=" + id + ", state=" + state + ", latitude=" + latitude + ", longitude=" + longitude +"]";
 	}
 }
+

@@ -45,6 +45,5 @@ class ActivityTest {
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
 		assertEquals("Snorkeling", activity.getName());
-//		fail("Not yet implemented");
 	}
 }

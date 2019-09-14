@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +18,20 @@ public class TripComment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String title;
+	
+	private String description;
+	
 	@Column(name = "trip_id")
 	private int tripId;
+	
 	@Column(name = "create_date")
 	private Date createDate;
-	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name="trip_id")
+	private Trip trip;
 
 	public TripComment() {
 	}
@@ -67,6 +77,14 @@ public class TripComment {
 
 	public int getId() {
 		return id;
+	}
+	
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
 	@Override
