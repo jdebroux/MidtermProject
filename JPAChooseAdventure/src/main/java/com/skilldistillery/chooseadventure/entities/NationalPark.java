@@ -26,7 +26,8 @@ public class NationalPark {
 	
 	private String description;
 	
-//	private String picture;
+	@Column(name="link_image_url")
+	private String picture;
 	
 	@Column(name = "link_nps")
 	private String link;
@@ -58,6 +59,25 @@ public class NationalPark {
 		this.name = name;
 		this.description = description;
 		this.link = link;
+	}
+	
+	public void addNationalParkActivity(NationalParkActivity nationalParkActivity) {
+		if(nationalParkActivities == null) nationalParkActivities = new ArrayList<>();
+		
+		if(!nationalParkActivities.contains(nationalParkActivity)) {
+			nationalParkActivities.add(nationalParkActivity);
+			if(nationalParkActivity.getNationalPark() != null) {
+				nationalParkActivity.getNationalPark().getNationalParkActivities().remove(nationalParkActivity);
+			}
+			nationalParkActivity.setNationalPark(this);
+		}
+	}
+	
+	public void removeNationalParkActivity(NationalParkActivity nationalParkActivity) {
+		nationalParkActivity.setNationalPark(null);
+		if(nationalParkActivities != null) {
+			nationalParkActivities.remove(nationalParkActivity);
+		}
 	}
 	
 	public void addWildlife(Wildlife wildlife) {
@@ -127,13 +147,13 @@ public class NationalPark {
 		this.description = description;
 	}
 
-//	public String getPicture() {
-//		return picture;
-//	}
-//
-//	public void setPicture(String picture) {
-//		this.picture = picture;
-//	}
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 
 	public String getLink() {
 		return link;

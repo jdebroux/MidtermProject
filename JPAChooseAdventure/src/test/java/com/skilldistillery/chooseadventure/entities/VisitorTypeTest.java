@@ -32,7 +32,7 @@ class VisitorTypeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		visitorType = em.find(VisitorType.class, 1);
+		visitorType = em.find(VisitorType.class, 2);
 	}
 
 	@AfterEach
@@ -44,6 +44,7 @@ class VisitorTypeTest {
 	@Test
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
-		assertEquals("Handicapped", visitorType.getName());
+		assertEquals("Youth", visitorType.getName());
+		assertEquals(1, visitorType.getNationalParks().size());
 	}
 }

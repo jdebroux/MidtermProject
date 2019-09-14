@@ -42,8 +42,9 @@ class NationalParkTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if National Park entity is mapped correctly")
 	void test1() {
 		assertEquals("Acadia", np.getName());
+		assertEquals(44.35, np.getLocation().getLatitude());
 	}
 }

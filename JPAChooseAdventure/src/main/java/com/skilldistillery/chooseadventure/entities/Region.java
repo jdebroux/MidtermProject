@@ -27,6 +27,25 @@ public class Region {
 	public Region(String name) {
 		this.name = name;
 	}
+	
+	public void addLocation(Location location) {
+		if(locations == null) locations = new ArrayList<>();
+		
+		if(!locations.contains(location)) {
+			locations.add(location);
+			if(location.getRegion() != null) {
+				location.getRegion().getLocations().remove(location);
+			}
+			location.setRegion(this);
+		}
+	}
+	
+	public void removeLocation(Location location) {
+		location.setRegion(null);
+		if(locations != null) {
+			locations.remove(location);
+		}
+	}
 
 	public String getName() {
 		return name;

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class User {
+public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +32,13 @@ public class User {
 	@Column(name = "email_address")
 	private String email;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="account")
 	private List<Trip> trips;
 
-	public User() {
+	public Account() {
 	}
 
-	public User(int id, String username, String password, Boolean active, String firstName, String lastName) {
+	public Account(int id, String username, String password, Boolean active, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -48,7 +48,7 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public User(String username, String password, Boolean active, String firstName, String lastName, String email) {
+	public Account(String username, String password, Boolean active, String firstName, String lastName, String email) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -56,6 +56,25 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+	
+	public void addTrip(Trip trip) {
+		if(trips == null) trips = new ArrayList<>();
+		
+		if(!trips.contains(trip)) {
+			trips.add(trip);
+			if(trip.getAccount() != null) {
+				trip.getAccount().getTrips().remove(trip);
+			}
+			trip.setAccount(this);
+		}
+	}
+	
+	public void removeTrip(Trip trip) {
+		trip.setAccount(null);
+		if(trips != null) {
+			trips.remove(trip);
+		}
 	}
 
 	public int getId() {
@@ -142,7 +161,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Account other = (Account) obj;
 		if (id != other.id)
 			return false;
 		return true;

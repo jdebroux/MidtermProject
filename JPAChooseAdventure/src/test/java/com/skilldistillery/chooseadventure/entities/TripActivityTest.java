@@ -42,8 +42,8 @@ class TripActivityTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if Trip Activity entity is mapped correctly")
 	void test1() {
-		assertEquals(5, ta.getNationalParkActivityId() ); //TODO
+		assertEquals("Wind Cave", ta.getNationalParkActivity().getNationalPark().getName());
 	}
 }
