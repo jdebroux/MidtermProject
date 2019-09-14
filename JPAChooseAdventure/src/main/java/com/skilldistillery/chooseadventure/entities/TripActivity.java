@@ -1,6 +1,5 @@
 package com.skilldistillery.chooseadventure.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,12 +16,6 @@ public class TripActivity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "trip_id")
-	private int tripId;
-	
-	@Column(name = "national_park_activity_id")
-	private int NationalParkActivityId;
-	
 	@ManyToOne
 	@JoinColumn(name="national_park_activity_id")
 	private NationalParkActivity nationalParkActivity;
@@ -32,28 +25,6 @@ public class TripActivity {
 	private Trip trip;
 
 	public TripActivity() {
-	}
-
-	public TripActivity(int tripId, int nationalParkActivityId) {
-		super();
-		this.tripId = tripId;
-		NationalParkActivityId = nationalParkActivityId;
-	}
-
-	public int getTripId() {
-		return tripId;
-	}
-
-	public void setTripId(int tripId) {
-		this.tripId = tripId;
-	}
-
-	public int getNationalParkActivityId() {
-		return NationalParkActivityId;
-	}
-
-	public void setNationalParkActivityId(int nationalParkActivityId) {
-		NationalParkActivityId = nationalParkActivityId;
 	}
 
 	public int getId() {
@@ -100,7 +71,6 @@ public class TripActivity {
 
 	@Override
 	public String toString() {
-		return "TripActivity [id=" + id + ", tripId=" + tripId + ", NationalParkActivityId=" + NationalParkActivityId
-				+ "]";
+		return "TripActivity [id=" + id + "]";
 	}
 }

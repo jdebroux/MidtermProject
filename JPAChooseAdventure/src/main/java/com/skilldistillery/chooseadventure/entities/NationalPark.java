@@ -26,19 +26,16 @@ public class NationalPark {
 	
 	private String description;
 	
-	private String picture;
-	
-	@Column(name = "location_id")
-	private int locationId;
+//	private String picture;
 	
 	@Column(name = "link_nps")
 	private String link;
 	
 	@OneToMany(mappedBy="nationalPark")
-	private NationalParkActivity nationalParkActivity;
+	private List<NationalParkActivity> nationalParkActivities;
 	
 	@OneToMany(mappedBy="nationalPark")
-	private Trip trip;
+	private List<Trip> trips;
 	
 	@OneToOne
 	@JoinColumn(name="location_id")
@@ -57,10 +54,9 @@ public class NationalPark {
 	public NationalPark() {
 	}
 
-	public NationalPark(String name, String description, int locationId, String link) {
+	public NationalPark(String name, String description, String link) {
 		this.name = name;
 		this.description = description;
-		this.locationId = locationId;
 		this.link = link;
 	}
 	
@@ -131,21 +127,13 @@ public class NationalPark {
 		this.description = description;
 	}
 
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public int getLocationId() {
-		return locationId;
-	}
-
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
-	}
+//	public String getPicture() {
+//		return picture;
+//	}
+//
+//	public void setPicture(String picture) {
+//		this.picture = picture;
+//	}
 
 	public String getLink() {
 		return link;
@@ -155,20 +143,20 @@ public class NationalPark {
 		this.link = link;
 	}
 
-	public NationalParkActivity getNationalParkActivity() {
-		return nationalParkActivity;
+	public List<NationalParkActivity> getNationalParkActivities() {
+		return new ArrayList<>(nationalParkActivities);
 	}
 
-	public void setNationalParkActivity(NationalParkActivity nationalParkActivity) {
-		this.nationalParkActivity = nationalParkActivity;
+	public void setNationalParkActivities(List<NationalParkActivity> nationalParkActivities) {
+		this.nationalParkActivities = nationalParkActivities;
 	}
 
-	public Trip getTrip() {
-		return trip;
+	public List<Trip> getTrips() {
+		return new ArrayList<>(trips);
 	}
 
-	public void setTrip(Trip trip) {
-		this.trip = trip;
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
 	}
 
 	public Location getLocation() {
