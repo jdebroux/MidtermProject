@@ -233,11 +233,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `national_park_has_visitor_type`
+-- Table `national_park_visitor_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `national_park_has_visitor_type` ;
+DROP TABLE IF EXISTS `national_park_visitor_type` ;
 
-CREATE TABLE IF NOT EXISTS `national_park_has_visitor_type` (
+CREATE TABLE IF NOT EXISTS `national_park_visitor_type` (
   `national_park_id` INT NOT NULL,
   `visitor_type_id` INT NOT NULL,
   PRIMARY KEY (`national_park_id`, `visitor_type_id`),
@@ -477,6 +477,17 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `trip`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `user_id`) VALUES (1, 'Yosemite', 58, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `user_id`) VALUES (2, 'Wind Cave', 55, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `wildlife`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -543,6 +554,16 @@ INSERT INTO `geo_feature` (`id`, `name`) VALUES (17, 'Swamp');
 INSERT INTO `geo_feature` (`id`, `name`) VALUES (18, 'Caves');
 INSERT INTO `geo_feature` (`id`, `name`) VALUES (19, 'Desert');
 INSERT INTO `geo_feature` (`id`, `name`) VALUES (20, 'Sand Dunes');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trip_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip_comment` (`id`, `trip_id`, `create_date`, `description`, `title`) VALUES (1, 2, '2019-09-14', 'omg totes yes', 'Wind Cave Extravaganza');
 
 COMMIT;
 
@@ -702,6 +723,16 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `national_park_activity`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (1, 55, 5);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `visitor_type`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -709,6 +740,26 @@ USE `nationalparks`;
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (1, 'Handicapped');
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (2, 'Youth');
 INSERT INTO `visitor_type` (`id`, `name`) VALUES (3, 'Senior');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `national_park_visitor_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `national_park_visitor_type` (`national_park_id`, `visitor_type_id`) VALUES (55, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trip_activity`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nationalparks`;
+INSERT INTO `trip_activity` (`id`, `trip_id`, `national_park_activity_id`) VALUES (1, 2, 1);
 
 COMMIT;
 
