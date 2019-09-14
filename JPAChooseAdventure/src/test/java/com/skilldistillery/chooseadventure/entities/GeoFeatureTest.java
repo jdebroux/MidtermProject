@@ -42,7 +42,7 @@ class GeoFeatureTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if Geo Feature entity is mapped correctly")
 	void test1() {
 		assertEquals("Volcanic", gf.getName());
 	}

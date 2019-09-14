@@ -44,7 +44,7 @@ class TripTest {
 	@Test
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
-		assertEquals("admin", trip.getName()); //TODO
-		assertEquals(5, trip.getUserId());
+		assertEquals("Yosemite", trip.getName());
+		assertEquals("Yosemite", trip.getNationalPark().getName());
 	}
 }

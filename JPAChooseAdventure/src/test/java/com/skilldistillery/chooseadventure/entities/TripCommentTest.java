@@ -42,9 +42,9 @@ class TripCommentTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if Trip Comment entity is mapped correctly")
 	void test1() {
-		assertEquals("admin", tc.getTitle()); //TODO
-		assertEquals(5, tc.getTripId());
+		assertEquals("Wind Cave Extravaganza", tc.getTitle());
+		assertEquals("Wind Cave", tc.getTrip().getNationalPark().getName());
 	}
 }

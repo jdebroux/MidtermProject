@@ -26,7 +26,7 @@ public class Wildlife {
 	private String link;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
-	@JoinTable(name="national_park", joinColumns=@JoinColumn(name="wildlife_id"),
+	@JoinTable(name="national_park_wildlife", joinColumns=@JoinColumn(name="wildlife_id"),
 	inverseJoinColumns=@JoinColumn(name="national_park_id"))
 	private List<NationalPark> nationalParks;
 	

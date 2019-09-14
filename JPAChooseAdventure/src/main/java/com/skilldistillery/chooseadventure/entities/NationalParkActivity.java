@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="national_park_activity")
 public class NationalParkActivity {
 
 	@Id
@@ -30,6 +32,25 @@ public class NationalParkActivity {
 	private List<TripActivity> tripActivities;
 
 	public NationalParkActivity() {
+	}
+	
+	public void addTripActivity(TripActivity tripActivity) {
+		if(tripActivities == null) tripActivities = new ArrayList<>();
+		
+		if(!tripActivities.contains(tripActivity)) {
+			tripActivities.add(tripActivity);
+			if(tripActivity.getNationalParkActivity() != null) {
+				tripActivity.getNationalParkActivity().getTripActivities().remove(tripActivity);
+			}
+			tripActivity.setNationalParkActivity(this);
+		}
+	}
+	
+	public void removeTripActivity(TripActivity tripActivity) {
+		tripActivity.setNationalParkActivity(null);
+		if(tripActivities != null) {
+			tripActivities.remove(tripActivity);
+		}
 	}
 
 	public int getId() {

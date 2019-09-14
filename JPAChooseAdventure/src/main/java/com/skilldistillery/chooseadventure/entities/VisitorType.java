@@ -24,10 +24,10 @@ public class VisitorType {
 	private String name;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
-	@JoinTable(name="national_park", joinColumns=@JoinColumn(name="visitor_type_id"),
+	@JoinTable(name="national_park_visitor_type", joinColumns=@JoinColumn(name="visitor_type_id"),
 	inverseJoinColumns=@JoinColumn(name="national_park_id"))
 	private List<NationalPark> nationalParks;
-
+	
 	public VisitorType() {
 	}
 

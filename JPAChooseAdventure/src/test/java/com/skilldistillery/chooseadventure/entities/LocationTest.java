@@ -42,7 +42,7 @@ class LocationTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if Location entity is mapped correctly")
 	void test1() {
 		assertEquals("Maine", location.getState());
 		assertEquals(44.35, location.getLatitude());

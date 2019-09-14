@@ -18,4 +18,5 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO{
 	@PersistenceContext
 	private EntityManager em;
 
+	
 }
