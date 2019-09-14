@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
-	
+class ActivityTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Activity activity;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,20 +32,19 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		activity = em.find(Activity.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		activity = null;
 	}
 
 	@Test
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
-		assertEquals("admin", user.getUsername());
-		assertEquals("admin", user.getPassword());
+		assertEquals("Snorkeling", activity.getName());
 //		fail("Not yet implemented");
 	}
 }

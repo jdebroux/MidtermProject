@@ -21,13 +21,11 @@ public class User {
 	private String lastName;
 	@Column(name = "email_address")
 	private String email;
-	private String privilege;
 
 	public User() {
 	}
 
-	public User(int id, String username, String password, Boolean active, String firstName, String lastName,
-			String privilege) {
+	public User(int id, String username, String password, Boolean active, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -35,11 +33,9 @@ public class User {
 		this.active = active;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.privilege = privilege;
 	}
 
-	public User(String username, String password, Boolean active, String firstName, String lastName, String email,
-			String privilege) {
+	public User(String username, String password, Boolean active, String firstName, String lastName, String email) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -47,7 +43,6 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.privilege = privilege;
 	}
 
 	public int getId() {
@@ -76,14 +71,6 @@ public class User {
 
 	public void setEnabled(Boolean enabled) {
 		this.active = enabled;
-	}
-
-	public String getRole() {
-		return privilege;
-	}
-
-	public void setRole(String role) {
-		this.privilege = role;
 	}
 
 	public Boolean getActive() {
@@ -118,14 +105,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPrivilege() {
-		return privilege;
-	}
-
-	public void setPrivilege(String privilege) {
-		this.privilege = privilege;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -151,7 +130,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", active=" + active
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privilege="
-				+ privilege + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 }

@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
-	
+class NationalParkActivityTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private NationalParkActivity npa;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,20 +32,20 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		npa = em.find(NationalParkActivity.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		npa = null;
 	}
 
 	@Test
 	@DisplayName("Tests if user entity is mapped correctly")
 	void test1() {
-		assertEquals("admin", user.getUsername());
-		assertEquals("admin", user.getPassword());
+		assertEquals(9, npa.getNationalParkId()); //TODO
+		assertEquals(8, npa.getActivityId());
 //		fail("Not yet implemented");
 	}
 }
