@@ -42,7 +42,7 @@ class RegionTest {
 	}
 
 	@Test
-	@DisplayName("Tests if user entity is mapped correctly")
+	@DisplayName("Tests if Region entity is mapped correctly")
 	void test1() {
 		assertEquals("Northeast", region.getName());
 	}

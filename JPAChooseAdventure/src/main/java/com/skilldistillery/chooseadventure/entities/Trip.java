@@ -3,7 +3,6 @@ package com.skilldistillery.chooseadventure.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,14 +31,50 @@ public class Trip {
 	private NationalPark nationalPark;
 
 	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
+	@JoinColumn(name="account_id")
+	private Account account;
 
 	public Trip() {
 	}
 
 	public Trip(String name) {
 		this.name = name;
+	}
+	public void addTripActivity(TripActivity tripActivity) {
+		if(tripActivities == null) tripActivities = new ArrayList<>();
+		
+		if(!tripActivities.contains(tripActivity)) {
+			tripActivities.add(tripActivity);
+			if(tripActivity.getTrip() != null) {
+				tripActivity.getTrip().getTripActivities().remove(tripActivity);
+			}
+			tripActivity.setTrip(this);
+		}
+	}
+	
+	public void removeTripActivity(TripActivity tripActivity) {
+		tripActivity.setTrip(null);
+		if(tripActivities != null) {
+			tripActivities.remove(tripActivity);
+		}
+	}
+	public void addTripComment(TripComment tripComment) {
+		if(tripComments == null) tripComments = new ArrayList<>();
+		
+		if(!tripComments.contains(tripComment)) {
+			tripComments.add(tripComment);
+			if(tripComment.getTrip() != null) {
+				tripComment.getTrip().getTripComments().remove(tripComment);
+			}
+			tripComment.setTrip(this);
+		}
+	}
+	
+	public void removeTrip(TripComment tripComment) {
+		tripComment.setTrip(null);
+		if(tripComments != null) {
+			tripComments.remove(tripComment);
+		}
 	}
 
 	public String getName() {
@@ -78,12 +113,12 @@ public class Trip {
 		this.nationalPark = nationalPark;
 	}
 
-	public User getUser() {
-		return user;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 	
 	@Override
@@ -111,6 +146,6 @@ public class Trip {
 	@Override
 	public String toString() {
 		return "Trip [id=" + id + ", name=" + name + ", nationalPark=" + nationalPark
-				+ ", user=" + user + "]";
+				+ ", account=" + account + "]";
 	}
 }

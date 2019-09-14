@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class AccountTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Account user;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,7 +32,7 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		user = em.find(Account.class, 1);
 	}
 
 	@AfterEach
@@ -46,6 +46,8 @@ class UserTest {
 	void test1() {
 		assertEquals("admin", user.getUsername());
 		assertEquals("admin", user.getPassword());
-//		fail("Not yet implemented");
+		assertEquals("Skill", user.getFirstName());
+		assertEquals("Distillery", user.getLastName());
+		assertEquals(2, user.getTrips().size());
 	}
 }
