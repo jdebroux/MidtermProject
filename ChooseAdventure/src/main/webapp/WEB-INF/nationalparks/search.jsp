@@ -17,28 +17,17 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	
 	<div>
-		<h2>Welcome to Choose Adventure</h2>
-		<h3>Build a bucket list of National Parks to visit based on your interests.</h3>
-	</div>
-	<div>
-	<h1>Plan Your Trip!</h1>
-		<form>
-			<form action="results.do" method="GET">
-				<table align="center">
-					<tr>
-						<td>Activity</td>
-					</tr>
-					<c:forEach items="${activities }" var="activity">
-					<tr>
-						<td><form:checkbox path="activities" value="activity" label="${activity.name }"/></td>
-						<td><c:out value="${activity.name }"/></td>
-					</tr>
+	<h1>Search For a National Park</h1>
+			<form action="showpark.do" method="GET">
+				<select name="state">
+					<c:forEach items="${states }" var="state">
+						<option value="${state }"></option>
 					</c:forEach>
-				</table>
+				</select>
 			<input type="submit" value="Submit" />
 			</form>
-		</form>
 	</div>
 
 
