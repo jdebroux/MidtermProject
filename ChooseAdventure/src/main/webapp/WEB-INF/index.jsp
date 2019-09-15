@@ -16,7 +16,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="navbar.jsp" />
+	<jsp:include page="nationalparks/navbar.jsp"/>
 	<div>
 		<h2>Welcome to Choose Adventure</h2>
 		<h3>Build a bucket list of National Parks to visit based on your interests.</h3>
