@@ -22,8 +22,8 @@
 	<h1>Search For a National Park</h1>
 			<form action="showpark.do" method="GET">
 				<select name="state">
-					<c:forEach items="${states }" var="state">
-						<option value="${state }">${state }</option>
+					<c:forEach items="${states}" var="state" >
+						<option value="${state}">${state}</option>
 					</c:forEach>
 				</select>
 			<input type="submit" value="Submit" />

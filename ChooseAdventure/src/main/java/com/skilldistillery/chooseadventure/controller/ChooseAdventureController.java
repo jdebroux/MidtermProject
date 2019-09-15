@@ -28,8 +28,10 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "showpark.do", method = RequestMethod.GET)
 	public String searchByState(@RequestParam("state") String state, Model model) {
+		System.out.println(state);
 		model.addAttribute("parks", dao.searchByState(state));
-		return "results";
+		model.addAttribute("state", state);
+		return "nationalparks/results";
 	}
 
 	@RequestMapping(path = "search.do", method = RequestMethod.GET)
@@ -46,6 +48,9 @@ public class ChooseAdventureController {
 		return "nationalparks/search";
 	
 	}
+	
+	
+	
 
 //	@RequestMapping(path="getFilm.do")
 //	public String showFilm(@RequestParam("fid") Integer fid, Model model){
