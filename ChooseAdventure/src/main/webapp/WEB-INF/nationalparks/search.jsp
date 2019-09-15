@@ -23,7 +23,7 @@
 			<form action="showpark.do" method="GET">
 				<select name="state">
 					<c:forEach items="${states }" var="state">
-						<option value="${state }"></option>
+						<option value="${state }">${state }</option>
 					</c:forEach>
 				</select>
 			<input type="submit" value="Submit" />

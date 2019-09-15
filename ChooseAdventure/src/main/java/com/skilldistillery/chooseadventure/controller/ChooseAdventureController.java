@@ -1,5 +1,9 @@
 package com.skilldistillery.chooseadventure.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,18 +12,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
+import com.skilldistillery.chooseadventure.entities.NationalPark;
 
 @Controller
 public class ChooseAdventureController {
-	
+
 	@Autowired
 	private ChooseAdventureDAO dao;
-	
-	@RequestMapping(path= {"home.do", "/"}, method = RequestMethod.GET)
+
+	@RequestMapping(path = { "home.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
+
 		return "index";
 	}
+
+	@RequestMapping(path = "showpark.do", method = RequestMethod.GET)
+	public String searchByState(@RequestParam("state") String state, Model model) {
+		model.addAttribute("parks", dao.searchByState(state));
+		return "results";
+	}
+
+	@RequestMapping(path = "search.do", method = RequestMethod.GET)
+	public String linkToSearch(Model model) {
+		List<NationalPark> parks = dao.getAllParks();
+		List<String> states = new ArrayList<>();
+		for (NationalPark nationalPark : parks) {
+			if(!states.contains(nationalPark.getLocation().getState())){
+				states.add(nationalPark.getLocation().getState());				
+			}
+		}
+		Collections.sort(states);
+		model.addAttribute("states", states);
+		return "nationalparks/search";
 	
+	}
+
 //	@RequestMapping(path="getFilm.do")
 //	public String showFilm(@RequestParam("fid") Integer fid, Model model){
 //
