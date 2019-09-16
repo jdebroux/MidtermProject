@@ -8,7 +8,7 @@
 		<button type="submit" class="btn btn-primary" value="See All Parks" >See All Parks</button>
 		</form>
 	<form action="search.do" method="GET">
-		<button type="submit" class="btn btn-primary" value="Search By State" >Search By State</button>
+		<button type="submit" class="btn btn-primary" value="Search For Parks" >Search For Parks</button>
 	</form>
 	<div class="dropdown">
 		<button class="dropbtn">
