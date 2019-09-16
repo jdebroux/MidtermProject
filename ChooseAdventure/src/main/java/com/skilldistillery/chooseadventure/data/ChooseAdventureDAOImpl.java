@@ -94,14 +94,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public List<String> getAllActivityNames() {
+	public List<Activity> getAllActivities() {
 		String query = "select a from Activity a";
 		List<Activity> activities = em.createQuery(query, Activity.class).getResultList();
-		List<String> activityNames = new ArrayList<>();
-		for (Activity activity : activities) {
-			activityNames.add(activity.getName());
-		}
-		return activityNames;
+
+		return activities;
 	}
 
 	@Override
