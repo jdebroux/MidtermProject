@@ -5,7 +5,7 @@
 		<button type="submit" class="btn btn-primary" value="Home" >Home</button>
 		</form>
 	<form action="results.do" method="GET">
-		<button type="submit" class="btn btn-primary" value="See All Parks" >See All Parks</button>
+		<button type="submit" class="btn btn-primary" name="keyword" >See All Parks</button>
 		</form>
 	<form action="search.do" method="GET">
 		<button type="submit" class="btn btn-primary" value="Search For Parks" >Search For Parks</button>
