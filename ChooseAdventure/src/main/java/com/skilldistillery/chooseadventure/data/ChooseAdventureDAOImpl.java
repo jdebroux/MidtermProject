@@ -30,10 +30,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO{
 	public List<NationalPark> getAllParks() {
 	String query = "select np from NationalPark np";
 	List<NationalPark> parks = em.createQuery(query, NationalPark.class).getResultList();
-		
 		return parks;
 	}
-
-	
-	
 }
