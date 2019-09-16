@@ -7,13 +7,13 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.chooseadventure.entities.Activity;
 import com.skilldistillery.chooseadventure.entities.NationalPark;
-import com.skilldistillery.chooseadventure.entities.NationalParkActivity;
 
 @Service
 @Transactional
@@ -57,37 +57,34 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Set<NationalPark> searchByActivity(String [] activities) {
+	public Set<NationalPark> searchByActivity(Activity [] activities) {
 		Set<NationalPark> parks = new HashSet<>();
 		Set<NationalPark> filteredParks = new HashSet<>();
 		int size = activities.length;
-		
-		
-		
-		
-		if (activities != null && activities.length > 0) {
 
-			StringBuilder query = new StringBuilder("select npa.nationalPark from NationalParkActivities npa "
-					+ "where npa.activity like :input ");
+		if (activities != null && activities.length > 0) {
+			String pname = ":act0";
+			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
+			jpql.append(pname);
+			jpql.append(" MEMBER OF np.activities ");
+
+			for (int i = 1; i < activities.length; i++) {
+				pname = ":act" + i;
+				jpql.append(" and ");
+				jpql.append(pname);
+				jpql.append(" MEMBER OF np.activities ");
+			}
+			System.out.println(jpql);
+			Query query = em.createQuery(jpql.toString(), NationalPark.class);
+
 			for (int i = 0; i < activities.length; i++) {
-				query.append("AND npa.activity like :input" + i);
-				
+				pname = "act" + i;
+				query.setParameter(pname, activities[i]);
 			}
-			
-			for (String activity : activities) {
-				parks.addAll(em.createQuery(query, NationalPark.class)
-						.setParameter("input", activity).getResultList());
-			}
-			
-			
-			
-			for (NationalPark nationalPark : parks) {
-				if(nationalPark.getActivities().contains()) {
-					
-				}
-			}
+			filteredParks.addAll((List<NationalPark>) query.getResultList());
+
 		}
-		
+
 		else {
 			filteredParks.addAll(getAllParks());
 		}
