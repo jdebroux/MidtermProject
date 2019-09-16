@@ -3,7 +3,6 @@ package com.skilldistillery.chooseadventure.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class ChooseAdventureController {
 	@Autowired
 	private ChooseAdventureDAO dao;
 
-	@RequestMapping(path = { "home.do", "/" }, method = RequestMethod.GET)
+	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 
 		return "index";
@@ -40,26 +39,22 @@ public class ChooseAdventureController {
 		List<NationalPark> parks = dao.getAllParks();
 		List<String> states = new ArrayList<>();
 		for (NationalPark nationalPark : parks) {
-			if(!states.contains(nationalPark.getLocation().getState())){
-				states.add(nationalPark.getLocation().getState());				
+			if (!states.contains(nationalPark.getLocation().getState())) {
+				states.add(nationalPark.getLocation().getState());
 			}
 		}
 		Collections.sort(states);
 		model.addAttribute("states", states);
 		return "nationalparks/search";
 	}
-	
-	@RequestMapping(path="results.do", method = RequestMethod.GET)
+
+	@RequestMapping(path = "results.do", method = RequestMethod.GET)
 	public String linkToResults(@RequestParam("keyword") String keyword, Model model) {
-		model.addAttribute("parks", dao.searchByKeyword(keyword));
+		if (keyword != null && keyword != "") {
+			model.addAttribute("parks", dao.searchByKeyword(keyword));
+		} else {
+			model.addAttribute("parks", dao.getAllParks());
+		}
 		return "nationalparks/results";
 	}
-	
-	
-
-//	@RequestMapping(path="getFilm.do")
-//	public String showFilm(@RequestParam("fid") Integer fid, Model model){
-//
-//		return "film/show";
-//	}
 }
