@@ -1,7 +1,6 @@
 package com.skilldistillery.chooseadventure.controller;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
+import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 
 @Controller
@@ -56,15 +55,24 @@ public class ChooseAdventureController {
 		return "nationalparks/results";
 	}
 	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
-	public String linkToActivitySearchResults(Activity[] activities, Model model, HttpSession session) {
+	public String linkToActivitySearchResults(@RequestParam("activityIds") List<Integer> activityIds, Model model, HttpSession session) {
+		List<Activity> activities = new ArrayList<>();
+		for (Integer id : activityIds) {
+			activities.add(new Activity(id));
+		}
 		model.addAttribute("parks", dao.searchByActivity(activities));
 		return "nationalparks/results";
 	}
+	
 	@RequestMapping(path="login.do", method = RequestMethod.POST)
-	public String linkToLoginPage(Model model, HttpSession session) {
+	public String linkToLoginPage(@RequestParam("account") Account account, Model model, HttpSession session) {
 		
 		return null;
 	}
 	
+	private Account getCurrentAccountFromSession(HttpSession session) {
+		Account current = (Account) session.getAttribute("account");
+		return current;
+	}
 	
 }

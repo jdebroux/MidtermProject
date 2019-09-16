@@ -60,18 +60,18 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Set<NationalPark> searchByActivity(Activity[] activities) {
+	public Set<NationalPark> searchByActivity(List<Activity> activities) {
 		Set<NationalPark> parks = new HashSet<>();
 		Set<NationalPark> filteredParks = new HashSet<>();
-		int size = activities.length;
+		int size = activities.size();
 
-		if (activities != null && activities.length > 0) {
+		if (activities != null && activities.size() > 0) {
 			String pname = ":act0";
 			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
 			jpql.append(pname);
 			jpql.append(" MEMBER OF np.activities ");
 
-			for (int i = 1; i < activities.length; i++) {
+			for (int i = 1; i < activities.size(); i++) {
 				pname = ":act" + i;
 				jpql.append(" and ");
 				jpql.append(pname);
@@ -80,9 +80,9 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			System.out.println(jpql);
 			Query query = em.createQuery(jpql.toString(), NationalPark.class);
 
-			for (int i = 0; i < activities.length; i++) {
+			for (int i = 0; i < activities.size(); i++) {
 				pname = "act" + i;
-				query.setParameter(pname, activities[i]);
+				query.setParameter(pname, activities.get(i));
 			}
 			filteredParks.addAll((List<NationalPark>) query.getResultList());
 

@@ -36,6 +36,10 @@ public class Activity {
 
 	public Activity() {
 	}
+	
+	public Activity(int id) {
+		this.id = id;
+	}
 
 	public Activity(String name, String link) {
 		this.name = name;
