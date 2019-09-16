@@ -27,7 +27,7 @@
 					<li><a href="${park.link}">${park.name}</a></li>
 					<li>${park.description}</li>
 					<li>${park.location.state}</li> <br> 
-				</c:forEach>
+s				</c:forEach>
 			</ul>
 
 		</c:when>
