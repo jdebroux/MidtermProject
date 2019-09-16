@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Login</title>
+<title>User Account</title>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,44 +20,53 @@
 		<c:choose>
 			<c:when test="${empty account }">
 				<h2>Create Account</h2>
-				<form action="userprofile.do" method="POST">
 			</c:when>
-			<c:otherwise test="${! empty account }">
-				<h2>Update Account</h2>
-				<form action="userprofile.do" method="POST">
-			</c:otherwise>
-			
-					<table>
-						<tr>
-							<td>User Name</td>
-							<td><input type="text" required="required" name="username"
-								></td>
-						</tr>
-						<tr>
-							<td>Password</td>
-							<td><input type="password" required="required"
-								name="password" ></td>
-						</tr>
-						<tr>
-							<td>First Name</td>
-							<td><input type="text" required="required" name="firstName"></td>
-						</tr>
-						<tr>
-							<td>Last Name</td>
-							<td><input type="text" required="required" name="lastName"></td>
-						</tr>
-						<tr>
-							<td>Email</td>
-							<td><input type="text" name="email"></td>
-						</tr>
-					</table>
-				</form>
-
-				<button type="submit" class="btn btn-primary"
-					value="Create New Profile">Create New Profile</button>
 			<c:otherwise>
+				<h2>Update Account</h2>
 			</c:otherwise>
 		</c:choose>
+	</div>
+	<div>
+		<form action="userprofile.do" method="POST">
+			<table>
+				<tr>
+					<td>User Name</td>
+					<td><input type="text" required="required" name="username"
+						value="${username }"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" required="required" name="password"
+						value="${password }"></td>
+				</tr>
+				<tr>
+					<td>First Name</td>
+					<td><input type="text" required="required" name="firstName"
+						value="${firstName }"></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><input type="text" required="required" name="lastName"
+						value="${lastName }"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" name="email" value="${email }"></td>
+				</tr>
+			</table>
+		</form>
+		<c:if test="${empty account }">
+			<button type="submit" class="btn btn-primary">Create New
+				Profile</button>
+		</c:if>
+		<c:if test="${!empty account }">
+			<button type="submit" class="btn btn-primary">Update Profile</button>
+			<button type="submit" class="btn btn-primary">Delete Profile</button>
+			<hr>
+			<form action="bucketlist.do" method="GET">
+				<button type="submit" class="btn btn-primary">See Trips</button>
+			</form>
+		</c:if>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
