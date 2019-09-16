@@ -3,6 +3,7 @@ package com.skilldistillery.chooseadventure.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,13 @@ public class ChooseAdventureController {
 		Collections.sort(states);
 		model.addAttribute("states", states);
 		return "nationalparks/search";
-	
 	}
 	
+	@RequestMapping(path="results.do", method = RequestMethod.GET)
+	public String linkToResults(@RequestParam("keyword") String keyword, Model model) {
+		model.addAttribute("parks", dao.searchByKeyword(keyword));
+		return "nationalparks/results";
+	}
 	
 	
 
