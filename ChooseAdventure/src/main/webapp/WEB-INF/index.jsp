@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
 <title>Choose Adventure</title>
-<meta charset="utf-8">
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,10 +25,10 @@
 		<h1>Plan Your Trip!</h1>
 
 		<div>
-			<form action="results.do" method="GET">
+			<form action="activities.do" method="POST">
 				Find Parks by Activity: 
 					<c:forEach items="${activities}" var="activity">
-						<input type="checkbox" name="activities" value="${activity }">${activity }
+						<input type="checkbox" name="id" value="${activity.id }">${activity }
 					</c:forEach>
 				<input type="submit" value="Find Parks"/>
 			</form>
