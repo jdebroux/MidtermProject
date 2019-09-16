@@ -1,8 +1,10 @@
 package com.skilldistillery.chooseadventure.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -12,6 +14,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 import com.skilldistillery.chooseadventure.entities.NationalPark;
 
@@ -57,18 +60,18 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Set<NationalPark> searchByActivity(Activity [] activities) {
+	public Set<NationalPark> searchByActivity(List<Activity> activities) {
 		Set<NationalPark> parks = new HashSet<>();
 		Set<NationalPark> filteredParks = new HashSet<>();
-		int size = activities.length;
+		int size = activities.size();
 
-		if (activities != null && activities.length > 0) {
+		if (activities != null && activities.size() > 0) {
 			String pname = ":act0";
 			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
 			jpql.append(pname);
 			jpql.append(" MEMBER OF np.activities ");
 
-			for (int i = 1; i < activities.length; i++) {
+			for (int i = 1; i < activities.size(); i++) {
 				pname = ":act" + i;
 				jpql.append(" and ");
 				jpql.append(pname);
@@ -77,9 +80,9 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			System.out.println(jpql);
 			Query query = em.createQuery(jpql.toString(), NationalPark.class);
 
-			for (int i = 0; i < activities.length; i++) {
+			for (int i = 0; i < activities.size(); i++) {
 				pname = "act" + i;
-				query.setParameter(pname, activities[i]);
+				query.setParameter(pname, activities.get(i));
 			}
 			filteredParks.addAll((List<NationalPark>) query.getResultList());
 
@@ -110,6 +113,62 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		}
 
 		return states;
+	}
+
+	@Override
+	public Account createAccount(Account user) {
+		if (isEmailUnique(user.getEmail())) {
+			em.persist(user);
+			em.flush();
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isEmailUnique(String email) {
+		List<Account> accounts = getAllAccounts();
+		for (Account account : accounts) {
+			if (account.getEmail().equals(email)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public Account getAccountByEmail(String email) {
+		List<Account> accounts = getAllAccounts();
+
+		for (Account account : accounts) {
+			if (account.getEmail().equals(email)) {
+				return account;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isValidAccount(Account user) {
+		List<Account> accounts = getAllAccounts();
+		if (getAccountByEmail(user.getEmail()) == null) {
+			return false;
+		}
+		for (Account account : accounts) {
+			if (account.getEmail().equals(user.getEmail())) {
+				if (account.getPassword().equals(user.getPassword())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public List<Account> getAllAccounts() {
+		String query = "select a from Account a";
+		List<Account> accounts = em.createQuery(query, Account.class).getResultList();
+
+		return accounts;
 	}
 
 }

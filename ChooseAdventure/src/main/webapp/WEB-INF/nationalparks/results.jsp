@@ -27,6 +27,7 @@
 					<li><a href="${park.link}">${park.name}</a></li>
 					<li>${park.description}</li>
 					<li>${park.location.state}</li>
+					<li><img src="${park.picture}" alt="${park.name}"></li>
 					<br>
 				</c:forEach>
 			</ul>
