@@ -1,6 +1,5 @@
 package com.skilldistillery.chooseadventure.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
-import com.skilldistillery.chooseadventure.entities.NationalPark;
+import com.skilldistillery.chooseadventure.entities.Activity;
 
 @Controller
 public class ChooseAdventureController {
@@ -22,6 +21,7 @@ public class ChooseAdventureController {
 	
 	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
+		model.addAttribute("activities", dao.getAllActivities());
 		return "index";
 	}
 
@@ -50,7 +50,11 @@ public class ChooseAdventureController {
 		}
 		return "nationalparks/results";
 	}
-	
+	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
+	public String linkToActivitySearchResults(Activity[] activities, Model model) {
+		model.addAttribute("parks", dao.searchByActivity(activities));
+		return "nationalparks/results";
+	}
 	
 	
 }
