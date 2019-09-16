@@ -1,7 +1,11 @@
 package com.skilldistillery.chooseadventure.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
 import com.skilldistillery.chooseadventure.entities.Activity;
@@ -20,13 +25,13 @@ public class ChooseAdventureController {
 	private ChooseAdventureDAO dao;
 	
 	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 		model.addAttribute("activities", dao.getAllActivities());
 		return "index";
 	}
 
 	@RequestMapping(path = "showpark.do", method = RequestMethod.GET)
-	public String searchByState(@RequestParam("state") String state, Model model) {
+	public String searchByState(@RequestParam("state") String state, Model model, HttpSession session) {
 		System.out.println(state);
 		model.addAttribute("parks", dao.searchByState(state));
 		model.addAttribute("state", state);
@@ -34,7 +39,7 @@ public class ChooseAdventureController {
 	}
 
 	@RequestMapping(path = "search.do", method = RequestMethod.GET)
-	public String linkToSearch(Model model) {
+	public String linkToSearch(Model model, HttpSession session) {
 		List<String> states = dao.getAllStates();
 		Collections.sort(states);
 		model.addAttribute("states", states);
@@ -42,7 +47,7 @@ public class ChooseAdventureController {
 	}
 
 	@RequestMapping(path = "results.do", method = RequestMethod.GET)
-	public String linkToResults(@RequestParam("keyword") String keyword, Model model) {
+	public String linkToResults(@RequestParam("keyword") String keyword, Model model, HttpSession session) {
 		if (keyword != null && keyword != "") {
 			model.addAttribute("parks", dao.searchByKeyword(keyword));
 		} else {
@@ -51,9 +56,14 @@ public class ChooseAdventureController {
 		return "nationalparks/results";
 	}
 	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
-	public String linkToActivitySearchResults(Activity[] activities, Model model) {
+	public String linkToActivitySearchResults(Activity[] activities, Model model, HttpSession session) {
 		model.addAttribute("parks", dao.searchByActivity(activities));
 		return "nationalparks/results";
+	}
+	@RequestMapping(path="login.do", method = RequestMethod.POST)
+	public String linkToLoginPage(Model model, HttpSession session) {
+		
+		return null;
 	}
 	
 	
