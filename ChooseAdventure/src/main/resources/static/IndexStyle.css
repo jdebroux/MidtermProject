@@ -1,8 +1,9 @@
 @charset "UTF-8";
 
 
+
 body, html {
-  background-image: url("Arches.jpg");
+  background-image: url("BigBend.jpg");
 
   /* Full height */
   height: 100%; 
@@ -13,8 +14,11 @@ body, html {
   background-size: cover;
 }
 
-h2 {
+h1 {
   color: SaddleBrown;
   font-family: cursive;
   font-weight: bolder;
 }
+
+
+    
