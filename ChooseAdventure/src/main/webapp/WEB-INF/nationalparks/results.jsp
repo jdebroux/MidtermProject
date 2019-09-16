@@ -16,7 +16,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="nationalparks/navbar.jsp"/>
+<jsp:include page="navbar.jsp"/>
 	<h3>Parks Found</h3>
 
 	<c:choose>
