@@ -25,7 +25,7 @@
 	<div>
 		<h1>Plan Your Trip!</h1>
 
-		<div>
+		<div><h4>
 			<form action="activities.do" method="POST">
 				Find Parks by Activity: 
 					<c:forEach items="${activities}" var="activity">
@@ -33,6 +33,7 @@
 					</c:forEach>
 				<input type="submit" value="Find Parks"/>
 			</form>
+			</h4>
 		</div>
 	</div>
 
