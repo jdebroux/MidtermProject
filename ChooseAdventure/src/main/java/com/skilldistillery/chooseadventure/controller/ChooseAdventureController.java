@@ -22,7 +22,7 @@ public class ChooseAdventureController {
 
 	@Autowired
 	private ChooseAdventureDAO dao;
-	
+
 	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model, HttpSession session) {
 		model.addAttribute("activities", dao.getAllActivities());
@@ -54,25 +54,31 @@ public class ChooseAdventureController {
 		}
 		return "nationalparks/results";
 	}
+
 	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
-	public String linkToActivitySearchResults(@RequestParam("activityIds") List<Integer> activityIds, Model model, HttpSession session) {
-		List<Activity> activities = new ArrayList<>();
-		for (Integer id : activityIds) {
-			activities.add(new Activity(id));
+	public String linkToActivitySearchResults(@RequestParam("activityIds") List<Integer> activityIds, Model model,
+			HttpSession session) {
+		if (activityIds != null && activityIds.size() > 0) {
+			List<Activity> activities = new ArrayList<>();
+			for (Integer id : activityIds) {
+				activities.add(new Activity(id));
+			}
+			model.addAttribute("parks", dao.searchByActivity(activities));
+		}else {
+			model.addAttribute("parks", dao.getAllParks());
 		}
-		model.addAttribute("parks", dao.searchByActivity(activities));
 		return "nationalparks/results";
 	}
-	
-	@RequestMapping(path="login.do", method = RequestMethod.POST)
+
+	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public String linkToLoginPage(@RequestParam("account") Account account, Model model, HttpSession session) {
-		
+
 		return null;
 	}
-	
+
 	private Account getCurrentAccountFromSession(HttpSession session) {
 		Account current = (Account) session.getAttribute("account");
 		return current;
 	}
-	
+
 }
