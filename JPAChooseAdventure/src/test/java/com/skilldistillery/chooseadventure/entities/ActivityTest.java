@@ -44,6 +44,6 @@ class ActivityTest {
 	@Test
 	@DisplayName("Tests if Activity entity is mapped correctly")
 	void test1() {
-		assertEquals("Snorkeling", activity.getName());
+		assertEquals("Rock Climbing", activity.getName());
 	}
 }
