@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+body {
+  background-color: lightblue;
+}
+
+h2 {
+  color: tomato;
+  font-weight: bolder;
+  font-family: sans-serif;
+}
