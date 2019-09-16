@@ -3,11 +3,15 @@ package com.skilldistillery.chooseadventure.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,6 +29,10 @@ public class Activity {
 	@OneToMany(mappedBy="activity")
 	private List<NationalParkActivity> nationalParkActivities;
 	
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinTable(name="national_park_activity", joinColumns=@JoinColumn(name="activity_id"),
+	inverseJoinColumns=@JoinColumn(name="national_park_id"))
+	private List<NationalPark> nationalParks;	
 
 	public Activity() {
 	}
@@ -32,6 +40,23 @@ public class Activity {
 	public Activity(String name, String link) {
 		this.name = name;
 		this.link = link;
+	}
+	
+	public void addNationalPark(NationalPark nationalPark) {
+		if(nationalParks == null) {
+			nationalParks = new ArrayList<>();
+		}
+		if(!nationalParks.contains(nationalPark)) {
+			nationalParks.add(nationalPark);
+			nationalPark.addActivity(this);
+		}
+	}
+	
+	public void removeNationalPark(NationalPark nationalPark) {
+		if(nationalParks != null && nationalParks.contains(nationalPark)) {
+			nationalParks.remove(nationalPark);
+			nationalPark.removeActivity(this);
+		}
 	}
 	
 	public void addNationalParkActivity(NationalParkActivity nationalParkActivity) {

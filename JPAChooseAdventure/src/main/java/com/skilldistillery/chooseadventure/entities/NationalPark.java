@@ -51,6 +51,9 @@ public class NationalPark {
 	@ManyToMany(mappedBy="nationalParks")
 	private List<GeoFeature> geoFeatures;
 	
+	@ManyToMany(mappedBy="nationalParks")
+	private List<Activity> activities;
+	
 
 	public NationalPark() {
 	}
@@ -94,6 +97,23 @@ public class NationalPark {
 		if(wildlifeList != null && wildlifeList.contains(wildlife)) {
 			wildlifeList.remove(wildlife);
 			wildlife.removeNationalPark(this);
+		}
+	}
+	
+	public void addActivity(Activity activity) {
+		if(activities == null) {
+			activities = new ArrayList<>();
+		}
+		if(!activities.contains(activity)) {
+			activities.add(activity);
+			activity.addNationalPark(this);
+		}
+	}
+	
+	public void removeActivity(Activity activity) {
+		if(activities != null && activities.contains(activity)) {
+			activities.remove(activity);
+			activity.removeNationalPark(this);
 		}
 	}
 	
