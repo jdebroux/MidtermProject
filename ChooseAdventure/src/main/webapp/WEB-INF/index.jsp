@@ -28,7 +28,7 @@
 			<form action="activities.do" method="POST">
 				Find Parks by Activity: 
 					<c:forEach items="${activities}" var="activity">
-						<input type="checkbox" name="id" value="${activity.id }">${activity }
+						<input type="checkbox" name="id" value="${activity.id }">${activity.name }
 					</c:forEach>
 				<input type="submit" value="Find Parks"/>
 			</form>
