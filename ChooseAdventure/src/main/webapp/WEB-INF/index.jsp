@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,30 +16,24 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="nationalparks/navbar.jsp"/>
+	<jsp:include page="nationalparks/navbar.jsp" />
 	<div>
 		<h2>Welcome to Choose Adventure</h2>
-		<h3>Build a bucket list of National Parks to visit based on your interests.</h3>
+		<h3>Build a bucket list of National Parks to visit based on your
+			interests.</h3>
 	</div>
 	<div>
-	<h1>Plan Your Trip!</h1>
-		<form>
+		<h1>Plan Your Trip!</h1>
+
+		<div>
 			<form action="results.do" method="GET">
-				<table align="center">
-					<tr>
-						<td>Activity</td>
-					</tr>
-					<c:forEach items="${activities }" var="activity">
-					<tr>
-						<td><form:checkbox path="activities" value="activity" label="${activity.name }"/></td>
-						<td><c:out value="${activity.name }"/></td>
-					</tr>
+				Find Parks by Activity: 
+					<c:forEach items="${activities}" var="activity">
+						<input type="checkbox" name="activities" value="${activity }">${activity }
 					</c:forEach>
-				</table>
-			<input type="submit" value="Submit" />
+				<input type="submit" value="Find Parks"/>
 			</form>
-		</form>
-	</div>
+		</div>
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
