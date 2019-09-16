@@ -12,7 +12,7 @@ public interface ChooseAdventureDAO {
 	public List<NationalPark> searchByState (String name);
 	public List<NationalPark> getAllParks ();
 	public Set<NationalPark> searchByKeyword(String keyword);
-	public Set<NationalPark> searchByActivity(Activity [] activities);
+	public Set<NationalPark> searchByActivity(List<Activity> activities);
 	public List<Activity> getAllActivities();
 	public List<String> getAllStates();
 	public Account createAccount(Account user);
