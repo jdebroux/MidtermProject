@@ -19,10 +19,9 @@ public class ChooseAdventureController {
 
 	@Autowired
 	private ChooseAdventureDAO dao;
-
+	
 	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
-
 		return "index";
 	}
 
@@ -36,13 +35,7 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "search.do", method = RequestMethod.GET)
 	public String linkToSearch(Model model) {
-		List<NationalPark> parks = dao.getAllParks();
-		List<String> states = new ArrayList<>();
-		for (NationalPark nationalPark : parks) {
-			if (!states.contains(nationalPark.getLocation().getState())) {
-				states.add(nationalPark.getLocation().getState());
-			}
-		}
+		List<String> states = dao.getAllStates();
 		Collections.sort(states);
 		model.addAttribute("states", states);
 		return "nationalparks/search";
@@ -57,4 +50,7 @@ public class ChooseAdventureController {
 		}
 		return "nationalparks/results";
 	}
+	
+	
+	
 }
