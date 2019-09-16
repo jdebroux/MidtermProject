@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Choose Adventure</title>
+<title>Login</title>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,24 +15,49 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="nationalparks/navbar.jsp" />
+	<jsp:include page="navbar.jsp" />
 	<div>
-		<h2>Welcome to Choose Adventure</h2>
-		<h3>Build a bucket list of National Parks to visit based on your
-			interests.</h3>
-	</div>
-	<div>
-		<h1>Plan Your Trip!</h1>
+		<c:choose>
+			<c:when test="${empty account }">
+				<h2>Create Account</h2>
+				<form action="userprofile.do" method="POST">
+			</c:when>
+			<c:otherwise test="${! empty account }">
+				<h2>Update Account</h2>
+				<form action="userprofile.do" method="POST">
+			</c:otherwise>
+			
+					<table>
+						<tr>
+							<td>User Name</td>
+							<td><input type="text" required="required" name="username"
+								></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type="password" required="required"
+								name="password" ></td>
+						</tr>
+						<tr>
+							<td>First Name</td>
+							<td><input type="text" required="required" name="firstName"></td>
+						</tr>
+						<tr>
+							<td>Last Name</td>
+							<td><input type="text" required="required" name="lastName"></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td><input type="text" name="email"></td>
+						</tr>
+					</table>
+				</form>
 
-		<div>
-			<form action="activities.do" method="POST">
-				Find Parks by Activity: 
-					<c:forEach items="${activities}" var="activity">
-						<input type="checkbox" name="id" value="${activity.id }">${activity.name }
-					</c:forEach>
-				<input type="submit" value="Find Parks"/>
-			</form>
-		</div>
+				<button type="submit" class="btn btn-primary"
+					value="Create New Profile">Create New Profile</button>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
