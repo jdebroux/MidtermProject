@@ -21,13 +21,19 @@
 	<div>
 	<h1>Search For a National Park</h1>
 			<form action="showpark.do" method="GET">
-				<select name="state">
+				By State: <select name="state">
 					<c:forEach items="${states}" var="state" >
 						<option value="${state}">${state}</option>
 					</c:forEach>
 				</select>
 			<input type="submit" value="Submit" />
 			</form>
+	</div>
+	<div>
+	<form action="results.do" method = "GET">
+					By Keyword: <input type="text" name="keyword" placeholder="keyword search" /> 
+					<input type="submit" value="Submit" />
+				</form>
 	</div>
 
 
