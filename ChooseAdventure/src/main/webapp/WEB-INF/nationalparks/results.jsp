@@ -24,10 +24,9 @@
 
 			<ul style="list-style: none;">
 				<c:forEach items="${parks}" var="park">
-					<li><a href="showpark.do?park=${park.link}">${park.name}</a></li>
+					<li><a href="${park.link}">${park.name}</a></li>
 					<li>${park.description}</li>
 					<li>${park.location.state}</li> <br> 
-					<li><img height="400" src="WEB-INF/css/CapitalReef.jpg" alt="Captial Reef National Park"></li> <br> <br>
 				</c:forEach>
 			</ul>
 
