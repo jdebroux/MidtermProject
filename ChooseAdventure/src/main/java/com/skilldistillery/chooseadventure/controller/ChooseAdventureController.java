@@ -19,7 +19,6 @@ import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 
 @Controller
-@SessionAttributes("loggedIn")
 public class ChooseAdventureController {
 
 	@Autowired
@@ -83,20 +82,31 @@ public class ChooseAdventureController {
 	public String linkToLoginPage(Account account, Model model, HttpSession session) {
 		if (dao.isValidAccount(account)) {
 			account = dao.getAccountByUsername(account.getUsername());
-			model.addAttribute("loggedIn", account);
+			session.setAttribute("loggedIn", account);
+			model.addAttribute("account", account);
+			
 			return "nationalparks/userprofile";
 		}
 		return "nationalparks/login";
 	}
+	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
+	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
+		session.removeAttribute("loggedIn");
+		return "index";
+	}
+	
+	
 
 	@RequestMapping(path = "userprofile.do", method = RequestMethod.POST)
 	public String linkToUserProfile(Model model, HttpSession session) {
+		model.addAttribute("account", new Account());
 		return "nationalparks/userprofile";
 	}
+	
 	@RequestMapping(path = "userprofile.do", params = "account", method = RequestMethod.POST)
-	public String linkToUserProfile(@RequestParam ("account") Account user, Model model, HttpSession session) {
-		model.addAttribute("account", dao.createUpdateAccount(user));
-		
+	public String linkToUserProfile( Account account, Model model, HttpSession session) {
+		account.setActive(true);
+		model.addAttribute("account", dao.createUpdateAccount(account));
 		return "nationalparks/userprofile";
 	}
 	
