@@ -17,7 +17,7 @@ public interface ChooseAdventureDAO {
 	public List<String> getAllStates();
 	public Account createAccount(Account user);
 	public boolean isEmailUnique(String email);
-	public Account getAccountByEmail(String email);
+	public Account getAccountByUsername(String username);
 	public boolean isValidAccount(Account user);
 	
 	
