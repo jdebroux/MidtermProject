@@ -1,29 +1,22 @@
 @charset "UTF-8";
 
-
-
 body, html {
-  background-image: url("MountRainer.jpg");
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+	background: url("MountRainer.jpg") no-repeat center center scroll;
+	/* Full height */
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-size: cover;
+	/* background-position: center; */
+	/* 	background-repeat: no-repeat; */
+	background-attachment: fixed;
 }
 
-h1 {
+/* h1 {
   color: SaddleBrown;
   font-family: cursive;
   font-weight: bolder;
-}
-
-h6 {
+} */
+h6, li, h1, h2, h3 {
 	color: white;
 	font-family: sans-serif;
 }
-
-
-    
