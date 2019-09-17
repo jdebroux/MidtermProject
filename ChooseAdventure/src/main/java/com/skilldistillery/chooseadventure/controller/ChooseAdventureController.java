@@ -58,7 +58,7 @@ public class ChooseAdventureController {
 		return "nationalparks/results";
 	}
 
-	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
+	@RequestMapping(path = "activities.do", params = "activityIds", method = RequestMethod.POST)
 	public String linkToActivitySearchResults(@RequestParam("activityIds") List<Integer> activityIds, Model model,
 			HttpSession session) {
 		if (activityIds != null && activityIds.size() > 0) {
@@ -67,26 +67,34 @@ public class ChooseAdventureController {
 				activities.add(new Activity(id));
 			}
 			model.addAttribute("parks", dao.searchByActivity(activities));
-		}else {
+		} else {
 			model.addAttribute("parks", dao.getAllParks());
 		}
 		return "nationalparks/results";
 	}
 
+	@RequestMapping(path = "activities.do", method = RequestMethod.POST)
+	public String linkToActivitySearchResults(Model model, HttpSession session) {
+		model.addAttribute("parks", dao.getAllParks());
+		return "nationalparks/results";
+	}
+
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public String linkToLoginPage(Account account, Model model, HttpSession session) {
-		if(dao.isValidAccount(account)) {
+		if (dao.isValidAccount(account)) {
 			account = dao.getAccountByUsername(account.getUsername());
 			model.addAttribute("loggedIn", account);
 			return "nationalparks/userprofile";
 		}
-		
 		return "nationalparks/login";
 	}
 
-	private Account getCurrentAccountFromSession(HttpSession session) {
-		Account current = (Account) session.getAttribute("account");
-		return current;
-	}
+	@RequestMapping(path = "userprofile.do", method = RequestMethod.POST)
+	public String linkToUserProfile(Account user, Model model, HttpSession session) {
+		model.addAttribute("account", dao.createAccount(user));
 
+		return "nationalparks/userprofile";
+	}
+	
+	
 }

@@ -15,45 +15,44 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="national_park")
+@Table(name = "national_park")
 public class NationalPark {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String description;
-	
-	@Column(name="link_image_url")
+
+	@Column(name = "link_image_url")
 	private String picture;
-	
+
 	@Column(name = "link_nps")
 	private String link;
-	
-	@OneToMany(mappedBy="nationalPark")
+
+	@OneToMany(mappedBy = "nationalPark")
 	private List<NationalParkActivity> nationalParkActivities;
-	
-	@OneToMany(mappedBy="nationalPark")
+
+	@OneToMany(mappedBy = "nationalPark")
 	private List<Trip> trips;
-	
+
 	@OneToOne
-	@JoinColumn(name="location_id")
+	@JoinColumn(name = "location_id")
 	private Location location;
-	
-	@ManyToMany(mappedBy="nationalParks")
+
+	@ManyToMany(mappedBy = "nationalParks")
 	private List<Wildlife> wildlifeList;
-	
-	@ManyToMany(mappedBy="nationalParks")
+
+	@ManyToMany(mappedBy = "nationalParks")
 	private List<VisitorType> visitorTypes;
-	
-	@ManyToMany(mappedBy="nationalParks")
+
+	@ManyToMany(mappedBy = "nationalParks")
 	private List<GeoFeature> geoFeatures;
-	
-	@ManyToMany(mappedBy="nationalParks")
+
+	@ManyToMany(mappedBy = "nationalParks")
 	private List<Activity> activities;
-	
 
 	public NationalPark() {
 	}
@@ -63,89 +62,90 @@ public class NationalPark {
 		this.description = description;
 		this.link = link;
 	}
-	
+
 	public void addNationalParkActivity(NationalParkActivity nationalParkActivity) {
-		if(nationalParkActivities == null) nationalParkActivities = new ArrayList<>();
-		
-		if(!nationalParkActivities.contains(nationalParkActivity)) {
+		if (nationalParkActivities == null)
+			nationalParkActivities = new ArrayList<>();
+
+		if (!nationalParkActivities.contains(nationalParkActivity)) {
 			nationalParkActivities.add(nationalParkActivity);
-			if(nationalParkActivity.getNationalPark() != null) {
+			if (nationalParkActivity.getNationalPark() != null) {
 				nationalParkActivity.getNationalPark().getNationalParkActivities().remove(nationalParkActivity);
 			}
 			nationalParkActivity.setNationalPark(this);
 		}
 	}
-	
+
 	public void removeNationalParkActivity(NationalParkActivity nationalParkActivity) {
 		nationalParkActivity.setNationalPark(null);
-		if(nationalParkActivities != null) {
+		if (nationalParkActivities != null) {
 			nationalParkActivities.remove(nationalParkActivity);
 		}
 	}
-	
+
 	public void addWildlife(Wildlife wildlife) {
-		if(wildlifeList == null) {
+		if (wildlifeList == null) {
 			wildlifeList = new ArrayList<>();
 		}
-		if(!wildlifeList.contains(wildlife)) {
+		if (!wildlifeList.contains(wildlife)) {
 			wildlifeList.add(wildlife);
 			wildlife.addNationalPark(this);
 		}
 	}
-	
+
 	public void removeWildlife(Wildlife wildlife) {
-		if(wildlifeList != null && wildlifeList.contains(wildlife)) {
+		if (wildlifeList != null && wildlifeList.contains(wildlife)) {
 			wildlifeList.remove(wildlife);
 			wildlife.removeNationalPark(this);
 		}
 	}
-	
+
 	public void addActivity(Activity activity) {
-		if(activities == null) {
+		if (activities == null) {
 			activities = new ArrayList<>();
 		}
-		if(!activities.contains(activity)) {
+		if (!activities.contains(activity)) {
 			activities.add(activity);
 			activity.addNationalPark(this);
 		}
 	}
-	
+
 	public void removeActivity(Activity activity) {
-		if(activities != null && activities.contains(activity)) {
+		if (activities != null && activities.contains(activity)) {
 			activities.remove(activity);
 			activity.removeNationalPark(this);
 		}
 	}
-	
+
 	public void addVisitorType(VisitorType visitorType) {
-		if(visitorTypes == null) {
+		if (visitorTypes == null) {
 			visitorTypes = new ArrayList<>();
 		}
-		if(!visitorTypes.contains(visitorType)) {
+		if (!visitorTypes.contains(visitorType)) {
 			visitorTypes.add(visitorType);
 			visitorType.addNationalPark(this);
 		}
 	}
-	
+
 	public void removeVisitorType(VisitorType visitorType) {
-		if(visitorTypes != null && visitorTypes.contains(visitorType)) {
+		if (visitorTypes != null && visitorTypes.contains(visitorType)) {
 			visitorTypes.remove(visitorType);
 			visitorType.removeNationalPark(this);
 		}
 	}
-	
+
 	public void addGeoFeature(GeoFeature geoFeature) {
-		if(geoFeatures == null) {
+		if (geoFeatures == null) {
 			geoFeatures = new ArrayList<>();
 		}
-		if(!geoFeatures.contains(geoFeature)) {
+		if (!geoFeatures.contains(geoFeature)) {
 			geoFeatures.add(geoFeature);
 			geoFeature.addNationalPark(this);
 		}
 	}
-	
+
 	public void removeGeoFeature(GeoFeature geoFeature) {
-		if(geoFeatures != null && geoFeatures.contains(geoFeature)) {
+		if (geoFeatures != null && geoFeatures.contains(geoFeature)) {
 			geoFeatures.remove(geoFeature);
 			geoFeature.removeNationalPark(this);
 		}
@@ -233,6 +233,14 @@ public class NationalPark {
 
 	public int getId() {
 		return id;
+	}
+
+	public List<Activity> getActivities() {
+		return new ArrayList<>(activities);
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 
 	@Override
