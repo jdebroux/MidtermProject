@@ -21,6 +21,7 @@
 <body>
 	<jsp:include page="nationalparks/navbar.jsp" />
 	<div>
+	<id="top">
 		<h2>Welcome to Choose Adventure</h2>
 		<h3>Build a bucket list of National Parks to visit based on your
 			interests.</h3>
