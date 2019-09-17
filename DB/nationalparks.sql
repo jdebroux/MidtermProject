@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `trip` (
   CONSTRAINT `fk_trip_national_park1`
     FOREIGN KEY (`national_park_id`)
     REFERENCES `national_park` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_trip_user`
     FOREIGN KEY (`account_id`)
     REFERENCES `account` (`id`)
@@ -168,8 +168,8 @@ CREATE TABLE IF NOT EXISTS `trip_comment` (
   CONSTRAINT `fk_comment_trip1`
     FOREIGN KEY (`trip_id`)
     REFERENCES `trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

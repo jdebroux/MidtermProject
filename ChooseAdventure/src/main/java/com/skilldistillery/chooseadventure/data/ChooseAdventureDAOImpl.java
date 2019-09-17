@@ -1,15 +1,12 @@
 package com.skilldistillery.chooseadventure.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -60,39 +57,59 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Set<NationalPark> searchByActivity(List<Activity> activities) {
-		Set<NationalPark> parks = new HashSet<>();
-		Set<NationalPark> filteredParks = new HashSet<>();
-		int size = activities.size();
-
-		if (activities != null && activities.size() > 0) {
-			String pname = ":act0";
-			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
-			jpql.append(pname);
-			jpql.append(" MEMBER OF np.activities ");
-
-			for (int i = 1; i < activities.size(); i++) {
-				pname = ":act" + i;
-				jpql.append(" and ");
-				jpql.append(pname);
-				jpql.append(" MEMBER OF np.activities ");
-			}
-			System.out.println(jpql);
-			Query query = em.createQuery(jpql.toString(), NationalPark.class);
-
+	public List<NationalPark> searchByActivity(List<Activity> activities) {
+		List<NationalPark> parks = getAllParks();
+		List<NationalPark> filteredParks = new ArrayList<>(parks);
+		System.out.println(" PARKS Size " + parks.size() + " *************************** parks");
+		System.out.println(" ACTIVITIES SIZE: " + activities.size() + " = 888888888888888888888888");
+		for (NationalPark nationalPark : parks) {
 			for (int i = 0; i < activities.size(); i++) {
-				pname = "act" + i;
-				query.setParameter(pname, activities.get(i));
+				if (nationalPark.getActivities().contains(activities.get(i))) {
+					continue;
+				} else {
+					filteredParks.remove(nationalPark);
+				}
+
 			}
-			filteredParks.addAll((List<NationalPark>) query.getResultList());
-
 		}
 
-		else {
-			filteredParks.addAll(getAllParks());
-		}
-
+		System.out.println("After: PARKS size " + parks.size() + " ################## parks");
 		return filteredParks;
+
+//	public Set<NationalPark> searchByActivity(List<Activity> activities) {
+//		Set<NationalPark> parks = new HashSet<>();
+//		Set<NationalPark> filteredParks = new HashSet<>();
+//		int size = activities.size();
+
+//
+//		if (activities != null && activities.size() > 0) {
+//			String pname = ":act0";
+//			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
+//			jpql.append(pname);
+//			jpql.append(" MEMBER OF np.activities ");
+//
+//			for (int i = 1; i < activities.size(); i++) {
+//				pname = ":act" + i;
+//				jpql.append(" and ");
+//				jpql.append(pname);
+//				jpql.append(" MEMBER OF np.activities ");
+//			}
+//			System.out.println(jpql);
+//			Query query = em.createQuery(jpql.toString(), NationalPark.class);
+//
+//			for (int i = 0; i < activities.size(); i++) {
+//				pname = "act" + i;
+//				query.setParameter(pname, activities.get(i));
+//			}
+//			filteredParks.addAll((List<NationalPark>) query.getResultList());
+//
+//		}
+//
+//		else {
+//			filteredParks.addAll(getAllParks());
+//		}
+//
+//		return filteredParks;
 
 	}
 
@@ -109,11 +126,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		List<String> states = new ArrayList<>();
 		List<NationalPark> parks = getAllParks();
 		for (NationalPark nationalPark : parks) {
-			if(!states.contains(nationalPark.getLocation().getState())) {
+			if (!states.contains(nationalPark.getLocation().getState())) {
 				states.add(nationalPark.getLocation().getState());
-				
+
 			}
-			
+
 		}
 
 		return states;
@@ -127,6 +144,32 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			return user;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean deleteAccount(Account user) {
+		if (isValidAccount(user)) {
+			em.remove(user);
+			em.flush();
+			if (user == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public Account updateAccount(Account user) {
+		Account account = em.find(Account.class, user.getId());
+
+		account.setFirstName(user.getFirstName());
+		account.setLastName(user.getLastName());
+		account.setEmail(user.getEmail());
+		account.setPassword(user.getPassword());
+		account.setUsername(user.getUsername());
+		em.persist(account);
+		em.flush();
+		return user;
 	}
 
 	@Override
