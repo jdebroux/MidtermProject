@@ -3,10 +3,10 @@
 
 
 body, html {
-  background-image: url("Glacier.jpg");
+  background-image: url("MountRainer.jpg");
 
   /* Full height */
-  height: 115%;
+  height: 100%;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -20,7 +20,7 @@ h1 {
   font-weight: bolder;
 }
 
-h4 {
+h6 {
 	color: white;
 	font-family: sans-serif;
 }

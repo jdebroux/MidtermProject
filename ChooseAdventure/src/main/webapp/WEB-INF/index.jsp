@@ -9,11 +9,14 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="IndexStyle.css"/>
+
+<link rel="stylesheet" href="IndexStyle.css" />
+
 </head>
 <body>
 	<jsp:include page="nationalparks/navbar.jsp" />
@@ -24,18 +27,20 @@
 	</div>
 	<div>
 		<h1>Plan Your Trip!</h1>
-
-		<div><h4>
-			<form action="activities.do" method="POST">
-				Find Parks by Activity: 
-					<c:forEach items="${activities}" var="activity">
-						<input type="checkbox" name="activityIds" value="${activity.id }">${activity.name }
-					</c:forEach>
-				<input type="submit" value="Find Parks"/>
-			</form>
-			</h4>
-		</div>
 	</div>
+
+	<div>
+		<h6>
+			<form action="activities.do" method="POST">
+				Find Parks by Activity:
+				<c:forEach items="${activities}" var="activity">
+					<input type="checkbox" name="activityIds" value="${activity.id }">${activity.name }
+					</c:forEach>
+				<input type="submit" value="Find Parks" />
+			</form>
+		</h6>
+	</div>
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
