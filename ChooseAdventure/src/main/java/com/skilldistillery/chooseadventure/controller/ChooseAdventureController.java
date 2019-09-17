@@ -75,10 +75,8 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public String linkToLoginPage(Account account, Model model, HttpSession session) {
-		System.out.println(account + "****************************************** BEFORE");
 		if(dao.isValidAccount(account)) {
 			account = dao.getAccountByUsername(account.getUsername());
-			System.out.println(account + "************************************* AFTER");
 			model.addAttribute("loggedIn", account);
 			return "nationalparks/userprofile";
 		}

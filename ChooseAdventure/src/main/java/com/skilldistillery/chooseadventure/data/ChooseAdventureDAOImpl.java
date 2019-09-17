@@ -31,7 +31,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		String query = "select np from NationalPark np where np.location.state like :input";
 		List<NationalPark> parks = em.createQuery(query, NationalPark.class).setParameter("input", search)
 				.getResultList();
-		
 		return parks;
 	}
 
