@@ -12,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
 import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 
 @Controller
+@SessionAttributes("loggedIn")
 public class ChooseAdventureController {
 
 	@Autowired
@@ -25,6 +27,7 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = { "index.do", "/" }, method = RequestMethod.GET)
 	public String index(Model model, HttpSession session) {
+		model.addAttribute("account", new Account());
 		model.addAttribute("activities", dao.getAllActivities());
 		return "index";
 	}
@@ -71,9 +74,16 @@ public class ChooseAdventureController {
 	}
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
-	public String linkToLoginPage(@RequestParam("account") Account account, Model model, HttpSession session) {
-
-		return null;
+	public String linkToLoginPage(Account account, Model model, HttpSession session) {
+		System.out.println(account + "****************************************** BEFORE");
+		if(dao.isValidAccount(account)) {
+			account = dao.getAccountByUsername(account.getUsername());
+			System.out.println(account + "************************************* AFTER");
+			model.addAttribute("loggedIn", account);
+			return "nationalparks/userprofile";
+		}
+		
+		return "nationalparks/login";
 	}
 
 	private Account getCurrentAccountFromSession(HttpSession session) {
