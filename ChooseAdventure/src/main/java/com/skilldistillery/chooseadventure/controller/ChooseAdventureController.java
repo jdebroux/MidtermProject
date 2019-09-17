@@ -93,6 +93,7 @@ public class ChooseAdventureController {
 	public String linkToUserProfile(Model model, HttpSession session) {
 		return "nationalparks/userprofile";
 	}
+	
 	@RequestMapping(path = "userprofile.do", params = "account", method = RequestMethod.POST)
 	public String linkToUserProfile(@RequestParam ("account") Account user, Model model, HttpSession session) {
 		model.addAttribute("account", dao.createUpdateAccount(user));
