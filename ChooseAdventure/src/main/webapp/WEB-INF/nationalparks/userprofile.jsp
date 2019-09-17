@@ -18,7 +18,7 @@
 	<jsp:include page="navbar.jsp" />
 	<div>
 		<c:choose>
-			<c:when test="${empty account }">
+			<c:when test="${empty loggedIn }">
 				<h2>Create Account</h2>
 			</c:when>
 			<c:otherwise>
@@ -27,7 +27,7 @@
 		</c:choose>
 	</div>
 	<div>
-		<form action="userprofile.do" method="POST">
+		<form action="userprofile.do" method="POST" >
 			<table>
 				<tr>
 					<td>User Name</td>
@@ -54,18 +54,16 @@
 					<td><input type="text" name="email" value="${account.email }"></td>
 				</tr>
 			</table>
-		</form>
-		<c:if test="${empty account }">
-			<form action="userprofile.do" method="POST" modelAttribute="account">
-				<button type="submit" class="btn btn-primary">Create New
+		<c:if test="${empty loggedIn }">
+				<button type="submit" name="account" value="${account}" class="btn btn-primary">Create New
 					Profile</button>
-			</form>
 		</c:if>
-		<c:if test="${!empty account }">
-			<form action="userprofile.do" method="POST">
+		<c:if test="${!empty loggedIn }">
 				<button type="submit" class="btn btn-primary">Update
 					Profile</button>
-			</form>
+		</c:if>
+		</form>
+			<c:if test="${!empty loggedIn }">
 			<form action="delete.do" method="POST">
 				<button type="submit" class="btn btn-primary">Delete
 					Profile</button>
