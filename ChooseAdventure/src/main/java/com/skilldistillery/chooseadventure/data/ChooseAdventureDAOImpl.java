@@ -116,9 +116,9 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			account.setUsername(user.getUsername());
 			em.persist(account);
 			em.flush();
-			
+
 			return account;
-			
+
 		} else if (isEmailUnique(user.getEmail())) {
 			em.persist(user);
 			em.flush();
@@ -142,6 +142,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	public boolean isEmailUnique(String email) {
 		List<Account> accounts = getAllAccounts();
 		for (Account account : accounts) {
+
 			if (account.getEmail().equals(email)) {
 				return false;
 			}
