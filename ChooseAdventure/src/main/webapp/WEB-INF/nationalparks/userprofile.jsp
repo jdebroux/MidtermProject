@@ -32,26 +32,26 @@
 				<tr>
 					<td>User Name</td>
 					<td><input type="text" required="required" name="username"
-						value="${username }"></td>
+						value="${account.username }"></td>
 				</tr>
 				<tr>
 					<td>Password</td>
 					<td><input type="password" required="required" name="password"
-						value="${password }"></td>
+						value="${account.password }"></td>
 				</tr>
 				<tr>
 					<td>First Name</td>
 					<td><input type="text" required="required" name="firstName"
-						value="${firstName }"></td>
+						value="${account.firstName }"></td>
 				</tr>
 				<tr>
 					<td>Last Name</td>
 					<td><input type="text" required="required" name="lastName"
-						value="${lastName }"></td>
+						value="${account.lastName }"></td>
 				</tr>
 				<tr>
 					<td>Email</td>
-					<td><input type="text" name="email" value="${email }"></td>
+					<td><input type="text" name="email" value="${account.email }"></td>
 				</tr>
 			</table>
 		</form>
@@ -60,8 +60,12 @@
 				Profile</button>
 		</c:if>
 		<c:if test="${!empty account }">
-			<button type="submit" class="btn btn-primary">Update Profile</button>
-			<button type="submit" class="btn btn-primary">Delete Profile</button>
+			<form action="userprofile.do" method="POST">
+				<button type="submit" class="btn btn-primary">Update Profile</button>
+			</form>
+			<form action="delete.do" method="POST">
+				<button type="submit" class="btn btn-primary">Delete Profile</button>
+			</form>
 			<hr>
 			<form action="bucketlist.do" method="GET">
 				<button type="submit" class="btn btn-primary">See Trips</button>
