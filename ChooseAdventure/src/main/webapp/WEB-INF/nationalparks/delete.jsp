@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Results</title>
+<title>Delete User</title>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,36 +17,17 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+
+	<form action="delete.do" method="GET">
+		<h4>Are you sure you'd like to delete ${user.userName}?</h4>
+		<hidden type="number" name="user.id" />
+		<input type="submit" value="Delete" />
+	</form>
+	<form action="index.do" method="GET">
+		<input type="submit" value="Go Home" />
+	</form>
 	
-	<h3>Parks Found</h3>
-
-	<c:choose>
-		<c:when test="${not empty parks}">
-
-			<ul style="list-style: none;">
-				<c:forEach items="${parks}" var="park">
-					<li><a href="${park.link}">${park.name}</a> -  ${park.location.state}</li>
-					<li>${park.description}</li>
-<<<<<<< HEAD
-					<li>${park.location.state}</li>
-					<li>
-					<img src="${park.picture}" alt="${park.name}" height="300" width="400"
-					style="border:5px solid white">
-					</li>
-=======
-					<li><img src="${park.picture}" alt="${park.name}" height="300" width="400" 
-					 style="border:5px solid white" ></li>
->>>>>>> ca5ecd9cb0774cdb88f75b8b65b1eca1bfd7b30a
-					<br>
-				</c:forEach>
-			</ul>
-
-		</c:when>
-
-		<c:otherwise>
-			<h4>None</h4>
-		</c:otherwise>
-	</c:choose>
+	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -60,3 +41,4 @@
 		crossorigin="anonymous"></script>
 </body>
 </html>
+
