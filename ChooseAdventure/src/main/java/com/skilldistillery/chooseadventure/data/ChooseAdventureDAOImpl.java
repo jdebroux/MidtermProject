@@ -60,8 +60,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	public List<NationalPark> searchByActivity(List<Activity> activities) {
 		List<NationalPark> parks = getAllParks();
 		List<NationalPark> filteredParks = new ArrayList<>(parks);
-		System.out.println(" PARKS Size " + parks.size() + " *************************** parks");
-		System.out.println(" ACTIVITIES SIZE: " + activities.size() + " = 888888888888888888888888");
 		for (NationalPark nationalPark : parks) {
 			for (int i = 0; i < activities.size(); i++) {
 				if (nationalPark.getActivities().contains(activities.get(i))) {
@@ -69,48 +67,9 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 				} else {
 					filteredParks.remove(nationalPark);
 				}
-
 			}
 		}
-
-		System.out.println("After: PARKS size " + parks.size() + " ################## parks");
 		return filteredParks;
-
-//	public Set<NationalPark> searchByActivity(List<Activity> activities) {
-//		Set<NationalPark> parks = new HashSet<>();
-//		Set<NationalPark> filteredParks = new HashSet<>();
-//		int size = activities.size();
-
-//
-//		if (activities != null && activities.size() > 0) {
-//			String pname = ":act0";
-//			StringBuilder jpql = new StringBuilder("select np from NationalPark np where ");
-//			jpql.append(pname);
-//			jpql.append(" MEMBER OF np.activities ");
-//
-//			for (int i = 1; i < activities.size(); i++) {
-//				pname = ":act" + i;
-//				jpql.append(" and ");
-//				jpql.append(pname);
-//				jpql.append(" MEMBER OF np.activities ");
-//			}
-//			System.out.println(jpql);
-//			Query query = em.createQuery(jpql.toString(), NationalPark.class);
-//
-//			for (int i = 0; i < activities.size(); i++) {
-//				pname = "act" + i;
-//				query.setParameter(pname, activities.get(i));
-//			}
-//			filteredParks.addAll((List<NationalPark>) query.getResultList());
-//
-//		}
-//
-//		else {
-//			filteredParks.addAll(getAllParks());
-//		}
-//
-//		return filteredParks;
-
 	}
 
 	@Override
@@ -147,6 +106,27 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
+	public Account createUpdateAccount(Account user) {
+		if (user.getId() != 0) {
+			Account account = em.find(Account.class, user.getId());
+			account.setFirstName(user.getFirstName());
+			account.setLastName(user.getLastName());
+			account.setEmail(user.getEmail());
+			account.setPassword(user.getPassword());
+			account.setUsername(user.getUsername());
+			em.persist(account);
+			em.flush();
+			
+			return account;
+			
+		} else if (isEmailUnique(user.getEmail())) {
+			em.persist(user);
+			em.flush();
+		}
+		return user;
+	}
+
+	@Override
 	public boolean deleteAccount(Account user) {
 		if (isValidAccount(user)) {
 			em.remove(user);
@@ -156,20 +136,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public Account updateAccount(Account user) {
-		Account account = em.find(Account.class, user.getId());
-
-		account.setFirstName(user.getFirstName());
-		account.setLastName(user.getLastName());
-		account.setEmail(user.getEmail());
-		account.setPassword(user.getPassword());
-		account.setUsername(user.getUsername());
-		em.persist(account);
-		em.flush();
-		return user;
 	}
 
 	@Override

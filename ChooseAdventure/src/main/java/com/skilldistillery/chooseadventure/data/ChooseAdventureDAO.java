@@ -20,7 +20,7 @@ public interface ChooseAdventureDAO {
 	public Account getAccountByUsername(String username);
 	public boolean isValidAccount(Account user);
 	public boolean deleteAccount(Account user);
-	public Account updateAccount(Account user);
+	public Account createUpdateAccount(Account user);
 	
 	
 }
