@@ -17,6 +17,7 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	
 	<h3>Parks Found</h3>
 
 	<c:choose>
@@ -26,8 +27,12 @@
 				<c:forEach items="${parks}" var="park">
 					<li><a href="${park.link}">${park.name}</a> -  ${park.location.state}</li>
 					<li>${park.description}</li>
-					<li><img src="${park.picture}" alt="${park.name}" height="300" width="400" 
-					 style="border:5px solid white" ></li>
+
+					<li>${park.location.state}</li>
+					<li>
+					<img src="${park.picture}" alt="${park.name}" height="300" width="400"
+					style="border:5px solid white">
+					</li>
 					<br>
 				</c:forEach>
 			</ul>

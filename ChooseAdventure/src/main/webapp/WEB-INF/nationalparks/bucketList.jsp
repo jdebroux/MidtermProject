@@ -10,19 +10,45 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<title>Delete Account</title>
+<link rel="stylesheet" href="IndexStyle.css" />
+<title>Bucket List</title>
 </head>
 <body>
 
+	<c:choose>
+		<c:when test="">
+
+			<h3>Hello ${account.firstName}, your trips:</h3>
+			
+
+			<ul>
+			
+			<c:forEach items="${trip }" var="trip">
+
+<!-- not yet right - just a shell of info to be filled in w/ right one -->
+
+					<li><a href="getTrip.do?tid=${trip.id}"> Trip
+							${trip.nationalPark}  ${trip.activities} </a></li>
+				</c:forEach>
+				
+				<li>${trip.name}</li>
+				
+				<li>${trip. }
+			</ul>
+
+
+		</c:when>
+
+		<c:otherwise>
+
+
+			<h3>Hello ${account.firstName}, you should plan an exciting
+				trip!! Click on home above to begin planning.</h3>
 
 
 
-
-
-
-
-
-
+		</c:otherwise>
+	</c:choose>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
