@@ -56,15 +56,19 @@
 			</table>
 		</form>
 		<c:if test="${empty account }">
-			<button type="submit" class="btn btn-primary">Create New
-				Profile</button>
+			<form action="userprofile.do" method="POST" modelAttribute="account">
+				<button type="submit" class="btn btn-primary">Create New
+					Profile</button>
+			</form>
 		</c:if>
 		<c:if test="${!empty account }">
 			<form action="userprofile.do" method="POST">
-				<button type="submit" class="btn btn-primary">Update Profile</button>
+				<button type="submit" class="btn btn-primary">Update
+					Profile</button>
 			</form>
 			<form action="delete.do" method="POST">
-				<button type="submit" class="btn btn-primary">Delete Profile</button>
+				<button type="submit" class="btn btn-primary">Delete
+					Profile</button>
 			</form>
 			<hr>
 			<form action="bucketlist.do" method="GET">
