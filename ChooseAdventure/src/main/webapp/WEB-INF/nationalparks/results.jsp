@@ -27,16 +27,12 @@
 				<c:forEach items="${parks}" var="park">
 					<li><a href="${park.link}">${park.name}</a> -  ${park.location.state}</li>
 					<li>${park.description}</li>
-<<<<<<< HEAD
+
 					<li>${park.location.state}</li>
 					<li>
 					<img src="${park.picture}" alt="${park.name}" height="300" width="400"
 					style="border:5px solid white">
 					</li>
-=======
-					<li><img src="${park.picture}" alt="${park.name}" height="300" width="400" 
-					 style="border:5px solid white" ></li>
->>>>>>> ca5ecd9cb0774cdb88f75b8b65b1eca1bfd7b30a
 					<br>
 				</c:forEach>
 			</ul>
