@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,55 +14,73 @@
 </head>
 <body>
 
-	<nav
-		class="navbar navbar-inverse navbar-expand-sm inline justify-content-center">
+	<nav class="navbar navbar-inverse navbar-expand-sm inline justify-content-center">
+	
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	
+		<div class="container-fluid">
+			<div class="navbar-header">
+			
+			<form action="index.do" method="GET">
 
-		<button type="button" class="navbar-toggle" data-toggle="collapse"
-			data-target="#myNavbar">
+					<button type="submit" class="btn btn-primary" value="Home">Home</button>
 
-			<div class="container-fluid">
-				<div class="navbar-header">
-
-					<form action="index.do" method="GET">
-
-						<button type="submit" class="btn btn-primary" value="Home">Home</button>
-
-					</form>
-					<form action="results.do" method="GET">
-						<button type="submit" class="btn btn-primary" name="keyword">See
-							All Parks</button>
-					</form>
-					<form action="search.do" method="GET">
-						<button type="submit" class="btn btn-primary"
-							value="Search For Parks">Search For Parks</button>
-					</form>
-
-					<div class="dropdown">
-						<button class="dropbtn">
-
-							Login
-							<div class="dropdown-content">
-
-								<form action="login.do" method="POST" modelAttribute="account">
-
-									<input type="text" name="username" placeholder="username" /> <input
-										type="password" name="password" placeholder="password" /> <input
-										type="submit" value="Submit" />
-								</form>
-							</div>
-						</button>
-
-					</div>
-
-					<form action="userprofile.do" method="POST">
-						<button type="submit" class="btn btn-primary"
-							value="Create Account">Create Account</button>
-					</form>
-
-
+				</form>
+				<form action="results.do" method="GET">
+					<button type="submit" class="btn btn-primary" name="keyword">See
+						All Parks</button>
+				</form>
+				<form action="search.do" method="GET">
+					<button type="submit" class="btn btn-primary"
+						value="Search For Parks">Search For Parks</button>
+				</form>
+				
+				
+				<c:choose>
+				
+		<c:when test="${not empty account }">
+		
+		
+				<div class="dropdown">
+					<button class="dropbtn">
+					
+						Login
+						<div class="dropdown-content">
+						
+							<form action="login.do" method="POST" modelAttribute="account">
+							
+								<input type="text" name="username" placeholder="username" /> <input
+									type="password" name="password" placeholder="password" /> <input
+									type="submit" value="Submit" />
+							</form>
+						</div>
+					</button>
+					
 				</div>
+				
+				</c:when>
+				
+		<c:otherwise>
+		<ul>
+		
+			<li>Gone: ${account.firstName }</li>
+			<li> 
+			<form action="bucketlist.do" method="GET">
+			<button type="submit" class="btn btn-primary" value="Bucket List">Bucket List</button>
+			</form>
+			</li>
+			</ul>
+		
+			
+			
+			
+				
+		</c:otherwise>
+</c:choose>
+
 			</div>
-	</nav>
+		</div>
+	</nav> 
 
 </body>
 </html>
