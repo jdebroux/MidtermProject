@@ -109,7 +109,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		List<String> states = new ArrayList<>();
 		List<NationalPark> parks = getAllParks();
 		for (NationalPark nationalPark : parks) {
-			states.add(nationalPark.getLocation().getState());
+			if(!states.contains(nationalPark.getLocation().getState())) {
+				states.add(nationalPark.getLocation().getState());
+				
+			}
+			
 		}
 
 		return states;
@@ -137,11 +141,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Account getAccountByEmail(String email) {
+	public Account getAccountByUsername(String username) {
 		List<Account> accounts = getAllAccounts();
 
 		for (Account account : accounts) {
-			if (account.getEmail().equals(email)) {
+			if (account.getUsername().equals(username)) {
 				return account;
 			}
 		}
@@ -151,11 +155,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public boolean isValidAccount(Account user) {
 		List<Account> accounts = getAllAccounts();
-		if (getAccountByEmail(user.getEmail()) == null) {
+		if (getAccountByUsername(user.getUsername()) == null) {
 			return false;
 		}
 		for (Account account : accounts) {
-			if (account.getEmail().equals(user.getEmail())) {
+			if (account.getUsername().equals(user.getUsername())) {
 				if (account.getPassword().equals(user.getPassword())) {
 					return true;
 				}
