@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `trip_comment` (
   `trip_id` INT NOT NULL,
   `create_date` DATE NULL,
   `description` TEXT NULL,
-  `title` VARCHAR(250) NULL,
+  `title` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_trip1_idx` (`trip_id` ASC),
   CONSTRAINT `fk_comment_trip1`
