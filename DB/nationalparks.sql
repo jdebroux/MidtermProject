@@ -212,8 +212,8 @@ CREATE TABLE IF NOT EXISTS `national_park_activity` (
   CONSTRAINT `fk_national_park_has_activity_national_park1`
     FOREIGN KEY (`national_park_id`)
     REFERENCES `national_park` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_national_park_has_activity_activity1`
     FOREIGN KEY (`activity_id`)
     REFERENCES `activity` (`id`)
@@ -264,20 +264,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trip_activity` ;
 
 CREATE TABLE IF NOT EXISTS `trip_activity` (
-  `id` INT NOT NULL AUTO_INCREMENT,
   `trip_id` INT NOT NULL,
-  `national_park_activity_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  `activity_id` INT NOT NULL,
   INDEX `fk_trip_activity_trip_idx` (`trip_id` ASC),
-  INDEX `fk_trip_activity_np_activity_idx` (`national_park_activity_id` ASC),
+  INDEX `fk_trip_activity_activity1_idx` (`activity_id` ASC),
   CONSTRAINT `fk_trip_activity_trip`
     FOREIGN KEY (`trip_id`)
     REFERENCES `trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_trip_activity_np_activity`
-    FOREIGN KEY (`national_park_activity_id`)
-    REFERENCES `national_park_activity` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_trip_activity_activity1`
+    FOREIGN KEY (`activity_id`)
+    REFERENCES `activity` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -1106,7 +1104,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `trip_activity` (`id`, `trip_id`, `national_park_activity_id`) VALUES (1, 2, 1);
+INSERT INTO `trip_activity` (`trip_id`, `activity_id`) VALUES (2, 1);
 
 COMMIT;
 
