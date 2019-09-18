@@ -16,9 +16,9 @@ public class TripActivity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
-	@JoinColumn(name="national_park_activity_id")
-	private NationalParkActivity nationalParkActivity;
+//	@ManyToOne
+//	@JoinColumn(name="national_park_activity_id")
+//	private NationalParkActivity nationalParkActivity;
 	
 	@ManyToOne
 	@JoinColumn(name="trip_id")
@@ -31,13 +31,13 @@ public class TripActivity {
 		return id;
 	}
 	
-	public NationalParkActivity getNationalParkActivity() {
-		return nationalParkActivity;
-	}
-
-	public void setNationalParkActivity(NationalParkActivity nationalParkActivity) {
-		this.nationalParkActivity = nationalParkActivity;
-	}
+//	public NationalParkActivity getNationalParkActivity() {
+//		return nationalParkActivity;
+//	}
+//
+//	public void setNationalParkActivity(NationalParkActivity nationalParkActivity) {
+//		this.nationalParkActivity = nationalParkActivity;
+//	}
 
 	public Trip getTrip() {
 		return trip;

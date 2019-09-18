@@ -46,5 +46,6 @@ class TripTest {
 	void test1() {
 		assertEquals("Yosemite", trip.getName());
 		assertEquals("Yosemite", trip.getNationalPark().getName());
+		assertEquals(1, em.find(Trip.class, 2).getActivities().size());
 	}
 }

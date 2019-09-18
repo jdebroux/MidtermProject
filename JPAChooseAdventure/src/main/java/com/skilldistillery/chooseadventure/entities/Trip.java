@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -33,6 +34,9 @@ public class Trip {
 	@ManyToOne
 	@JoinColumn(name="account_id")
 	private Account account;
+	
+	@ManyToMany(mappedBy = "trips")
+	private List<Activity> activities;
 
 	public Trip() {
 	}
@@ -40,24 +44,24 @@ public class Trip {
 	public Trip(String name) {
 		this.name = name;
 	}
-	public void addTripActivity(TripActivity tripActivity) {
-		if(tripActivities == null) tripActivities = new ArrayList<>();
-		
-		if(!tripActivities.contains(tripActivity)) {
-			tripActivities.add(tripActivity);
-			if(tripActivity.getTrip() != null) {
-				tripActivity.getTrip().getTripActivities().remove(tripActivity);
-			}
-			tripActivity.setTrip(this);
+	
+	public void addActivity(Activity activity) {
+		if(activities == null) {
+			activities = new ArrayList<>();
+		}
+		if(!activities.contains(activity)) {
+			activities.add(activity);
+			activity.addTrip(this);
 		}
 	}
 	
-	public void removeTripActivity(TripActivity tripActivity) {
-		tripActivity.setTrip(null);
-		if(tripActivities != null) {
-			tripActivities.remove(tripActivity);
+	public void removeActivity(Activity activity) {
+		if(activities != null && activities.contains(activity)) {
+			activities.remove(activity);
+			activity.removeTrip(this);
 		}
 	}
+	
 	public void addTripComment(TripComment tripComment) {
 		if(tripComments == null) tripComments = new ArrayList<>();
 		
@@ -121,6 +125,14 @@ public class Trip {
 		this.account = account;
 	}
 	
+	public List<Activity> getActivities() {
+		return new ArrayList<>(activities);
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
