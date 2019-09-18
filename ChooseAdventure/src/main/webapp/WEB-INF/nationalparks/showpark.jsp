@@ -12,7 +12,12 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-
+<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div>
 		<c:choose>
 			<c:when test="${! empty national_park.id }">

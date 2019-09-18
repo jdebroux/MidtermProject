@@ -94,6 +94,9 @@ public class ChooseAdventureController {
 	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
 		session.removeAttribute("loggedIn");
+		model.addAttribute("account", new Account());
+		model.addAttribute("activities", dao.getAllActivities());
+
 		return "index";
 	}
 
@@ -107,10 +110,9 @@ public class ChooseAdventureController {
 	public String linkToUserProfile( Account account, Model model, HttpSession session) {
 		account.setActive(true);
 		model.addAttribute("account", dao.createUpdateAccount(account));
-		return "nationalparks/userprofile";
+		return "nationalparks/login";
 	}
 	
-	//TELL CASEY ABOUT THIS
 	@RequestMapping(path ="delete.do", method = RequestMethod.POST)
 	public String confirmDelete(Model model, HttpSession session) {
 		return "nationalparks/delete";

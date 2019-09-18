@@ -12,15 +12,19 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div>
-		<c:choose>
-			<c:when test="${empty loggedIn }">
+			<c:if test="${empty loggedIn }">
 				<h2>Create Account</h2>
-			</c:when>
-			<c:otherwise>
+			</c:if>
+			<c:if test="${not empty loggedIn }">
 				<h2>Update Account</h2>
-			</c:otherwise>
-		</c:choose>
+			</c:if>
 	</div>
 	<div>
 		<form action="userprofile.do" method="POST">

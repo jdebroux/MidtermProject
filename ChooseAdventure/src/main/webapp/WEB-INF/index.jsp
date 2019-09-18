@@ -15,6 +15,10 @@
 	<jsp:include page="nationalparks/navbar.jsp" />
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="container-fluid">
 
 		<div class="row">
@@ -34,8 +38,7 @@
 
 						<div class="col-md-7">
 							<br> <br> <br> <br> <br>
-							<h4>Build a bucket list of National Parks to visit based on
-								your interests.</h4>
+							<h4>Search for parks by activity:</h4>
 						</div>
 						<!-- <div>
 							<h3>Plan Your Trip!</h3>
@@ -56,11 +59,11 @@
 
 							<form action="activities.do" method="POST">
 								<h5>
-									Find Parks by Activity: <br>
 									<c:forEach items="${activities}" var="activity">
 										<input type="checkbox" name="activityIds"
-											value="${activity.id }">       ${activity.name } 
-					</c:forEach>
+											value="${activity.id }"> ${activity.name} 
+											<br>
+									</c:forEach>
 								</h5>
 								<input type="submit" value="Find Parks" />
 							</form>
@@ -71,6 +74,6 @@
 			</div>
 
 
-			<jsp:include page="nationalparks/bootstrapUpper.jsp" />
+			<jsp:include page="nationalparks/bootstrapLower.jsp" />
 </body>
 </html>
