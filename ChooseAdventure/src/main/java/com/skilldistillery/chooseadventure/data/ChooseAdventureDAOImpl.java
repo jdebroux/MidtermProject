@@ -111,7 +111,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Account getAccountById(int id) {
 		return em.find(Account.class, id);
@@ -119,31 +119,34 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	@Override
 	public Account createUpdateAccount(Account user) {
+		Account databaseAccount = null;
 		if (user.getId() != 0) {
-			Account account = em.find(Account.class, user.getId());
-			account.setFirstName(user.getFirstName());
-			account.setLastName(user.getLastName());
-			account.setEmail(user.getEmail());
-			account.setPassword(user.getPassword());
-			account.setUsername(user.getUsername());
-			em.persist(account);
+			Account newAccount = em.find(Account.class, user.getId());
+			newAccount.setFirstName(user.getFirstName());
+			newAccount.setLastName(user.getLastName());
+			newAccount.setEmail(user.getEmail());
+			newAccount.setPassword(user.getPassword());
+			newAccount.setUsername(user.getUsername());
+			em.persist(newAccount);
 			em.flush();
-
-			return account;
+			System.err.println(newAccount);
+			return newAccount;
 
 		} else if (isEmailUnique(user.getEmail())) {
 			em.persist(user);
 			em.flush();
+			databaseAccount = getAccountByUsername(user.getUsername());
 		}
-		return user;
+		return databaseAccount;
 	}
 
 	@Override
 	public boolean deleteAccount(Account user) {
 		if (isValidAccount(user)) {
-			em.remove(user);
+			Account managedAccount = em.find(Account.class, user.getId());
+			em.remove(managedAccount);
 			em.flush();
-			if (user == null) {
+			if (managedAccount == null) {
 				return true;
 			}
 		}
@@ -217,14 +220,14 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		}
 		return trip;
 	}
-	
 
 	@Override
 	public boolean deleteTrip(Trip trip) {
 		if (trip.getName() != null) {
-			em.remove(trip);
+			Trip managedTrip = em.find(Trip.class, trip.getId());
+			em.remove(managedTrip);
 			em.flush();
-			if (trip == null) {
+			if (managedTrip == null) {
 				return true;
 			}
 		}
@@ -253,9 +256,10 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public boolean deleteTripComment(TripComment tripComment) {
 		if (tripComment.getTrip() != null) {
-			em.remove(tripComment);
+			TripComment managedComment = em.find(TripComment.class, tripComment.getId());
+			em.remove(managedComment);
 			em.flush();
-			if (tripComment == null) {
+			if (managedComment == null) {
 				return true;
 			}
 		}
