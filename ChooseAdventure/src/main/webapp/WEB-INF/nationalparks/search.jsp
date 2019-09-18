@@ -13,7 +13,12 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-
+<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div>
 		<h1>Search For a National Park</h1>
 		<form action="showpark.do" method="GET">

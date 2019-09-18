@@ -12,7 +12,12 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<c:if test="${not empty loggedIn}">
 
 		<h4>Are you sure you'd like to delete ${user.userName}?</h4>

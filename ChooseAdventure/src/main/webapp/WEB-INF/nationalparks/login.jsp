@@ -12,6 +12,12 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div>
 		<h2>Login</h2>
 
