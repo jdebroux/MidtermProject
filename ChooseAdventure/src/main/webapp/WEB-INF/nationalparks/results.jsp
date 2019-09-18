@@ -11,14 +11,13 @@
 <link rel="stylesheet" href="IndexStyle.css" />
 
 <style>
-
 .container {
 	position: relative;
 	width: 50%;
 }
 
 img {
-  border-radius: 5%;
+	border-radius: 5%;
 }
 
 .image {
@@ -55,7 +54,6 @@ img {
 	font-size: 16px;
 	padding: 16px 32px;
 }
-
 </style>
 
 </head>
@@ -81,14 +79,18 @@ img {
 
 					<li>
 						<div class="container">
-						<form action="showpark.do" method="POST">
-						<input type="hidden" name="pid" value="${park.id}">
-							<img src="${park.picture}" alt="Avatar" class="image"
-								style="width: 100%" style="border: 5px solid white">
-							<div class="middle">
-								<div class="text"><a href="showpark.do">Park Details</a></div>
-							</div>
-						</form>
+							
+								<img
+									src="${park.picture}" alt="Avatar" class="image"
+									style="width: 100%" style="border: 5px solid white">
+								<div class="middle">
+									<div class="text">
+										<form action="gotoshowpark.do" method="GET">
+										<input type="hidden" name="pid" value="${park.id}">
+										 <input type="submit" class="btn btn-primary" value="Park Details">
+							</form>
+									</div>
+								</div>
 						</div>
 
 					</li>

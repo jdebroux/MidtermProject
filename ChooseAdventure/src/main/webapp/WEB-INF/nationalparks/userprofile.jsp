@@ -19,15 +19,17 @@
 	<br>
 	<br>
 	<div>
-			<c:if test="${empty loggedIn }">
+			<c:if test="${empty account.username }">
 				<h2>Create Account</h2>
 			</c:if>
-			<c:if test="${not empty loggedIn }">
+			<c:if test="${not empty account.username }">
 				<h2>Update Account</h2>
 			</c:if>
 	</div>
 	<div>
-		<form action="userprofile.do" method="POST">
+
+			<form action="userprofile.do" method="POST">
+		
 			<table>
 				<tr>
 					<td>User Name</td>
@@ -54,25 +56,26 @@
 					<td><input type="text" name="email" value="${account.email }"></td>
 				</tr>
 			</table>
-			<c:if test="${empty loggedIn }">
+			<c:if test="${empty account.username }">
 				<button type="submit" name="account" value="${account}"
 					class="btn btn-primary">Create New Profile</button>
 			</c:if>
-			<c:if test="${!empty loggedIn }">
-				<button type="submit" class="btn btn-primary">Update
-					Profile</button>
+			<c:if test="${!empty account.username }">
+				<button type="submit" name="account" value="${account}"
+					class="btn btn-primary">Update Profile</button>
 			</c:if>
-		</form>
-		<c:if test="${!empty loggedIn }">
-			<form action="delete.do" method="POST">
-				<button type="submit" class="btn btn-primary">Delete
-					Profile</button>
+			<input type="hidden" name="id" value="${account.id}"/>
 			</form>
-			<hr>
-			<form action="bucketlist.do" method="GET">
-				<button type="submit" class="btn btn-primary">See Trips</button>
-			</form>
-		</c:if>
+			<c:if test="${!empty account.username }">
+				<form action="delete.do" method="POST">
+					<button type="submit" class="btn btn-primary">Delete
+						Profile</button>
+				</form>
+				<hr>
+				<form action="bucketlist.do" method="GET">
+					<button type="submit" class="btn btn-primary">See Trips</button>
+				</form>
+			</c:if>
 	</div>
 
 	<jsp:include page="bootstrapLower.jsp" />

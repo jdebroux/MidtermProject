@@ -32,7 +32,7 @@ public class ChooseAdventureController {
 		return "index";
 	}
 
-	@RequestMapping(path = "showpark.do", params="state", method = RequestMethod.GET)
+	@RequestMapping(path = "showpark.do", params = "state", method = RequestMethod.GET)
 	public String searchByState(@RequestParam("state") String state, Model model, HttpSession session) {
 		System.out.println(state);
 		model.addAttribute("parks", dao.searchByState(state));
@@ -85,12 +85,12 @@ public class ChooseAdventureController {
 			account = dao.getAccountByUsername(account.getUsername());
 			session.setAttribute("loggedIn", account);
 			model.addAttribute("account", account);
-			
+
 			return "nationalparks/userprofile";
 		}
 		return "nationalparks/login";
 	}
-	
+
 	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
 		session.removeAttribute("loggedIn");
@@ -105,46 +105,48 @@ public class ChooseAdventureController {
 		model.addAttribute("account", new Account());
 		return "nationalparks/userprofile";
 	}
-	
+
 	@RequestMapping(path = "userprofile.do", params = "account", method = RequestMethod.POST)
-	public String linkToUserProfile( Account account, Model model, HttpSession session) {
+	public String linkToUserProfile(Account account, Model model, HttpSession session) {
 		account.setActive(true);
-		model.addAttribute("account", dao.createUpdateAccount(account));
+		System.err.println("***********************************" + account.getId()); 
+		boolean filled = false;
+		Account databaseAccount = dao.createUpdateAccount(account);
+		if (account.getId() != 0) {
+			filled = true;
+		}
+		account.setActive(true);
+		model.addAttribute("account", databaseAccount);
+		if (filled == true) { 
+			return "nationalparks/userprofile";
+		}
 		return "nationalparks/login";
 	}
-	
-	@RequestMapping(path ="delete.do", method = RequestMethod.POST)
+
+	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
 	public String confirmDelete(Model model, HttpSession session) {
 		return "nationalparks/delete";
 	}
-	
-	@RequestMapping(path = "delete.do", params="aid", method = RequestMethod.POST)
+
+	@RequestMapping(path = "delete.do", params = "aid", method = RequestMethod.POST)
 	public String deleteUser(Model model, HttpSession session) {
-		Account user = (Account)session.getAttribute("loggedIn");
+		Account user = (Account) session.getAttribute("loggedIn");
 		session.removeAttribute("loggedIn");
 		dao.deleteAccount(user);
-		return "nationalParks/delete";
+		return "nationalparks/delete";
 	}
-	
-	@RequestMapping(path = "showpark.do", params="pid", method = RequestMethod.POST)
+
+	@RequestMapping(path = "gotoshowpark.do", method = RequestMethod.GET)
 	public String linkToShowPark(@RequestParam("pid") int pid, Model model, HttpSession session) {
 		model.addAttribute("park", dao.getParkById(pid));
 		model.addAttribute("trip", new Trip());
-		return "showpark.jsp";
+		return "nationalparks/showpark";
 	}
-	
-	@RequestMapping(path="bucketlist.do", method = RequestMethod.POST)
+
+	@RequestMapping(path = "bucketlist.do", method = RequestMethod.POST)
 	public String linkToBucketlist(Trip trip, Model model, HttpSession session) {
 		model.addAttribute("trip", dao.createUpdateTrip(trip));
 		return "nationalparks/bucketlist";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

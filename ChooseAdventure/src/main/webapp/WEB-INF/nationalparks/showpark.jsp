@@ -20,13 +20,13 @@
 	<br>
 	<div>
 		<c:choose>
-			<c:when test="${! empty national_park.id }">
+			<c:when test="${! empty park }">
 
 				<ul style="list-style: none;">
-					<li>${national_park.name}</li>
-					<li>${national_park.description}</li>
-					<li>${location.state}</li>
-					<li>${national_park.link_nps}</li>
+					<li>${park.name}</li>
+					<li>${park.description}</li>
+					<li>${park.location.state}</li>
+					<li>${park.link}</li>
 				</ul>
 			</c:when>
 			<c:otherwise>
