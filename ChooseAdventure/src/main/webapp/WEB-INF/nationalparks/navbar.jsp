@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav
-	class="navbar navbar-inverse navbar-expand-sm inline justify-content-center">
+	class="navbar fixed-top navbar-inverse navbar-expand-sm inline justify-content-center">
 
 	<!-- <button type="button" class="navbar-toggle" data-toggle="collapse"
 		data-target="#myNavbar"></button> -->
