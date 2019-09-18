@@ -9,10 +9,16 @@
 <meta charset="UTF-8">
 <jsp:include page="bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
+
 <style>
+
 .container {
 	position: relative;
 	width: 50%;
+}
+
+img {
+  border-radius: 5%;
 }
 
 .image {
@@ -49,6 +55,7 @@
 	font-size: 16px;
 	padding: 16px 32px;
 }
+
 </style>
 
 </head>
@@ -76,10 +83,10 @@
 						<div class="container">
 						<form action="showpark.do" method="POST">
 						<input type="hidden" name="pid" value="${park.id}">
-							<a href="showpark.do"><img src="${park.picture}" alt="Avatar" class="image"
-								style="width: 100%" style="border: 5px solid white"></a>
+							<img src="${park.picture}" alt="Avatar" class="image"
+								style="width: 100%" style="border: 5px solid white">
 							<div class="middle">
-								<div class="text">Park Details</div>
+								<div class="text"><a href="showpark.do">Park Details</a></div>
 							</div>
 						</form>
 						</div>
