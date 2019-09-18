@@ -31,6 +31,8 @@ public class TripActivity {
 		return id;
 	}
 	
+	
+	
 //	public NationalParkActivity getNationalParkActivity() {
 //		return nationalParkActivity;
 //	}
@@ -38,6 +40,10 @@ public class TripActivity {
 //	public void setNationalParkActivity(NationalParkActivity nationalParkActivity) {
 //		this.nationalParkActivity = nationalParkActivity;
 //	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Trip getTrip() {
 		return trip;

@@ -103,6 +103,8 @@ public class Activity {
 			nationalParkActivities.remove(nationalParkActivity);
 		}
 	}
+	
+	
 
 	public String getName() {
 		return name;
@@ -122,6 +124,26 @@ public class Activity {
 
 	public int getId() {
 		return id;
+	}
+	
+	public List<NationalPark> getNationalParks() {
+		return nationalParks;
+	}
+
+	public void setNationalParks(List<NationalPark> nationalParks) {
+		this.nationalParks = nationalParks;
+	}
+
+	public List<Trip> getTrips() {
+		return trips;
+	}
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public List<NationalParkActivity> getNationalParkActivities() {
