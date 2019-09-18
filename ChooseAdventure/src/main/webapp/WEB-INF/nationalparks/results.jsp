@@ -25,10 +25,10 @@
 
 			<ul style="list-style: none;">
 				<c:forEach items="${parks}" var="park">
-					<li><a href="${park.link}">${park.name}</a> -  ${park.location.state}</li>
+					<li><a href="${park.link}">${park.name}</a> </li>
+					<li>${park.location.state}</li>
 					<li>${park.description}</li>
 
-					<li>${park.location.state}</li>
 					<li>
 					<img src="${park.picture}" alt="${park.name}" height="300" width="400"
 					style="border:5px solid white">

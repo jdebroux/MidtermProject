@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body, html {
-	background: url("MountRainer.jpg") no-repeat center center scroll;
+	background: url("MountRainier.jpg") no-repeat center center scroll;
 	/* Full height */
 	height: 100%;
 	/* Center and scale the image nicely */
@@ -16,7 +16,13 @@ body, html {
   font-family: cursive;
   font-weight: bolder;
 } */
-h6, li, h1, h2, h3 {
+
+h1 {
+	color: #061724;
+	font-family: cursive, Comic Sans;
+}
+
+h6, li, h2, h5, h3, h4 {
 	color: white;
 	font-family: sans-serif;
 }
