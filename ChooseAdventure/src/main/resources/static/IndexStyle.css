@@ -2,20 +2,10 @@
 
 body, html {
 	background: url("MountRainier.jpg") no-repeat center center scroll;
-	/* Full height */
 	height: 100%;
-	/* Center and scale the image nicely */
 	background-size: cover;
-	/* background-position: center; */
-	/* 	background-repeat: no-repeat; */
 	background-attachment: fixed;
 }
-
-/* h1 {
-  color: SaddleBrown;
-  font-family: cursive;
-  font-weight: bolder;
-} */
 
 h1 {
 	color: #061724;
