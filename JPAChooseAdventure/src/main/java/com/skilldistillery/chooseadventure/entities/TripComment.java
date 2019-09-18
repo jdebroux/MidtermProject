@@ -67,6 +67,12 @@ public class TripComment {
 		return id;
 	}
 	
+	
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Trip getTrip() {
 		return trip;
 	}

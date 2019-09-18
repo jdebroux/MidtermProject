@@ -60,6 +60,7 @@ public class Wildlife {
 	public int getId() {
 		return id;
 	}
+	
 
 	public String getName() {
 		return name;
@@ -72,6 +73,10 @@ public class Wildlife {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public List<NationalPark> getNationalParks() {

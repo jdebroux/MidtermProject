@@ -202,6 +202,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	@Override
 	public Trip createUpdateTrip(Trip trip) {
+		Trip managedTrip = null;
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
 			newTrip.setAccount(trip.getAccount());
@@ -217,7 +218,15 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		} else {
 			em.persist(trip);
 			em.flush();
+			managedTrip = getTripByName(trip.getName());
 		}
+		return managedTrip;
+	}
+
+	private Trip getTripByName(String name) {
+		String qS = "SELECT t FROM Trip t WHERE t.name LIKE :input";
+		List<Trip> trips = em.createQuery(qS, Trip.class).setParameter(":input", name).getResultList();
+		Trip trip = trips.get(0);
 		return trip;
 	}
 
@@ -236,6 +245,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	@Override
 	public TripComment createUpdateTripComment(TripComment tripComment) {
+		TripComment managedTC = null;
 		if (tripComment.getId() != 0) {
 			TripComment newTripComment = em.find(TripComment.class, tripComment.getId());
 			newTripComment.setDescription(tripComment.getDescription());
@@ -249,8 +259,16 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		} else {
 			em.persist(tripComment);
 			em.flush();
+			managedTC = getTripCommentByName(tripComment.getTitle());
 		}
-		return tripComment;
+		return managedTC;
+	}
+
+	private TripComment getTripCommentByName(String title) {
+		String qS = "SELECT tc FROM TripComment tc WHERE tc.title LIKE :input";
+		List<TripComment> tripComments = em.createQuery(qS, TripComment.class).setParameter(":input", title).getResultList();
+		TripComment comment = tripComments.get(0);
+		return comment;
 	}
 
 	@Override

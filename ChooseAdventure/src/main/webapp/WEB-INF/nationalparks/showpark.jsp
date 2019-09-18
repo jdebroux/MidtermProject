@@ -12,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-<br>
+	<br>
 	<br>
 	<br>
 	<br>
@@ -27,6 +27,11 @@
 					<li>${park.description}</li>
 					<li>${park.location.state}</li>
 					<li>${park.link}</li>
+					<br>
+					<c:forEach items="${park.activities}" var="activity">
+						<input type="checkbox" name="activityIds" value="${activity.id }"> ${activity.name} 
+											<br>
+					</c:forEach>
 				</ul>
 			</c:when>
 			<c:otherwise>
