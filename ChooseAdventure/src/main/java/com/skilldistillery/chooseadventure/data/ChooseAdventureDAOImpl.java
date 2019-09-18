@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 import com.skilldistillery.chooseadventure.entities.NationalPark;
+import com.skilldistillery.chooseadventure.entities.Trip;
+import com.skilldistillery.chooseadventure.entities.TripComment;
 
 @Service
 @Transactional
@@ -37,6 +39,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		List<NationalPark> parks = em.createQuery(query, NationalPark.class).getResultList();
 
 		return parks;
+	}
+
+	@Override
+	public NationalPark getParkById(int id) {
+		return em.find(NationalPark.class, id);
 	}
 
 	@Override
@@ -103,6 +110,11 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			return user;
 		}
 		return null;
+	}
+	
+	@Override
+	public Account getAccountById(int id) {
+		return em.find(Account.class, id);
 	}
 
 	@Override
@@ -185,4 +197,78 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		return accounts;
 	}
 
+	@Override
+	public Trip createUpdateTrip(Trip trip) {
+		if (trip.getId() != 0) {
+			Trip newTrip = em.find(Trip.class, trip.getId());
+			newTrip.setAccount(trip.getAccount());
+			newTrip.setName(trip.getName());
+			newTrip.setNationalPark(trip.getNationalPark());
+			newTrip.setActivities(trip.getActivities());
+			newTrip.setTripComments(trip.getTripComments());
+			em.persist(newTrip);
+			em.flush();
+
+			return newTrip;
+
+		} else {
+			em.persist(trip);
+			em.flush();
+		}
+		return trip;
+	}
+	
+
+	@Override
+	public boolean deleteTrip(Trip trip) {
+		if (trip.getName() != null) {
+			em.remove(trip);
+			em.flush();
+			if (trip == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public TripComment createUpdateTripComment(TripComment tripComment) {
+		if (tripComment.getId() != 0) {
+			TripComment newTripComment = em.find(TripComment.class, tripComment.getId());
+			newTripComment.setDescription(tripComment.getDescription());
+			newTripComment.setTitle(tripComment.getTitle());
+			newTripComment.setTrip(tripComment.getTrip());
+			em.persist(newTripComment);
+			em.flush();
+
+			return newTripComment;
+
+		} else {
+			em.persist(tripComment);
+			em.flush();
+		}
+		return tripComment;
+	}
+
+	@Override
+	public boolean deleteTripComment(TripComment tripComment) {
+		if (tripComment.getTrip() != null) {
+			em.remove(tripComment);
+			em.flush();
+			if (tripComment == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public Trip getTripById(int id) {
+		return em.find(Trip.class, id);
+	}
+
+	@Override
+	public TripComment getTripCommentById(int id) {
+		return em.find(TripComment.class, id);
+	}
 }
