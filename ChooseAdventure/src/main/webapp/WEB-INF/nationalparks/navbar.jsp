@@ -5,10 +5,11 @@
 <nav
 	class="navbar navbar-inverse navbar-expand-sm inline justify-content-center">
 
-	<button type="button" class="navbar-toggle" data-toggle="collapse"
-		data-target="#myNavbar"></button>
+	<!-- <button type="button" class="navbar-toggle" data-toggle="collapse"
+		data-target="#myNavbar"></button> -->
 	<div class="container-fluid">
-		<div class="navbar-header">
+	
+		<!-- <div class="navbar-header"> -->
 
 			<form action="index.do" method="GET">
 
