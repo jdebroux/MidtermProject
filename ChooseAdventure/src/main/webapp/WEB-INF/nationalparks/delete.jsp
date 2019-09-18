@@ -13,15 +13,15 @@
 <body>
 	<jsp:include page="navbar.jsp" />
 
-	<c:if test="${not empty user}">
+	<c:if test="${not empty loggedIn}">
 
 		<h4>Are you sure you'd like to delete ${user.userName}?</h4>
 		<form action="delete.do" method="POST">
-			<input type="hidden" name="aid" value="${user.id}" /> <input type="submit"
+			<input type="hidden" name="aid" value="${loggedIn.id}" /> <input type="submit"
 				value="Delete"/>
 		</form>
 	</c:if>
-	<c:if test="${empty user}">
+	<c:if test="${empty loggedIn}">
 		<h4>Account Deleted</h4>
 	</c:if>
 

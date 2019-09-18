@@ -68,11 +68,14 @@
 
 					<li>
 						<div class="container">
-							<a href="showpark.jsp"><img src="${park.picture}" alt="Avatar" class="image"
+						<form action="showpark.do" method="POST">
+						<input type="hidden" name="pid" value="${park.id}">
+							<a href="showpark.do"><img src="${park.picture}" alt="Avatar" class="image"
 								style="width: 100%" style="border: 5px solid white"></a>
 							<div class="middle">
 								<div class="text">Park Details</div>
 							</div>
+						</form>
 						</div>
 
 					</li>
