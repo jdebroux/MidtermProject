@@ -142,15 +142,20 @@ public class ChooseAdventureController {
 		return "nationalparks/showpark";
 	}
 
-	@RequestMapping(path = "bucketlist.do", method = RequestMethod.POST)
-	public String linkToBucketlist(Trip trip, Model model, HttpSession session) {
+	@RequestMapping(path = "bucketList.do", method = RequestMethod.POST)
+	public String linkToBucketlist(Trip trip, Model model,@RequestParam("parkId") int parkId, HttpSession session) {
 		Account user = (Account) session.getAttribute("loggedIn");
+		List<Trip> trips = dao.getTripsByUserId(user.getId());
+		trip.setAccount(user);
+		trip.setNationalPark(dao.getParkById(parkId));
 		Trip managedTrip = dao.createUpdateTrip(trip, user);
 		model.addAttribute("trip", managedTrip);
-		model.addAttribute("trips", dao.getTripsByUserId(user.getId()));
-		model.addAttribute("comment", new TripComment());
-		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
-		return "nationalparks/bucketlist";
+		if(trips.size() > 0) {
+			model.addAttribute("trips", trips);			
+		}
+//		model.addAttribute("comment", new TripComment());
+//		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
+		return "nationalparks/bucketList";
 	}
 	
 	@RequestMapping(path = "edittrip.do", method = RequestMethod.POST)
@@ -167,7 +172,7 @@ public class ChooseAdventureController {
 	@RequestMapping(path = "deletetrip.do", method = RequestMethod.POST)
 	public String deleteATrip(Trip trip, Model model, HttpSession session) {
 		dao.deleteTrip(trip);
-		return "nationalparks/bucketlist";
+		return "nationalparks/bucketList";
 	}
 	
 	@RequestMapping(path="createcomment.do", method = RequestMethod.POST)
@@ -176,12 +181,12 @@ public class ChooseAdventureController {
 		model.addAttribute("trips", dao.getTripsByUserId(user.getId()));
 		model.addAttribute("comment", dao.createUpdateTripComment(tripComment, trip));
 		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
-		return "nationalparks/bucketlist";
+		return "nationalparks/bucketList";
 	}
 
 	@RequestMapping(path = "deletetripcomment.do", method = RequestMethod.POST)
 	public String deleteATripComment(TripComment tripComment, Model model, HttpSession session) {
 		dao.deleteTripComment(tripComment);
-		return "nationalparks/bucketlist";
+		return "nationalparks/bucketList";
 	}
 }

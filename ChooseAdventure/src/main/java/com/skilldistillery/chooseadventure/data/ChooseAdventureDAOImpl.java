@@ -219,7 +219,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	private Trip getTripByName(String name) {
 		String qS = "SELECT t FROM Trip t WHERE t.name LIKE :input";
-		List<Trip> trips = em.createQuery(qS, Trip.class).setParameter(":input", name).getResultList();
+		List<Trip> trips = em.createQuery(qS, Trip.class).setParameter("input", name).getResultList();
 		Trip trip = trips.get(0);
 		return trip;
 	}
@@ -259,7 +259,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	private TripComment getTripCommentByName(String title) {
 		String qS = "SELECT tc FROM TripComment tc WHERE tc.title LIKE :input";
-		List<TripComment> tripComments = em.createQuery(qS, TripComment.class).setParameter(":input", title).getResultList();
+		List<TripComment> tripComments = em.createQuery(qS, TripComment.class).setParameter("input", title).getResultList();
 		TripComment comment = tripComments.get(0);
 		return comment;
 	}
@@ -289,14 +289,16 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	@Override
 	public List<Trip> getTripsByUserId(int userId) {
-		String qS = "SELECT a.trips FROM Account a WHERE a.id = :input";
-		return em.createQuery(qS, Trip.class).setParameter("input", userId).getResultList();
+//		String qS = "SELECT a.trips FROM Account a WHERE a.id = :input";
+		Account account= em.find(Account.class, userId);
+		List<Trip> trips= account.getTrips();
+		return trips;
 	}
 
 	@Override
 	public List<TripComment> getTripCommentsByTripId(int tripId) {
-		String qS = "SELECT t.tripComments FROM Trip t WHERE t.id = :input";
-		return em.createQuery(qS, TripComment.class).setParameter("input", tripId).getResultList();
+//		String qS = "SELECT t.tripComments FROM Trip t WHERE t.id = :input";
+		return em.find(Trip.class, tripId).getTripComments();
 	}
 	
 	
