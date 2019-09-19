@@ -52,7 +52,7 @@
 			<form action="logout.do" method="POST">
 				<button type="submit" class="btn btn-primary" value="Logout">Logout</button>
 			</form>
-			<form action="bucketlist.do" method="GET">
+			<form action="gotobucketlist.do" method="POST">
 				<button type="submit" class="btn btn-primary">See Trips</button>
 			</form>
 		</c:if>

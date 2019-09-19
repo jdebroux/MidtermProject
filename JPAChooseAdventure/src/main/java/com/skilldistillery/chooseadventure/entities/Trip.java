@@ -3,7 +3,9 @@ package com.skilldistillery.chooseadventure.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,25 +20,25 @@ public class Trip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
-	@OneToMany(mappedBy="trip")
+
+	@OneToMany(mappedBy = "trip", cascade= {CascadeType.PERSIST})
 	private List<TripActivity> tripActivities;
 
-	@OneToMany(mappedBy="trip")
+	@OneToMany(mappedBy = "trip")
 	private List<TripComment> tripComments;
-	
+
 	@ManyToOne
-	@JoinColumn(name="national_park_id")
+	@JoinColumn(name = "national_park_id")
 	private NationalPark nationalPark;
 
 	@ManyToOne
-	@JoinColumn(name="account_id")
+	@JoinColumn(name = "account_id")
 	private Account account;
-	
-	@ManyToMany(mappedBy = "trips")
-	private List<Activity> activities;
+
+	@ManyToMany(mappedBy = "trips", fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST})
+	private List<Activity> activities = new ArrayList<>();
 
 	public Trip() {
 	}
@@ -44,39 +46,57 @@ public class Trip {
 	public Trip(String name) {
 		this.name = name;
 	}
-	
+
 	public void addActivity(Activity activity) {
-		if(activities == null) {
+		if (activities == null) {
 			activities = new ArrayList<>();
 		}
-		if(!activities.contains(activity)) {
+		if (!activities.contains(activity)) {
 			activities.add(activity);
 			activity.addTrip(this);
 		}
 	}
-	
+
 	public void removeActivity(Activity activity) {
-		if(activities != null && activities.contains(activity)) {
+		if (activities != null && activities.contains(activity)) {
 			activities.remove(activity);
 			activity.removeTrip(this);
 		}
 	}
 	
+	public void addTripActivity(TripActivity tripActivity) {
+		if (tripActivities == null) {
+			tripActivities = new ArrayList<>();
+		}
+		if (!tripActivities.contains(tripActivity)) {
+			tripActivities.add(tripActivity);
+			tripActivity.setTrip(this);
+		}
+	}
+	
+	public void removeTripActivity(TripActivity tripActivity) {
+		if (tripActivities != null && tripActivities.contains(tripActivity)) {
+			tripActivities.remove(tripActivity);
+			tripActivity.setTrip(null);
+		}
+	}
+
 	public void addTripComment(TripComment tripComment) {
-		if(tripComments == null) tripComments = new ArrayList<>();
-		
-		if(!tripComments.contains(tripComment)) {
+		if (tripComments == null)
+			tripComments = new ArrayList<>();
+
+		if (!tripComments.contains(tripComment)) {
 			tripComments.add(tripComment);
-			if(tripComment.getTrip() != null) {
+			if (tripComment.getTrip() != null) {
 				tripComment.getTrip().getTripComments().remove(tripComment);
 			}
 			tripComment.setTrip(this);
 		}
 	}
-	
+
 	public void removeTrip(TripComment tripComment) {
 		tripComment.setTrip(null);
-		if(tripComments != null) {
+		if (tripComments != null) {
 			tripComments.remove(tripComment);
 		}
 	}
@@ -124,7 +144,7 @@ public class Trip {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	
+
 	public List<Activity> getActivities() {
 		return new ArrayList<>(activities);
 	}
@@ -132,8 +152,6 @@ public class Trip {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
-	
-	
 
 	public void setId(int id) {
 		this.id = id;
@@ -163,7 +181,6 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", name=" + name + ", nationalPark=" + nationalPark
-				+ ", account=" + account + "]";
+		return "Trip [id=" + id + ", name=" + name + ", nationalPark=" + nationalPark + ", account=" + account + "]";
 	}
 }

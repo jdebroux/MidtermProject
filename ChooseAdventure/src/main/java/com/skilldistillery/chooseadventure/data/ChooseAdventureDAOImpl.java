@@ -210,6 +210,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			return newTrip;
 
 		} else {
+			System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 			em.persist(trip);
 			em.flush();
 			managedTrip = getTripByName(trip.getName());
@@ -290,8 +291,8 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public List<Trip> getTripsByUserId(int userId) {
 //		String qS = "SELECT a.trips FROM Account a WHERE a.id = :input";
-		Account account= em.find(Account.class, userId);
-		List<Trip> trips= account.getTrips();
+		Account account = em.find(Account.class, userId);
+		List<Trip> trips = account.getTrips();
 		return trips;
 	}
 
@@ -299,6 +300,18 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	public List<TripComment> getTripCommentsByTripId(int tripId) {
 //		String qS = "SELECT t.tripComments FROM Trip t WHERE t.id = :input";
 		return em.find(Trip.class, tripId).getTripComments();
+	}
+
+	@Override
+	public Activity getActivityById(int activityId) {
+		return em.find(Activity.class, activityId);
+	}
+
+	@Override
+	public List<Activity> getActivitiesByTripId(int tripId) {
+		Trip trip = em.find(Trip.class, tripId);
+		List<Activity> tripActivities = trip.getActivities();
+		return tripActivities;
 	}
 	
 	
