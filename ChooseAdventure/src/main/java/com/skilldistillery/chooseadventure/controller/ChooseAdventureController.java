@@ -142,7 +142,7 @@ public class ChooseAdventureController {
 		return "nationalparks/showpark";
 	}
 
-	@RequestMapping(path = "bucketList.do", method = RequestMethod.POST)
+	@RequestMapping(path = "bucketlist.do", method = RequestMethod.POST)
 	public String linkToBucketlist(Trip trip, Model model,@RequestParam("parkId") int parkId, HttpSession session) {
 		Account user = (Account) session.getAttribute("loggedIn");
 		List<Trip> trips = dao.getTripsByUserId(user.getId());
