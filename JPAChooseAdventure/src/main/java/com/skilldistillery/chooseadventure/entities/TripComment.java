@@ -23,6 +23,8 @@ public class TripComment {
 	
 	private String description;
 	
+	private int completed;
+	
 	@Column(name = "create_date")
 	private Date createDate;
 	
