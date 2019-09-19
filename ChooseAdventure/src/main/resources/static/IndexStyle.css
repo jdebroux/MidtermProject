@@ -21,14 +21,14 @@ body, html {
 
 
 #YAP {
-	font-size: 5vw;
+	font-size: 3vw;
 	color: #fcfcfc;
 	font-family: cursive, Comic Sans;
 	text-align: center;
 }
 
-#SearchForParksByActivity, #parkname {
-	font-size: 3vw;
+#parkname, .indexforeach {
+	font-size: 2vw;
 	text-align: center;
 }
 
@@ -36,13 +36,28 @@ body, html {
 	color: white;
 	font-family: sans-serif;
 } */
+ .activitiesforeach {
+	position: relative;
+	width: 75%;
+	column-count: 3;
+	column-gap: 20px;
+	
+}
+
 .container {
 	position: relative;
 	width: 50%;
+	
+}
+
+.button {
+    text-align: center;
 }
 
 img {
 	border-radius: 5%;
+	width: 100%;
+	box-shadow: 10px 10px 5px black;
 }
 
 .image {

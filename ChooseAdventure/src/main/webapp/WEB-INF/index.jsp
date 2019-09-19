@@ -10,55 +10,36 @@
 <jsp:include page="nationalparks/bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
 
+<jsp:include page="nationalparks/navbar.jsp" />
 </head>
 <body>
-	<jsp:include page="nationalparks/navbar.jsp" />
 	<br>
 	<br>
 	<br>
 	<br>
-	<div class="container-fluid">
 
-		<div id="YAP">Your Adventure Planner!</div>
-		<div id="SearchForParksByActivity">Search for parks by activity:</div>
-<!-- 		<div class="row">
-			<div class="col-sm-1"></div> -->
-		<!-- 	<div class="col-md-7">
-				<div>
-					<div class="col-sm-4"></div>
-					<div class="row">
-						<div class="col-sm-3"></div>
-						<div class="col-md-7">
-						</div>
-						<div>
-							<h3>Plan Your Trip!</h3>
-						</div>
-						<div class="col-sm-2"></div>
-					</div>
-				</div>
-			</div> -->
-			<!-- <br> -->
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3"></div>
-					<div class="col-md-7">
-						<div>
-							<form action="activities.do" method="POST">
-								<h5>
-								<ul id="activityList">
-									<c:forEach items="${activities}" var="activity">
-										<li><input type="checkbox" name="activityIds"
-											value="${activity.id }"> ${activity.name}</li> 
-									</c:forEach>
-									</ul>
-								</h5>
-								<input type="submit" value="Find Parks" />
-							</form>
-							<div class="col-sm-2"></div>
-						</div>
-					</div>
-				</div>
+	<div id="YAP">Your Adventure Planner!</div>
+
+
+	<form action="activities.do" method="POST">
+		<div class="activitiesforeach, container">
+			Search for parks by activity: <br>
+			<table>
+				<c:forEach items="${activities}" var="activity">
+					<tr>
+						<td><input type="checkbox" name="activityIds"
+							value="${activity.id }"> ${activity.name}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		<div class="button">
+			<br> <input type="submit" value="Find Parks" />
 			</div>
-			<jsp:include page="nationalparks/bootstrapLower.jsp" />
+	</form>
+
+	<jsp:include page="nationalparks/footer.jsp" />
+	<jsp:include page="nationalparks/bootstrapLower.jsp" />
+
 </body>
 </html>

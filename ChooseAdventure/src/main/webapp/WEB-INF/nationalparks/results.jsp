@@ -30,8 +30,7 @@
 						<div class="container">
 							
 								<img
-									src="${park.picture}" alt="Avatar" class="image"
-									style="width: 100%" style="border: 5px solid white">
+									src="${park.picture}" alt="Avatar" class="image">
 								<div class="middle">
 									<div class="text">
 										<form action="gotoshowpark.do" method="GET">
