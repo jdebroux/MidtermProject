@@ -26,25 +26,35 @@ body, html {
 	<br>
 	<br>
 	<br>
+
 	<div>
-		<c:choose>
-			<c:when test="${! empty park }">
+			<c:if test="${! empty loggedIn.username}">
 
 				<ul style="list-style: none;">
-					<li><strong><a href ="${park.link}">${park.name}</a> - ${park.location.state}</strong></li>
+					<li><strong><a href="${park.link}">${park.name}</a> -
+							${park.location.state}</strong></li>
 					<li><em>${park.description}</em></li>
 					<c:forEach items="${park.activities}" var="activity">
 						<input type="checkbox" name="activityIds" value="${activity.id }"> ${activity.name} 
-										
-					</c:forEach>
+                                        
+                    </c:forEach>
 				</ul>
-			</c:when>
-			<c:otherwise>
-				<h4>No Park found</h4>
-			</c:otherwise>
-		</c:choose>
-	</div>
+			</c:if>
+			<c:if test="${ empty loggedIn.username}">
 
+				<ul style="list-style: none;">
+					<li><strong><a href="${park.link}">${park.name}</a> -
+							${park.location.state}</strong></li>
+					<li><em>${park.description}</em></li>
+					<p> Activities: 
+					<c:forEach items="${park.activities}" var="activity">
+                      ${activity.name},  
+                                        
+                    </c:forEach>
+                    </p>
+				</ul>
+			</c:if>
+	</div>
 	<input type="submit" value="Plan a Trip" />
 	<input type="submit" value="Save Trip" />
 
