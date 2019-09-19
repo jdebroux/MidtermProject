@@ -144,7 +144,7 @@ public class ChooseAdventureController {
 	}
 
 	@RequestMapping(path = "bucketlist.do", method = RequestMethod.POST)
-	public String linkToBucketlist(@RequestParam("activityIds") List<Integer> activityIds, Trip trip, Model model,@RequestParam("parkId") int parkId, HttpSession session) {
+	public String linkToBucketlist(@RequestParam("activityIds") List<Integer> activityIds, @RequestParam("id") int tripId, Trip trip, Model model,@RequestParam("parkId") int parkId, HttpSession session) {
 		Account user = (Account) session.getAttribute("loggedIn");
 		if (activityIds != null && activityIds.size() > 0) {
 			List<Activity> activities = new ArrayList<>();
@@ -189,11 +189,9 @@ public class ChooseAdventureController {
 	
 	@RequestMapping(path = "edittrip.do", method = RequestMethod.POST)
 	public String editATrip(@RequestParam("tripId") int tripId, Model model, HttpSession session) {
-		Account user = (Account) session.getAttribute("loggedIn");
 		Trip trip = dao.getTripById(tripId);
-		Trip managedTrip = dao.createUpdateTrip(trip, user);
-		model.addAttribute("trip", managedTrip);
-		model.addAttribute("trips", dao.getTripsByUserId(user.getId()));
+		model.addAttribute("trip", trip);
+		model.addAttribute("park", trip.getNationalPark());
 //		model.addAttribute("comment", new TripComment());
 //		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
 		return "nationalparks/showpark";
