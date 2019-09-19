@@ -10,73 +10,22 @@
 <jsp:include page="bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
 
-<style>
-.container {
-	position: relative;
-	width: 50%;
-}
-
-img {
-	border-radius: 5%;
-}
-
-.image {
-	opacity: 1;
-	display: block;
-	width: 100%;
-	height: auto;
-	transition: .5s ease;
-	backface-visibility: hidden;
-}
-
-.middle {
-	transition: .5s ease;
-	opacity: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	text-align: center;
-}
-
-.container:hover .image {
-	opacity: 0.3;
-}
-
-.container:hover .middle {
-	opacity: 1;
-}
-
-.text {
-	background-color: #B0E0E6;
-	color: white;
-	font-size: 16px;
-	padding: 16px 32px;
-}
-</style>
-
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	
 	<br>
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-
-	<h3>Parks Found</h3>
+	<div class="ParksFound">Parks Found</div>
 
 	<c:choose>
 		<c:when test="${not empty parks}">
 
 			<ul style="list-style: none;">
 				<c:forEach items="${parks}" var="park">
-					<li id="parkname"><b>${park.name}</b></li>
-					<li><small>${park.location.state}</small></li>
-					<li><em>${park.description}</em></li>
-
+					<li id="parkname"><b>${park.name}</b><small> - ${park.location.state}</small></li>
 					<li>
 						<div class="container">
 							

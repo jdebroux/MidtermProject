@@ -17,53 +17,40 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
 	<div class="container-fluid">
 
-		<div class="row">
-			<div class="col-sm-1"></div>
-
-			<div class="col-md-7">
-
+		<div id="YAP">Your Adventure Planner!</div>
+		<div id="SearchForParksByActivity">Search for parks by activity:</div>
+<!-- 		<div class="row">
+			<div class="col-sm-1"></div> -->
+		<!-- 	<div class="col-md-7">
 				<div>
-					<h1>Your Adventure Planner!</h1>
-
-
-
 					<div class="col-sm-4"></div>
-
 					<div class="row">
 						<div class="col-sm-3"></div>
-
 						<div class="col-md-7">
-							<br> <br> <br> <br> <br>
-							<h4>Search for parks by activity:</h4>
 						</div>
-						<!-- <div>
+						<div>
 							<h3>Plan Your Trip!</h3>
-						</div> -->
+						</div>
 						<div class="col-sm-2"></div>
 					</div>
 				</div>
-			</div>
-			<br>
+			</div> -->
+			<!-- <br> -->
 			<div class="container-fluid">
-
 				<div class="row">
 					<div class="col-sm-3"></div>
-
 					<div class="col-md-7">
-
 						<div>
-
 							<form action="activities.do" method="POST">
 								<h5>
+								<ul id="activityList">
 									<c:forEach items="${activities}" var="activity">
-										<input type="checkbox" name="activityIds"
-											value="${activity.id }"> ${activity.name} 
-											<br>
+										<li><input type="checkbox" name="activityIds"
+											value="${activity.id }"> ${activity.name}</li> 
 									</c:forEach>
+									</ul>
 								</h5>
 								<input type="submit" value="Find Parks" />
 							</form>
@@ -72,8 +59,6 @@
 					</div>
 				</div>
 			</div>
-
-
 			<jsp:include page="nationalparks/bootstrapLower.jsp" />
 </body>
 </html>

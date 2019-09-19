@@ -9,11 +9,19 @@
 <meta charset="utf-8">
 <jsp:include page="bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
+
+<style>
+body, html {
+	background: url("${park.picture}") no-repeat center center scroll;
+	height: 100%;
+	background-size: cover;
+	background-attachment: fixed;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-<br>
-	<br>
+
 	<br>
 	<br>
 	<br>
@@ -23,10 +31,12 @@
 			<c:when test="${! empty park }">
 
 				<ul style="list-style: none;">
-					<li>${park.name}</li>
-					<li>${park.description}</li>
-					<li>${park.location.state}</li>
-					<li>${park.link}</li>
+					<li><strong><a href ="${park.link}">${park.name}</a> - ${park.location.state}</strong></li>
+					<li><em>${park.description}</em></li>
+					<c:forEach items="${park.activities}" var="activity">
+						<input type="checkbox" name="activityIds" value="${activity.id }"> ${activity.name} 
+										
+					</c:forEach>
 				</ul>
 			</c:when>
 			<c:otherwise>

@@ -5,14 +5,77 @@ body, html {
 	height: 100%;
 	background-size: cover;
 	background-attachment: fixed;
-}
-
-h1 {
-	color: #061724;
-	font-family: cursive, Comic Sans;
-}
-
-h6, li, h2, h5, h3, h4 {
 	color: white;
 	font-family: sans-serif;
+	/* text-align: center; */
+	text-shadow: 2px 2px #000000;
+	font-size: 2vw
+}
+#activityList{
+	list-style: none;
+}
+
+#ParksFound {
+	font-size: 3vw;
+}
+
+
+#YAP {
+	font-size: 5vw;
+	color: #fcfcfc;
+	font-family: cursive, Comic Sans;
+	text-align: center;
+}
+
+#SearchForParksByActivity, #parkname {
+	font-size: 3vw;
+	text-align: center;
+}
+
+/* h6, li, h2, h5, h3, h4 {
+	color: white;
+	font-family: sans-serif;
+} */
+.container {
+	position: relative;
+	width: 50%;
+}
+
+img {
+	border-radius: 5%;
+}
+
+.image {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: .5s ease;
+	backface-visibility: hidden;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.container:hover .image {
+	opacity: 0.6;
+}
+
+.container:hover .middle {
+	opacity: 1;
+}
+
+.text {
+	background-color: #B0E0E6;
+	color: white;
+	font-size: 16px;
+	padding: 16px 32px;
 }

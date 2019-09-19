@@ -132,6 +132,12 @@ public class Trip {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
+	
+	
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public int hashCode() {
