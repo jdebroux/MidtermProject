@@ -33,6 +33,11 @@ public class Activity {
 	@JoinTable(name="national_park_activity", joinColumns=@JoinColumn(name="activity_id"),
 	inverseJoinColumns=@JoinColumn(name="national_park_id"))
 	private List<NationalPark> nationalParks;	
+	
+	@ManyToMany
+	@JoinTable(name="trip_activity", joinColumns=@JoinColumn(name="activity_id"),
+	inverseJoinColumns=@JoinColumn(name="trip_id"))
+	private List<Trip> trips;	
 
 	public Activity() {
 	}
@@ -63,6 +68,23 @@ public class Activity {
 		}
 	}
 	
+	public void addTrip(Trip trip) {
+		if(trips == null) {
+			trips = new ArrayList<>();
+		}
+		if(!trips.contains(trip)) {
+			trips.add(trip);
+			trip.addActivity(this);
+		}
+	}
+	
+	public void removeTrip(Trip trip) {
+		if(trips != null && trips.contains(trip)) {
+			trips.remove(trip);
+			trip.removeActivity(this);
+		}
+	}
+	
 	public void addNationalParkActivity(NationalParkActivity nationalParkActivity) {
 		if(nationalParkActivities == null) nationalParkActivities = new ArrayList<>();
 		
@@ -81,6 +103,8 @@ public class Activity {
 			nationalParkActivities.remove(nationalParkActivity);
 		}
 	}
+	
+	
 
 	public String getName() {
 		return name;
@@ -100,6 +124,26 @@ public class Activity {
 
 	public int getId() {
 		return id;
+	}
+	
+	public List<NationalPark> getNationalParks() {
+		return nationalParks;
+	}
+
+	public void setNationalParks(List<NationalPark> nationalParks) {
+		this.nationalParks = nationalParks;
+	}
+
+	public List<Trip> getTrips() {
+		return trips;
+	}
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public List<NationalParkActivity> getNationalParkActivities() {

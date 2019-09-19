@@ -2,27 +2,95 @@
 
 body, html {
 	background: url("MountRainier.jpg") no-repeat center center scroll;
-	/* Full height */
 	height: 100%;
-	/* Center and scale the image nicely */
 	background-size: cover;
-	/* background-position: center; */
-	/* 	background-repeat: no-repeat; */
 	background-attachment: fixed;
-}
-
-/* h1 {
-  color: SaddleBrown;
-  font-family: cursive;
-  font-weight: bolder;
-} */
-
-h1 {
-	color: #061724;
-	font-family: cursive, Comic Sans;
-}
-
-h6, li, h2, h5, h3, h4 {
 	color: white;
 	font-family: sans-serif;
+	/* text-align: center; */
+	text-shadow: 2px 2px #000000;
+	font-size: 2vw
+}
+#activityList{
+	list-style: none;
+}
+
+#ParksFound {
+	font-size: 3vw;
+}
+
+
+#YAP {
+	font-size: 3vw;
+	color: #fcfcfc;
+	font-family: cursive, Comic Sans;
+	text-align: center;
+}
+
+#parkname, .indexforeach {
+	font-size: 2vw;
+	text-align: center;
+}
+
+/* h6, li, h2, h5, h3, h4 {
+	color: white;
+	font-family: sans-serif;
+} */
+ .activitiesforeach {
+	position: relative;
+	width: 75%;
+	column-count: 3;
+	column-gap: 20px;
+	
+}
+
+.container {
+	position: relative;
+	width: 50%;
+	
+}
+
+.button {
+    text-align: center;
+}
+
+img {
+	border-radius: 5%;
+	width: 100%;
+	box-shadow: 10px 10px 5px black;
+}
+
+.image {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: .5s ease;
+	backface-visibility: hidden;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.container:hover .image {
+	opacity: 0.6;
+}
+
+.container:hover .middle {
+	opacity: 1;
+}
+
+.text {
+	background-color: #B0E0E6;
+	color: white;
+	font-size: 16px;
+	padding: 16px 32px;
 }

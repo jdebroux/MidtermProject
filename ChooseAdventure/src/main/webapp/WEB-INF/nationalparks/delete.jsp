@@ -12,15 +12,23 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	
+	<c:if test="${not empty loggedIn}">
 
-	<form action="delete.do" method="GET">
 		<h4>Are you sure you'd like to delete ${user.userName}?</h4>
-		<hidden type="number" name="user.id" />
-		<input type="submit" value="Delete" />
-	</form>
-	<form action="index.do" method="GET">
-		<input type="submit" value="Go Home" />
-	</form>
+		<form action="delete.do" method="POST">
+			<input type="hidden" name="aid" value="${loggedIn.id}" /> <input type="submit"
+				value="Delete"/>
+		</form>
+	</c:if>
+	<c:if test="${empty loggedIn}">
+		<h4>Account Deleted</h4>
+	</c:if>
 
 	<jsp:include page="bootstrapLower.jsp" />
 

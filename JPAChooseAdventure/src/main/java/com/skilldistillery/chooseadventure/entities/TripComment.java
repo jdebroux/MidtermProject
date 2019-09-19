@@ -23,6 +23,8 @@ public class TripComment {
 	
 	private String description;
 	
+	private int completed;
+	
 	@Column(name = "create_date")
 	private Date createDate;
 	
@@ -67,6 +69,12 @@ public class TripComment {
 		return id;
 	}
 	
+	
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Trip getTrip() {
 		return trip;
 	}

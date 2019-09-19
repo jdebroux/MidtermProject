@@ -41,6 +41,12 @@ public class Location {
 	public String getState() {
 		return state;
 	}
+	
+	
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public void setState(String state) {
 		this.state = state;

@@ -9,31 +9,63 @@
 <meta charset="utf-8">
 <jsp:include page="bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
+
+<style>
+body, html {
+	background: url("${park.picture}") no-repeat center center scroll;
+	height: 100%;
+	background-size: cover;
+	background-attachment: fixed;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
 
+	<br>
+	<br>
+	<br>
+	<br>
+
 	<div>
-		<c:choose>
-			<c:when test="${! empty national_park.id }">
+		<c:if test="${ empty loggedIn.username}">
+
+			<ul style="list-style: none;">
+				<li><strong><a href="${park.link}">${park.name}</a> -
+						${park.location.state}</strong></li>
+				<li><em>${park.description}</em></li>
+				<p>
+					Activities:
+					<c:forEach items="${park.activities}" var="activity">
+                      ${activity.name},  
+                                        
+                    </c:forEach>
+				</p>
+			</ul>
+	<h4>To plan a trip, please create an account or login.</h4>
+		</c:if>
+		<c:if test="${! empty loggedIn.username}">
+			<form action="bucketlist.do" method="POST">
 
 				<ul style="list-style: none;">
-					<li>${national_park.name}</li>
-					<li>${national_park.description}</li>
-					<li>${location.state}</li>
-					<li>${national_park.link_nps}</li>
+					<li><strong><a href="${park.link}">${park.name}</a> -
+							${park.location.state}</strong></li>
+					<li><em>${park.description}</em></li>
+					<c:forEach items="${park.activities}" var="activity">
+						<input type="checkbox" name="activityIds" value="${activity.id }"> ${activity.name} 
+                                        
+                    </c:forEach>
 				</ul>
-			</c:when>
-			<c:otherwise>
-				<h4>No Park found</h4>
-			</c:otherwise>
-		</c:choose>
+				Trip Name: 
+				
+				<input type="hidden" name="account_id" value="${loggedIn.id}"/>
+				<input type="hidden" name="parkId" value="${park.id}"/>
+				<input type="text" name="name" value="${trip.name}">
+				
+				<input type="submit" value="Save Trip" />
+			</form>
+		</c:if>
 	</div>
-
-	<input type="submit" value="Plan a Trip" />
-	<input type="submit" value="Save Trip" />
-
-
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
 </html>

@@ -12,11 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.skilldistillery.chooseadventure.data.ChooseAdventureDAO;
 import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
+import com.skilldistillery.chooseadventure.entities.Trip;
+import com.skilldistillery.chooseadventure.entities.TripComment;
 
 @Controller
 public class ChooseAdventureController {
@@ -31,7 +32,7 @@ public class ChooseAdventureController {
 		return "index";
 	}
 
-	@RequestMapping(path = "showpark.do", method = RequestMethod.GET)
+	@RequestMapping(path = "showpark.do", params = "state", method = RequestMethod.GET)
 	public String searchByState(@RequestParam("state") String state, Model model, HttpSession session) {
 		System.out.println(state);
 		model.addAttribute("parks", dao.searchByState(state));
@@ -84,32 +85,108 @@ public class ChooseAdventureController {
 			account = dao.getAccountByUsername(account.getUsername());
 			session.setAttribute("loggedIn", account);
 			model.addAttribute("account", account);
-			
+
 			return "nationalparks/userprofile";
 		}
 		return "nationalparks/login";
 	}
+
 	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
 		session.removeAttribute("loggedIn");
+		model.addAttribute("account", new Account());
+		model.addAttribute("activities", dao.getAllActivities());
+
 		return "index";
 	}
-	
-	
 
 	@RequestMapping(path = "userprofile.do", method = RequestMethod.POST)
 	public String linkToUserProfile(Model model, HttpSession session) {
 		model.addAttribute("account", new Account());
 		return "nationalparks/userprofile";
 	}
-	
+
 	@RequestMapping(path = "userprofile.do", params = "account", method = RequestMethod.POST)
-	public String linkToUserProfile( Account account, Model model, HttpSession session) {
+	public String linkToUserProfile(Account account, Model model, HttpSession session) {
 		account.setActive(true);
-		model.addAttribute("account", dao.createUpdateAccount(account));
-		return "nationalparks/userprofile";
+		boolean filled = false;
+		Account databaseAccount = dao.createUpdateAccount(account);
+		if (account.getId() != 0) {
+			filled = true;
+		}
+		account.setActive(true);
+		model.addAttribute("account", databaseAccount);
+		if (filled == true) { 
+			return "nationalparks/userprofile";
+		}
+		return "nationalparks/login";
+	}
+
+	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
+	public String confirmDelete(Model model, HttpSession session) {
+		return "nationalparks/delete";
+	}
+
+	@RequestMapping(path = "delete.do", params = "aid", method = RequestMethod.POST)
+	public String deleteUser(Model model, HttpSession session) {
+		Account user = (Account) session.getAttribute("loggedIn");
+		session.removeAttribute("loggedIn");
+		dao.deleteAccount(user);
+		return "nationalparks/delete";
+	}
+
+	@RequestMapping(path = "gotoshowpark.do", method = RequestMethod.GET)
+	public String linkToShowPark(@RequestParam("pid") int pid, Model model, HttpSession session) {
+		model.addAttribute("park", dao.getParkById(pid));
+		model.addAttribute("trip", new Trip());
+		return "nationalparks/showpark";
+	}
+
+	@RequestMapping(path = "bucketlist.do", method = RequestMethod.POST)
+	public String linkToBucketlist(Trip trip, Model model,@RequestParam("parkId") int parkId, HttpSession session) {
+		Account user = (Account) session.getAttribute("loggedIn");
+		List<Trip> trips = dao.getTripsByUserId(user.getId());
+		trip.setAccount(user);
+		trip.setNationalPark(dao.getParkById(parkId));
+		Trip managedTrip = dao.createUpdateTrip(trip, user);
+		model.addAttribute("trip", managedTrip);
+		if(trips.size() > 0) {
+			model.addAttribute("trips", trips);			
+		}
+//		model.addAttribute("comment", new TripComment());
+//		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
+		return "nationalparks/bucketList";
 	}
 	
+	@RequestMapping(path = "edittrip.do", method = RequestMethod.POST)
+	public String editATrip(Trip trip, Model model, HttpSession session) {
+		Account user = (Account) session.getAttribute("loggedIn");
+		Trip managedTrip = dao.createUpdateTrip(trip, user);
+		model.addAttribute("trip", managedTrip);
+		model.addAttribute("trips", dao.getTripsByUserId(user.getId()));
+		model.addAttribute("comment", new TripComment());
+		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
+		return "nationalparks/showpark";
+	}
 	
+	@RequestMapping(path = "deletetrip.do", method = RequestMethod.POST)
+	public String deleteATrip(Trip trip, Model model, HttpSession session) {
+		dao.deleteTrip(trip);
+		return "nationalparks/bucketList";
+	}
 	
+	@RequestMapping(path="createcomment.do", method = RequestMethod.POST)
+	public String createComment(TripComment tripComment, Trip trip, Model model, HttpSession session) {
+		Account user = (Account) session.getAttribute("loggedIn");
+		model.addAttribute("trips", dao.getTripsByUserId(user.getId()));
+		model.addAttribute("comment", dao.createUpdateTripComment(tripComment, trip));
+		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));
+		return "nationalparks/bucketList";
+	}
+
+	@RequestMapping(path = "deletetripcomment.do", method = RequestMethod.POST)
+	public String deleteATripComment(TripComment tripComment, Model model, HttpSession session) {
+		dao.deleteTripComment(tripComment);
+		return "nationalparks/bucketList";
+	}
 }

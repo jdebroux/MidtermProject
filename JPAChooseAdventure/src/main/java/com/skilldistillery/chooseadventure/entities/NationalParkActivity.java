@@ -1,15 +1,11 @@
 package com.skilldistillery.chooseadventure.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,35 +24,41 @@ public class NationalParkActivity {
 	@JoinColumn(name="national_park_id")
 	private NationalPark nationalPark;
 	
-	@OneToMany(mappedBy="nationalParkActivity")
-	private List<TripActivity> tripActivities;
+//	@OneToMany(mappedBy="nationalParkActivity")
+//	private List<TripActivity> tripActivities;
 
 	public NationalParkActivity() {
 	}
 	
-	public void addTripActivity(TripActivity tripActivity) {
-		if(tripActivities == null) tripActivities = new ArrayList<>();
-		
-		if(!tripActivities.contains(tripActivity)) {
-			tripActivities.add(tripActivity);
-			if(tripActivity.getNationalParkActivity() != null) {
-				tripActivity.getNationalParkActivity().getTripActivities().remove(tripActivity);
-			}
-			tripActivity.setNationalParkActivity(this);
-		}
-	}
-	
-	public void removeTripActivity(TripActivity tripActivity) {
-		tripActivity.setNationalParkActivity(null);
-		if(tripActivities != null) {
-			tripActivities.remove(tripActivity);
-		}
-	}
+//	public void addTripActivity(TripActivity tripActivity) {
+//		if(tripActivities == null) tripActivities = new ArrayList<>();
+//		
+//		if(!tripActivities.contains(tripActivity)) {
+//			tripActivities.add(tripActivity);
+//			if(tripActivity.getNationalParkActivity() != null) {
+//				tripActivity.getNationalParkActivity().getTripActivities().remove(tripActivity);
+//			}
+//			tripActivity.setNationalParkActivity(this);
+//		}
+//	}
+//	
+//	public void removeTripActivity(TripActivity tripActivity) {
+//		tripActivity.setNationalParkActivity(null);
+//		if(tripActivities != null) {
+//			tripActivities.remove(tripActivity);
+//		}
+//	}
 
 	public int getId() {
 		return id;
 	}
 	
+	
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Activity getActivity() {
 		return activity;
 	}
@@ -73,13 +75,13 @@ public class NationalParkActivity {
 		this.nationalPark = nationalPark;
 	}
 
-	public List<TripActivity> getTripActivities() {
-		return new ArrayList<>(tripActivities);
-	}
-
-	public void setTripActivities(List<TripActivity> tripActivities) {
-		this.tripActivities = tripActivities;
-	}
+//	public List<TripActivity> getTripActivities() {
+//		return new ArrayList<>(tripActivities);
+//	}
+//
+//	public void setTripActivities(List<TripActivity> tripActivities) {
+//		this.tripActivities = tripActivities;
+//	}
 
 	@Override
 	public int hashCode() {

@@ -55,6 +55,18 @@ public class GeoFeature {
 	public String getName() {
 		return name;
 	}
+	
+	public List<NationalPark> getNationalParks() {
+		return nationalParks;
+	}
+
+	public void setNationalParks(List<NationalPark> nationalParks) {
+		this.nationalParks = nationalParks;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public void setName(String name) {
 		this.name = name;

@@ -12,12 +12,17 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
+	
+	<br>
+	<br>
+	<br>
+	<br>
 	<div>
 		<h2>Login</h2>
 
 		<form action="login.do" method="POST">
 			<input type="text" name="username" placeholder="username" /> <br>
-			<input type="text" name="password" placeholder="password" /> <br>
+			<input type="password" name="password" placeholder="password" /> <br>
 			<input type="submit" value="Submit" />
 		</form>
 	</div>

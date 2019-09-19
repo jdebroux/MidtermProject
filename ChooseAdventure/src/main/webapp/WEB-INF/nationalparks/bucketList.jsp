@@ -12,7 +12,12 @@
 
 </head>
 <body>
-
+	<jsp:include page="navbar.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<c:choose>
 		<c:when test="">
 
@@ -48,7 +53,7 @@
 		</c:otherwise>
 	</c:choose>
 
-<jsp:include page="bootstrapLower.jsp" />
-	
+	<jsp:include page="bootstrapLower.jsp" />
+
 </body>
 </html>
