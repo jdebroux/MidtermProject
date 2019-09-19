@@ -18,7 +18,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
 	<c:choose>
 		<c:when test="">
 
