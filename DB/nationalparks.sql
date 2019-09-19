@@ -265,10 +265,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trip_activity` ;
 
 CREATE TABLE IF NOT EXISTS `trip_activity` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `trip_id` INT NOT NULL,
   `activity_id` INT NOT NULL,
   INDEX `fk_trip_activity_trip_idx` (`trip_id` ASC),
   INDEX `fk_trip_activity_activity1_idx` (`activity_id` ASC),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_trip_activity_trip`
     FOREIGN KEY (`trip_id`)
     REFERENCES `trip` (`id`)
@@ -1105,7 +1107,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `trip_activity` (`trip_id`, `activity_id`) VALUES (2, 1);
+INSERT INTO `trip_activity` (`id`, `trip_id`, `activity_id`) VALUES (1, 2, 1);
 
 COMMIT;
 
