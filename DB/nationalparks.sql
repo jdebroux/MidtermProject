@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `name` VARCHAR(200) NOT NULL,
   `national_park_id` INT NOT NULL,
   `account_id` INT NOT NULL,
+  `completed` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   INDEX `fk_trip_national_park1_idx` (`national_park_id` ASC),
   INDEX `fk_trip_user_idx` (`account_id` ASC),
@@ -162,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `trip_comment` (
   `trip_id` INT NOT NULL,
   `create_date` DATE NULL,
   `description` TEXT NULL,
-  `title` VARCHAR(250) NOT NULL,
+  `title` VARCHAR(250) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_trip1_idx` (`trip_id` ASC),
   CONSTRAINT `fk_comment_trip1`
@@ -454,7 +455,7 @@ INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_n
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (39, 'Lassen Volcanic', 'Lassen Peak, the largest plug dome volcano in the world, is joined by all three other types of volcanoes in this park: shield, cinder dome, and composite. Though Lassen itself last erupted in 1915, most of the rest of the park is continuously active. Numerous hydrothermal features, including fumaroles, boiling pools, and bubbling mud pots, are heated by molten rock from beneath the peak.', 39, 'https://www.nps.gov/lavo/index.htm', 'Lassen.jpg');
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (40, 'Mammoth Cave', 'With more than 400 miles (640 km) of passageways explored, Mammoth Cave is the world\'s longest known cave system. Subterranean wildlife includes eight bat species, Kentucky cave shrimp, Northern cavefish, and cave salamanders. Above ground, the park provides recreation on the Green River, 70 miles of hiking trails, and plenty of sinkholes and springs.', 40, 'https://www.nps.gov/maca/index.htm', 'MammothCave.jpg');
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (41, 'Mesa Verde', 'This area constitutes over 4,000 archaeological sites of the Ancestral Puebloan people, who lived here and elsewhere in the Four Corners region for at least 700 years. Cliff dwellings built in the 12th and 13th centuries include Cliff Palace, which has 150 rooms and 23 kivas, and the Balcony House, with its many passages and tunnels.', 41, 'https://www.nps.gov/meve/index.htm', 'MesaVerde.jpg');
-INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (42, 'Mount Rainier', 'Mount Rainier, an active stratovolcano, is the most prominent peak in the Cascades and is covered by 26 named glaciers including Carbon Glacier and Emmons Glacier, the largest in the contiguous United States. The mountain is popular for climbing, and more than half of the park is covered by subalpine and alpine forests and meadows seasonally in bloom with wildflowers. Paradise on the south slope is the snowiest place on Earth where snowfall is measured regularly. The Longmire visitor center is the start of the Wonderland Trail, which encircles the mountain.', 42, 'https://www.nps.gov/mora/index.htm', 'MountRanier.jpg');
+INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (42, 'Mount Rainier', 'Mount Rainier, an active stratovolcano, is the most prominent peak in the Cascades and is covered by 26 named glaciers including Carbon Glacier and Emmons Glacier, the largest in the contiguous United States. The mountain is popular for climbing, and more than half of the park is covered by subalpine and alpine forests and meadows seasonally in bloom with wildflowers. Paradise on the south slope is the snowiest place on Earth where snowfall is measured regularly. The Longmire visitor center is the start of the Wonderland Trail, which encircles the mountain.', 42, 'https://www.nps.gov/mora/index.htm', 'MountRainier.jpg');
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (43, 'North Cascades', 'This complex encompasses two units of the National Park itself as well as the Ross Lake and Lake Chelan National Recreation Areas. The highly glaciated mountains are spectacular examples of Cascade geology. Popular hiking and climbing areas include Cascade Pass, Mount Shuksan, Mount Triumph, and Eldorado Peak.', 43, 'https://www.nps.gov/olym/index.htm', 'North Cascades.jpg');
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (44, 'Olympic', 'Situated on the Olympic Peninsula, this park includes a wide range of ecosystems from Pacific shoreline to temperate rainforests to the alpine slopes of the Olympic Mountains, the tallest of which is Mount Olympus. The Hoh Rainforest and Quinault Rainforest are the wettest area in the contiguous United States, with the Hoh receiving an average of almost 12 ft (3.7 m) of rain every year.', 44, 'https://www.nps.gov/pefo/index.htm', 'Olympic.jpg');
 INSERT INTO `national_park` (`id`, `name`, `description`, `location_id`, `link_nps`, `link_image_url`) VALUES (45, 'Petrified Forest', 'This portion of the Chinle Formation has a large concentration of 225-million-year-old petrified wood. The surrounding Painted Desert features eroded cliffs of red-hued volcanic rock called bentonite. Dinosaur fossils and over 350 Native American sites are also protected in this park.', 45, 'https://www.nps.gov/pinn/index.htm', 'PetrifiedForest.jpg');
@@ -481,8 +482,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`) VALUES (1, 'Yosemite', 58, 1);
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`) VALUES (2, 'Wind Cave', 55, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (1, 'Yosemite', 58, 1, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT);
 
 COMMIT;
 
