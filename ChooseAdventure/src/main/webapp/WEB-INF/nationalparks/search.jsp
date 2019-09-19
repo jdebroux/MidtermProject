@@ -8,34 +8,40 @@
 <title>Choose Adventure</title>
 <meta charset="utf-8">
 
-	<jsp:include page="bootstrapUpper.jsp" />
-	<link rel="stylesheet" href="IndexStyle.css" />
+<jsp:include page="bootstrapUpper.jsp" />
+<link rel="stylesheet" href="IndexStyle.css" />
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<div>
-		<h1>Search For a National Park</h1>
-		<form action="showpark.do" method="GET">
-			By State: <select name="state">
-				<c:forEach items="${states}" var="state">
-					<option value="${state}">${state}</option>
-				</c:forEach>
-			</select> <input type="submit" value="Submit" />
-		</form>
-	</div>
-	<div>
-		<form action="results.do" method="GET">
-			By Keyword: <input type="text" name="keyword"
-				placeholder="keyword search" /> <input type="submit" value="Submit" />
-		</form>
-	</div>
 
+	<br>
+	<br>
+	<br>
+	<br>
+		<div>
+
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8, index">
+					<form action="showpark.do" method="GET">
+						Search For a National Park<br> By State: <select name="state">
+							<c:forEach items="${states}" var="state">
+								<option value="${state}">${state}</option>
+							</c:forEach>
+						</select> <input id="button" type="submit" value="Submit" />
+					</form>
+					<div>
+						<form action="results.do" method="GET">
+							By Keyword: <input id="button" type="text" name="keyword"
+								placeholder="keyword search" /> <input id="button" type="submit"
+								value="Submit" />
+						</form>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+		</div>
+	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
-
 </body>
 </html>

@@ -20,24 +20,28 @@
 
 	<div id="YAP">Your Adventure Planner!</div>
 
-
-	<form action="activities.do" method="POST">
-		<div class="activitiesforeach, container">
-			Search for parks by activity: <br>
-			<table>
-				<c:forEach items="${activities}" var="activity">
-					<tr>
-						<td><input type="checkbox" name="activityIds"
-							value="${activity.id }"> ${activity.name}</td>
-					</tr>
-				</c:forEach>
-			</table>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8, index">
+			<form action="activities.do" method="POST">
+				<div>Search for parks by activity:</div>
+				<div class="activitiesforeach">
+					<table>
+						<c:forEach items="${activities}" var="activity">
+							<tr>
+								<td><input type="checkbox" name="activityIds"
+									value="${activity.id }"> ${activity.name}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<div id="button">
+					<br> <input id="button" type="submit" value="Find Parks" />
+				</div>
+			</form>
 		</div>
-		<div class="button">
-			<br> <input type="submit" value="Find Parks" />
-			</div>
-	</form>
-
+		<div class="col-sm-2"></div>
+	</div>
 	<jsp:include page="nationalparks/footer.jsp" />
 	<jsp:include page="nationalparks/bootstrapLower.jsp" />
 
