@@ -52,13 +52,13 @@ body, html {
 							${park.location.state}</strong></li>
 					<li><em>${park.description}</em></li>
 					<c:forEach items="${park.activities}" var="activity">
-						<input type="checkbox" name="activityIds" value="${activity.id }"> ${activity.name} 
+						<input type="checkbox" name="activityIds" value="${activity.id }" <%-- <c:if test="${trip.tripActivities[activity.id]}">checked="checked"</c:if>--%>>  ${activity.name} 
                                         
                     </c:forEach>
 				</ul>
 				Trip Name: 
-				
-				<input type="hidden" name="account_id" value="${loggedIn.id}"/>
+				<input type="hidden" name="id" value="${trip.id}"/>
+				<%-- <input type="hidden" name="account_id" value="${loggedIn.id}"/> --%>
 				<input type="hidden" name="parkId" value="${park.id}"/>
 				<input type="text" name="name" value="${trip.name}">
 				

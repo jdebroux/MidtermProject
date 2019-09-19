@@ -198,13 +198,14 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public Trip createUpdateTrip(Trip trip, Account user) {
 		Trip managedTrip = null;
+		System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
 			newTrip.setAccount(user);
 			newTrip.setName(trip.getName());
 			newTrip.setNationalPark(trip.getNationalPark());
 			newTrip.setActivities(trip.getActivities());
-			newTrip.setTripComments(trip.getTripComments());
+//			newTrip.setTripComments(trip.getTripComments());
 			em.persist(newTrip);
 			em.flush();
 			return newTrip;
