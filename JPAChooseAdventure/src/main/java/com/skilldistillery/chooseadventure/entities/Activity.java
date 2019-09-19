@@ -34,11 +34,14 @@ public class Activity {
 	inverseJoinColumns=@JoinColumn(name="national_park_id"))
 	private List<NationalPark> nationalParks;	
 	
-	@ManyToMany
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="trip_activity", joinColumns=@JoinColumn(name="activity_id"),
 	inverseJoinColumns=@JoinColumn(name="trip_id"))
 	private List<Trip> trips;	
 
+	@OneToMany(mappedBy = "activity")
+	private List<TripActivity> tripActivities;
+	
 	public Activity() {
 	}
 	
@@ -105,6 +108,14 @@ public class Activity {
 	}
 	
 	
+
+	public List<TripActivity> getTripActivities() {
+		return new ArrayList<>(tripActivities);
+	}
+
+	public void setTripActivities(List<TripActivity> tripActivities) {
+		this.tripActivities = tripActivities;
+	}
 
 	public String getName() {
 		return name;

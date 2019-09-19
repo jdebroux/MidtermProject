@@ -19,25 +19,43 @@
 	<br>
 	<br>
 	<c:choose>
-		<c:when test="">
+		<c:when test="${not empty trips}">
 
-			<h3>Hello ${account.firstName}, your trips:</h3>
+			<h3>Hello ${loggedIn.firstName}</h3>
+			<h4>Your Trips:</h4>
+			<br>
 
 
-			<ul>
+			<c:forEach items="${trips}" var="singletrip">
+				<ul>
 
-				<c:forEach items="${trip }" var="trip">
-
+					<li>${trip.id}</li>				
 					<!-- not yet right - just a shell of info to be filled in w/ right one -->
 
-					<li><a href="getTrip.do?tid=${trip.id}"> Trip
-							${trip.nationalPark} ${trip.activities} </a></li>
-				</c:forEach>
+					<li><a href="getTrip.do?tid=${singletrip.id}"> Trip
+							${singletrip.nationalPark} ${singletrip.activities} </a></li>
+					<li>${singletrip.name}</li>
 
-				<li>${trip.name}</li>
+					
+				</ul>
+			<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
+				<ul>
+				<li><c:out value="${tripActivity.activity}"></c:out></li>
+				</ul>
+			</c:forEach>
+				<form action="deletetrip.do" method="POST">
+					<input type="hidden" name="tripId" value="${singletrip.id}" /> 
+					<input type="submit" class="btn btn-danger" value="Delete Trip"/>
+				</form>
+				<form action="edittrip.do" method="POST">
+					<input type="hidden" name="tripId" value="${singletrip.id}" /> 
+					<input type="submit" class="btn btn-primary" value="Update Trip"/>
+				</form>
+				<br>
+				<br>
+				<br>
+			</c:forEach>
 
-				<li>${trip. }
-			</ul>
 
 
 		</c:when>
@@ -45,7 +63,7 @@
 		<c:otherwise>
 
 
-			<h3>Hello ${account.firstName}, you should plan an exciting
+			<h3>Hello ${loggedIn.firstName}, you should plan an exciting
 				trip!! Click on home above to begin planning.</h3>
 
 

@@ -23,6 +23,10 @@ public class TripActivity {
 	@ManyToOne
 	@JoinColumn(name="trip_id")
 	private Trip trip;
+	
+	@ManyToOne
+	@JoinColumn(name="activity_id")
+	private Activity activity;
 
 	public TripActivity() {
 	}
@@ -41,6 +45,18 @@ public class TripActivity {
 //		this.nationalParkActivity = nationalParkActivity;
 //	}
 
+	public TripActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -53,27 +69,27 @@ public class TripActivity {
 		this.trip = trip;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TripActivity other = (TripActivity) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + id;
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		TripActivity other = (TripActivity) obj;
+//		if (id != other.id)
+//			return false;
+//		return true;
+//	}
 
 	@Override
 	public String toString() {

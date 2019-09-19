@@ -44,6 +44,14 @@ public class TripComment {
 	public String getTitle() {
 		return title;
 	}
+	
+	public int getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(int completed) {
+		this.completed = completed;
+	}
 
 	public void setTitle(String title) {
 		this.title = title;

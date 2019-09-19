@@ -33,5 +33,7 @@ public interface ChooseAdventureDAO {
 	public boolean deleteTripComment (TripComment tripComment);
 	public List<Trip> getTripsByUserId(int userId);
 	public List<TripComment> getTripCommentsByTripId(int tripId);
+	public Activity getActivityById(int activityId);
+	public List<Activity> getActivitiesByTripId (int tripId);
 	
 }
