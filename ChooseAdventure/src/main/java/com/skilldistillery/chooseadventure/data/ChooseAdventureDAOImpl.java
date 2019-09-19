@@ -59,7 +59,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 			npset.addAll(em.createQuery(query, NationalPark.class).setParameter("input", search).getResultList());
 		}
-
 		return npset;
 	}
 
@@ -94,11 +93,8 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		for (NationalPark nationalPark : parks) {
 			if (!states.contains(nationalPark.getLocation().getState())) {
 				states.add(nationalPark.getLocation().getState());
-
 			}
-
 		}
-
 		return states;
 	}
 
@@ -131,7 +127,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			em.flush();
 			System.err.println(newAccount);
 			return newAccount;
-
 		} else if (isEmailUnique(user.getEmail())) {
 			em.persist(user);
 			em.flush();
@@ -201,18 +196,17 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public Trip createUpdateTrip(Trip trip) {
+	public Trip createUpdateTrip(Trip trip, Account user) {
 		Trip managedTrip = null;
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
-			newTrip.setAccount(trip.getAccount());
+			newTrip.setAccount(user);
 			newTrip.setName(trip.getName());
 			newTrip.setNationalPark(trip.getNationalPark());
 			newTrip.setActivities(trip.getActivities());
 			newTrip.setTripComments(trip.getTripComments());
 			em.persist(newTrip);
 			em.flush();
-
 			return newTrip;
 
 		} else {
@@ -244,16 +238,15 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	}
 
 	@Override
-	public TripComment createUpdateTripComment(TripComment tripComment) {
+	public TripComment createUpdateTripComment(TripComment tripComment, Trip trip) {
 		TripComment managedTC = null;
 		if (tripComment.getId() != 0) {
 			TripComment newTripComment = em.find(TripComment.class, tripComment.getId());
 			newTripComment.setDescription(tripComment.getDescription());
 			newTripComment.setTitle(tripComment.getTitle());
-			newTripComment.setTrip(tripComment.getTrip());
+			newTripComment.setTrip(trip);
 			em.persist(newTripComment);
 			em.flush();
-
 			return newTripComment;
 
 		} else {
@@ -293,4 +286,18 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	public TripComment getTripCommentById(int id) {
 		return em.find(TripComment.class, id);
 	}
+
+	@Override
+	public List<Trip> getTripsByUserId(int userId) {
+		String qS = "SELECT a.trips FROM Account a WHERE a.id = :input";
+		return em.createQuery(qS, Trip.class).setParameter("input", userId).getResultList();
+	}
+
+	@Override
+	public List<TripComment> getTripCommentsByTripId(int tripId) {
+		String qS = "SELECT t.tripComments FROM Trip t WHERE t.id = :input";
+		return em.createQuery(qS, TripComment.class).setParameter("input", tripId).getResultList();
+	}
+	
+	
 }

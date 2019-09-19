@@ -25,11 +25,13 @@ public interface ChooseAdventureDAO {
 	public Account getAccountById(int id);
 	public boolean deleteAccount(Account user);
 	public Account createUpdateAccount(Account user);
-	public Trip createUpdateTrip(Trip trip);
+	public Trip createUpdateTrip(Trip trip, Account user);
 	public Trip getTripById(int id);
 	public boolean deleteTrip(Trip trip);
-	public TripComment createUpdateTripComment(TripComment tripComment);
+	public TripComment createUpdateTripComment(TripComment tripComment, Trip trip);
 	public TripComment getTripCommentById(int id);
 	public boolean deleteTripComment (TripComment tripComment);
+	public List<Trip> getTripsByUserId(int userId);
+	public List<TripComment> getTripCommentsByTripId(int tripId);
 	
 }
