@@ -18,60 +18,65 @@
 	<br>
 	<br>
 	<br>
-	<c:choose>
-		<c:when test="${not empty trips}">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8, index">
+			<c:choose>
+				<c:when test="${not empty trips}">
 
-			<h3>Hello ${loggedIn.firstName}</h3>
-			<h4>Your Trips:</h4>
-			<br>
-
-
-			<c:forEach items="${trips}" var="singletrip">
-			<h4>Adventure Yet To Happen: </h4>
-				<ul>
-
-					<!-- not yet right - just a shell of info to be filled in w/ right one -->
-
-					<li><a href="getTrip.do?tid=${singletrip.id}"> Trip
-							${singletrip.nationalPark} ${singletrip.activities} </a></li>
-					<li>${singletrip.name}</li>
+					<h3>Hello ${loggedIn.firstName}</h3>
+					<h4>Your Trips:</h4>
+					<br>
 
 
-				</ul>
-				<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
-					<ul>
-						<li><c:out value="${tripActivity.activity}"></c:out></li>
-					</ul>
-				</c:forEach>
-				<form action="deletetrip.do" method="POST">
-					<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
-						type="submit" class="btn btn-danger" value="Delete Trip" />
-				</form>
-				<form action="edittrip.do" method="POST">
-					<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
-						type="submit" class="btn btn-primary" value="Update Trip" />
-				</form>
-				<br>
-				<br>
-				<br>
-			</c:forEach>
+					<c:forEach items="${trips}" var="singletrip">
+						<h4>Adventure Yet To Happen:</h4>
+						<ul>
+
+							<!-- not yet right - just a shell of info to be filled in w/ right one -->
+
+							<li><a href="getTrip.do?tid=${singletrip.id}"> Trip
+									${singletrip.nationalPark} ${singletrip.activities} </a></li>
+							<li>${singletrip.name}</li>
 
 
-
-		</c:when>
-
-		<c:otherwise>
-
-
-			<h3>Hello ${loggedIn.firstName}, you should plan an exciting
-				trip!! Click on home above to begin planning.</h3>
+						</ul>
+						<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
+							<ul>
+								<li><c:out value="${tripActivity.activity}"></c:out></li>
+							</ul>
+						</c:forEach>
+						<form action="deletetrip.do" method="POST">
+							<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
+								type="submit" class="btn btn-danger" value="Delete Trip" />
+						</form>
+						<form action="edittrip.do" method="POST">
+							<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
+								type="submit" class="btn btn-primary" value="Update Trip" />
+						</form>
+						<br>
+						<br>
+						<br>
+					</c:forEach>
 
 
 
-		</c:otherwise>
-	</c:choose>
+				</c:when>
+
+				<c:otherwise>
+
+
+					<h3>Hello ${loggedIn.firstName}, you should plan an exciting
+						trip!! Click on home above to begin planning.</h3>
+
+
+
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
 
 	<jsp:include page="bootstrapLower.jsp" />
-
 </body>
 </html>
