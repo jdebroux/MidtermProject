@@ -7,24 +7,22 @@
 <link rel="stylesheet" href="NavBar.css" />
 
 <style>
-.navbar{
-    height: 50px;
-
+.navbar {
+	height: 50px;
 }
 
 .collapse navbar-collapse {
-font-size: 12px;
-color: white !important;
+	font-size: 12px;
+	color: white !important;
 }
 /* .navbar-inverse {
     background: linear-gradient(#8c8c8c, #c4c4c4);
 } */
-
 .navbar-header a {
-    height: 120px;
-    width: auto;
-    padding-top: 3px;
-    color: white !important;
+	height: 120px;
+	width: auto;
+	padding-top: 3px;
+	color: white !important;
 }
 </style>
 
@@ -35,31 +33,44 @@ color: white !important;
 	class="navbar fixed-top navbar-inverse bg-dark navbar-expand-sm inline justify-content-center">
 	<div class="collapse navbar-collapse">
 
+		<a class="navbar-brand" href="#">Your Adventure Planner</a>
+
+		<form action="index.do" method="GET">
+			<font color="white">
+				<button type="submit" class="btn btn-link" value="Home"></button>
+			</font>
+		</form>
+		<form action="index.do" method="GET">
+			<font color="white">
+				<button type="submit" class="btn btn-link" value="Home"></button>
+			</font>
+		</form>
+
+
 		<form action="index.do" method="GET">
 			<font color="white">
 				<button type="submit" class="btn btn-link" value="Home">Home</button>
 			</font>
 		</form>
-
-
+		
 		<div class="dropdown show">
-			<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
-				role="button" id="dropdownMenuLink" data-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"> Parks </a>
+		<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+			role="button" id="dropdownMenuLink" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false"> Parks </a>
 
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-				<a class="dropdown-item" href="#"><form action="results.do"
-						method="GET">
-						<button type="submit" class="btn btn-link" name="keyword">See
-							All Parks</button>
-					</form></a> <a class="dropdown-item" href="#"><form action="search.do"
-						method="GET">
-						<button type="submit" class="btn btn-link"
-							value="Search For Parks">Search For Parks</button>
-					</form></a>
-			</div>
+			<a class="dropdown-item" href="#"><form action="results.do"
+					method="GET">
+					<button type="submit" class="btn btn-link" name="keyword">See
+						All Parks</button>
+				</form></a> <a class="dropdown-item" href="#"><form action="search.do"
+					method="GET">
+					<button type="submit" class="btn btn-link" value="Search For Parks">Search
+						For Parks</button>
+				</form></a>
 		</div>
+	</div>
 
 		<c:if test="${empty loggedIn }">
 
@@ -93,15 +104,35 @@ color: white !important;
 				</div>
 		</c:if>
 		<c:if test="${! empty loggedIn }">
+		
+		<div class="dropdown show">
+		<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+			role="button" id="dropdownMenuLink" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false"> Account </a>
+
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+			<a class="dropdown-item" href="#">
+			
 			<form action="logout.do" method="POST">
 				<button type="submit" class="btn btn-link" value="Logout">Logout</button>
-			</form>
+			</form></a> 
+			
+			
+		<a class="dropdown-item" href="#"><form action="seeprofile.do" method="POST">
+					<button type="submit" class="btn btn-link" value="Profile">Profile
+						</button>
+				</form></a>
+		</div>
+	</div>
 			<form action="gotobucketlist.do" method="POST">
-				<button type="submit" class="btn btn-link">See Trips</button>
+			
+			
+				<button type="submit" class="btn btn-link">Bucket List</button>
 			</form>
 
 		</c:if>
-	</div>
+
 	</div>
 
 </nav>

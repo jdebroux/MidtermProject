@@ -84,9 +84,9 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public String linkToLoginPage(Account account, Model model, HttpSession session) {
-		account = dao.getAccountByUsername(account.getUsername());
 		if (account != null) {
 			if (dao.isValidAccount(account)) {
+				account = dao.getAccountByUsername(account.getUsername());
 				if (account.getActive() == true) {
 					account = dao.getAccountByUsername(account.getUsername());
 					session.setAttribute("loggedIn", account);
