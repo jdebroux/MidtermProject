@@ -3,13 +3,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<nav class="navbar fixed-top navbar-inverse bg-dark navbar-expand-sm inline justify-content-left">
+<nav class="navbar fixed-top navbar-inverse bg- navbar-expand-sm inline justify-content-center">
 
 	<!-- <button type="button" class="navbar-toggle" data-toggle="collapse"
 		data-target="#myNavbar"></button> -->
 		 
 	 <div class="container-fluid">
-
+<h6>
 		<!-- <div class="navbar-header"> -->
 		
 	<!-- <a class="navbar-brand" href="#">Your Adventure Planner</a> -->
@@ -101,7 +101,7 @@
 			</form>
 	</c:if>
 
-
+</h6>
 	</div>
 	</div>
 </nav>
