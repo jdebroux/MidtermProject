@@ -31,58 +31,49 @@
 			<c:choose>
 				<c:when test="${! empty account }">
 					<form action="userprofile.do" method="POST">
-
-						<table>
-							<tr>
-								<td>User Name</td>
-								<td><input type="text" required="required" name="username"
-									value="${account.username }"></td>
-							</tr>
-							<tr>
-								<td>Password</td>
-								<td><input type="password" required="required"
-									name="password" value="${account.password }"></td>
-							</tr>
-							<tr>
-								<td>First Name</td>
-								<td><input type="text" required="required" name="firstName"
-									value="${account.firstName }"></td>
-							</tr>
-							<tr>
-								<td>Last Name</td>
-								<td><input type="text" required="required" name="lastName"
-									value="${account.lastName }"></td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td><input type="text" name="email"
-									value="${account.email }"></td>
-							</tr>
-						</table>
-						<c:if test="${empty account.username }">
-							<br>
-							<button type="submit" name="account" value="${account}"
-								class="btn btn-default">Create New Profile</button>
-						</c:if>
-						<c:if test="${!empty account.username }">
-							<br>
-							<button type="submit" name="account" value="${account}"
-								class="btn btn-default btn-sm">Update Profile</button>
-						</c:if>
-						<input type="hidden" name="id" value="${account.id}" />
-					</form>
-				</c:when>
-				<c:otherwise>
-				Please create an account.
-				</c:otherwise>
-			</c:choose>
-			<c:if test="${account.privilege == false}">
+				<table>
+					<tr>
+						<td>User Name</td>
+						<td><input type="text" required="required" name="username"
+							value="${account.username }"></td>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td><input type="password" required="required"
+							name="password" value="${account.password }"></td>
+					</tr>
+					<tr>
+						<td>First Name</td>
+						<td><input type="text" required="required" name="firstName"
+							value="${account.firstName }"></td>
+					</tr>
+					<tr>
+						<td>Last Name</td>
+						<td><input type="text" required="required" name="lastName"
+							value="${account.lastName }"></td>
+					</tr>
+					<tr>
+						<td>Email</td>
+						<td><input type="text" name="email" value="${account.email }"></td>
+					</tr>
+				</table>
+				<c:if test="${empty account.username }">
+					<br>
+					<button type="submit" name="account" value="${account}"
+						class="btn btn-default">Create New Profile</button>
+				</c:if>
 				<c:if test="${!empty account.username }">
-					<form action="delete.do" method="POST">
-						<button type="submit" class="btn btn-default btn-sm">Delete
-							Profile</button>
-					</form>
-
+					<br>
+					<button type="submit" name="account" value="${account}"
+						class="btn btn-link">Update Profile</button>
+				</c:if>
+				<input type="hidden" name="id" value="${account.id}" />
+			</form>
+			<c:if test="${!empty account.username }">
+				<form action="delete.do" method="POST">
+					<button type="submit" class="btn btn-link">Delete
+						Profile</button>
+				</form>
 				</c:if>
 			</c:if>
 			<c:if test="${account.privilege == true}">

@@ -18,31 +18,29 @@
 	<br>
 	<br>
 	<br>
+
 	<c:choose>
 		<c:when test="${not empty parks}">
 
-			<ul style="list-style: none;">
-				<c:forEach items="${parks}" var="park">
-					<li id="parkname"><b>${park.name}</b><small> -
-							${park.location.state}</small></li>
-					<li>
-						<div class="container">
-
-							<img src="${park.picture}" alt="Avatar" class="image">
-							<div class="middle">
-								<div class="text">
-									<form action="gotoshowpark.do" method="GET">
-										<input type="hidden" name="pid" value="${park.id}"> <input
-											type="submit" class="btn btn-primary" value="Park Details">
-									</form>
-								</div>
-							</div>
+			<!-- <ul style="list-style: none;"> -->
+			<c:forEach items="${parks}" var="park">
+				<div class="container">
+						<img src="${park.picture}" alt="Avatar" class="image">
+						<div class="outsidemiddle">
+							<b>${park.name}</b> <small> - ${park.location.state}</small>
 						</div>
+					<div class="middle">
+						<div class="text">
+								<form action="gotoshowpark.do" method="GET">
+									<input type="hidden" name="pid" value="${park.id}"> <input
+										type="submit" class="btn btn-primary" value="Park Details">
+								</form>
+						</div>
+					</div>
+				</div>
+				<br>
+			</c:forEach>
 
-					</li>
-					<br>
-				</c:forEach>
-			</ul>
 
 		</c:when>
 
