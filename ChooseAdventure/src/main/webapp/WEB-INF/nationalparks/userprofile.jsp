@@ -57,11 +57,13 @@
 					</tr>
 				</table>
 				<c:if test="${empty account.username }">
-					<br><button type="submit" name="account" value="${account}"
+					<br>
+					<button type="submit" name="account" value="${account}"
 						class="btn btn-default">Create New Profile</button>
 				</c:if>
 				<c:if test="${!empty account.username }">
-					<br><button type="submit" name="account" value="${account}"
+					<br>
+					<button type="submit" name="account" value="${account}"
 						class="btn btn-default">Update Profile</button>
 				</c:if>
 				<input type="hidden" name="id" value="${account.id}" />
@@ -71,12 +73,12 @@
 					<button type="submit" class="btn btn-default">Delete
 						Profile</button>
 				</form>
-				
+
 			</c:if>
 		</div>
 		<div class="col-sm-2"></div>
 	</div>
-
+	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
 </html>

@@ -50,7 +50,7 @@
 			<h4>None</h4>
 		</c:otherwise>
 	</c:choose>
-
+	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
 </html>
