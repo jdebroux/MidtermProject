@@ -99,8 +99,7 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `name` VARCHAR(200) NOT NULL,
   `national_park_id` INT NOT NULL,
   `account_id` INT NOT NULL,
-  `completed` TINYINT NOT NULL DEFAULT 1,
-  `tripcol` VARCHAR(45) NULL,
+  `completed` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_trip_national_park1_idx` (`national_park_id` ASC),
   INDEX `fk_trip_user_idx` (`account_id` ASC),
@@ -486,8 +485,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`, `tripcol`) VALUES (1, 'Yosemite', 58, 1, 1, NULL);
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`, `tripcol`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT, NULL);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (1, 'Yosemite', 58, 1, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT);
 
 COMMIT;
 
