@@ -50,11 +50,11 @@ th, td {
 				<c:forEach items="${accounts}" var="account">
 					<tr>
 						<td>${account.username}</td>
-						<td>${account.active}</td>
 						<td>${account.firstName}</td>
 						<td>${account.lastName}</td>
 						<td>${account.email}</td>
 						<td>${account.privilege}</td>
+						<td>${account.active}</td>
 						<td><c:if test="${account.privilege == false}">
 								<form action="toggleuseraccountactive.do" method="POST">
 									<input type="hidden" name="id" value="${account.id}" />
