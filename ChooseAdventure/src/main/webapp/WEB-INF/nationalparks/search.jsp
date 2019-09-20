@@ -18,7 +18,6 @@
 	<br>
 	<br>
 	<br>
-		<div>
 
 			<div class="row">
 				<div class="col-sm-2"></div>
@@ -40,7 +39,8 @@
 				</div>
 				<div class="col-sm-2"></div>
 			</div>
-		</div>
+		<div class="row">
+			</div>
 	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>

@@ -22,6 +22,8 @@ public class Trip {
 	private int id;
 
 	private String name;
+	
+	private Boolean completed;
 
 	@OneToMany(mappedBy = "trip", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<TripActivity> tripActivities = new ArrayList<>();
@@ -99,6 +101,14 @@ public class Trip {
 		if (tripComments != null) {
 			tripComments.remove(tripComment);
 		}
+	}
+	
+	public Boolean getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
 	}
 
 	public String getName() {
@@ -181,6 +191,8 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", name=" + name + ", nationalPark=" + nationalPark + ", account=" + account + "]";
+		return "Trip [id=" + id + ", name=" + name + ", tripActivities=" + tripActivities + ", nationalPark="
+				+ nationalPark + ", account=" + account + "]";
 	}
+
 }

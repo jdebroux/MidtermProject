@@ -27,6 +27,7 @@
 
 
 			<c:forEach items="${trips}" var="singletrip">
+			<h4>Adventure Yet To Happen: </h4>
 				<ul>
 
 					<!-- not yet right - just a shell of info to be filled in w/ right one -->

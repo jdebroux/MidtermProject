@@ -73,7 +73,12 @@
 					<button type="submit" class="btn btn-link">Delete
 						Profile</button>
 				</form>
-
+				</c:if>
+			</c:if>
+			<c:if test="${account.privilege == true}">
+				<form action="admin.do" method="POST">
+						<button type="submit" class="btn btn-default">Manage Users</button>
+					</form>
 			</c:if>
 		</div>
 		<div class="col-sm-2"></div>
