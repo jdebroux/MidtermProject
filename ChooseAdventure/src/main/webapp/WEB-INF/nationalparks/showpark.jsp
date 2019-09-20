@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,16 +55,30 @@ body, html {
 					<%-- <c:forEach items="${park.activities}" var="activity">
 						<input type="checkbox" name="activityIds" value="${activity.id }" <c:if test="${trip.tripActivities.contains('activity')}"> checked="checked" </c:if>>  ${activity.name}
                     </c:forEach> --%>
-                    <c:forEach items="${park.activities}" var="activity">
+                   
+                    <%-- <c:forEach items="${park.activities}" var="activity">
+                    	<c:forEach items="${tripactivities}" var="tripactivity">
 						<c:choose>
-							<c:when test="${trip.tripActivities.contains(activity)}">
+							<c:when test="${activity.name.equals(tripactivity.activity.name)}">
 								<input type="checkbox" name="activityIds" value="${activity.id }" checked="checked">  ${activity.name}
 							</c:when>
 							<c:otherwise>
 								<input type="checkbox" name="activityIds" value="${activity.id }">  ${activity.name}
                        	 	</c:otherwise>
-                      	</c:choose>   
+                      	</c:choose>
+                      	</c:forEach>   
+                    </c:forEach> --%>
+                    
+                    
+                    
+                    <c:forEach items="${tripactivities}" var="tripactivity">
+                    	<input type="checkbox" name="activityIds" value="${tripactivity.id }" checked="checked">  ${tripactivity.activity.name}
                     </c:forEach>
+                    <c:forEach items="${remainingParkActivities}" var="remainingActivity">
+                    	<input type="checkbox" name="activityIds" value="${remainingActivity.id }">  ${remainingActivity.name}
+                    </c:forEach>
+                    
+                    
 				</ul>
 				Trip Name: 
 				<input type="hidden" name="id" value="${trip.id}"/>
