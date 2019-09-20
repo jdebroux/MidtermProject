@@ -37,7 +37,6 @@ th, td {
 			Welcome, ${loggedIn.firstName} <br>
 			<table class="table-admin">
 				<tr>
-
 					<th>Username</th>
 					<th>First Name</th>
 					<th>Last Name</th>
