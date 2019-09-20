@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <jsp:include page="bootstrapUpper.jsp" />
 <link rel="stylesheet" href="IndexStyle.css" />
-<title>Delete Account</title>
+<title>BucketList</title>
 
 </head>
 <body>

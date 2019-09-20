@@ -32,6 +32,8 @@ public class Account {
 	@Column(name = "email_address")
 	private String email;
 	
+	private Boolean privilege;
+	
 	@OneToMany(mappedBy="account")
 	private List<Trip> trips;
 
@@ -81,8 +83,14 @@ public class Account {
 		return id;
 	}
 	
-	
-	
+	public Boolean getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(Boolean privilege) {
+		this.privilege = privilege;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

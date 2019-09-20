@@ -190,6 +190,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		return false;
 	}
 
+	@Override
 	public List<Account> getAllAccounts() {
 		String query = "select a from Account a";
 		List<Account> accounts = em.createQuery(query, Account.class).getResultList();
@@ -200,7 +201,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public Trip createUpdateTrip(Trip trip, Account user) {
 		Trip managedTrip = null;
-System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
 			newTrip.setAccount(user);
@@ -213,7 +214,7 @@ System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			return newTrip;
 
 		} else {
-System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+			System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 			em.persist(trip);
 			em.flush();
 			managedTrip = getTripByName(trip.getName());
@@ -263,7 +264,8 @@ System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 	private TripComment getTripCommentByName(String title) {
 		String qS = "SELECT tc FROM TripComment tc WHERE tc.title LIKE :input";
-		List<TripComment> tripComments = em.createQuery(qS, TripComment.class).setParameter("input", title).getResultList();
+		List<TripComment> tripComments = em.createQuery(qS, TripComment.class).setParameter("input", title)
+				.getResultList();
 		TripComment comment = tripComments.get(0);
 		return comment;
 	}
@@ -339,19 +341,49 @@ System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 	}
 
 	@Override
-	public boolean removeTripActivities(Trip trip) {
-		List<TripActivity> tripActivities = trip.getTripActivities();
-		if(tripActivities != null && tripActivities.size() > 0) {
-			for (TripActivity tripActivity : tripActivities) {
-				em.remove(tripActivity);
-				em.flush();
-			}
-			if (tripActivities.size() == 0){
-				return true;
+	public boolean removeTripActivities(Account user, Trip trip) {
+		System.err.println(user + "   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		List<Trip> trips = getTripsByUserId(user.getId());
+		if (trips != null && trips.size() > 0) {
+
+			for (Trip userTrip : trips) {
+				if (userTrip.getId() == trip.getId()) {
+					List<TripActivity> tripActivities = userTrip.getTripActivities();
+					if (tripActivities != null && tripActivities.size() > 0) {
+						for (TripActivity tripActivity : tripActivities) {
+							userTrip.removeTripActivity(tripActivity);
+							em.remove(tripActivity);
+							em.flush();
+						}
+						if (tripActivities.size() == 0) {
+							return true;
+						}
+					}
+				}
 			}
 		}
 		return false;
 	}
-	
-	
+
+	@Override
+	public List<Account> sortAccounts(List<Account> unsorted) {
+		List<String> accountNames = new ArrayList<>();
+		List<Account> sortedAccounts = new ArrayList<>();
+		for (Account account : unsorted) {
+			accountNames.add(account.getFirstName());
+		}
+		Collections.sort(accountNames);
+		for (String name : accountNames) {
+			sortedAccounts.add(getAccountByFirstName(name));
+		}
+		return sortedAccounts;
+	}
+
+	@Override
+	public Account getAccountByFirstName(String name) {
+		String qS = "SELECT a FROM Account a WHERE a.firstName LIKE :input";
+		List<Account> account = em.createQuery(qS, Account.class).setParameter("input", name).getResultList();
+		return account.get(0);
+	}
+
 }
