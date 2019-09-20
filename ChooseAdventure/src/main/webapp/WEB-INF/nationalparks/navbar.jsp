@@ -103,10 +103,30 @@
 				</div>
 		</c:if>
 		<c:if test="${! empty loggedIn }">
+		
+		<div class="dropdown show">
+		<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+			role="button" id="dropdownMenuLink" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false"> Account </a>
+
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+			<a class="dropdown-item" href="#">
+			
 			<form action="logout.do" method="POST">
 				<button type="submit" class="btn btn-link" value="Logout">Logout</button>
-			</form>
+			</form></a> 
+			
+			
+		<a class="dropdown-item" href="#"><form action="seeprofile.do" method="POST">
+					<button type="submit" class="btn btn-link" value="Profile">Profile
+						</button>
+				</form></a>
+		</div>
+	</div>
 			<form action="gotobucketlist.do" method="POST">
+			
+			
 				<button type="submit" class="btn btn-link">Bucket List</button>
 			</form>
 		</c:if>
