@@ -201,7 +201,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public Trip createUpdateTrip(Trip trip, Account user) {
 		Trip managedTrip = null;
-		System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
 			newTrip.setAccount(user);
@@ -214,7 +213,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			return newTrip;
 
 		} else {
-			System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 			em.persist(trip);
 			em.flush();
 			managedTrip = getTripByName(trip.getName());
@@ -342,7 +340,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 
 	@Override
 	public boolean removeTripActivities(Account user, Trip trip) {
-		System.err.println(user + "   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		List<Trip> trips = getTripsByUserId(user.getId());
 		if (trips != null && trips.size() > 0) {
 
