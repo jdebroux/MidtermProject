@@ -18,13 +18,17 @@
 	<br>
 	<br>
 
-	<div id="YAP">Your Adventure Planner!</div>
-
+	<!-- <div id="YAP">Your Adventure Planner!</div>
+ -->
+ <br>
 	<div class="row">
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8, index">
 			<form action="activities.do" method="POST">
-				<div>Search for parks by activity:</div>
+			
+			
+				<div><h3>Search for parks by activity:</h3></div>
+				
 				<div class="activitiesforeach">
 					<table>
 						<c:forEach items="${activities}" var="activity">
