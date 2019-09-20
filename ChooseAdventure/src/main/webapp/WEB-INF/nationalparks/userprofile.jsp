@@ -77,7 +77,8 @@
 			</c:if>
 			<c:if test="${account.privilege == true}">
 				<form action="admin.do" method="POST">
-					<button type="submit" class="btn btn-default">Manage
+
+					<button type="submit" class="btn btn-link">Manage
 						Users</button>
 				</form>
 			</c:if>

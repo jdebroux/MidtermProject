@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <link rel="stylesheet" href="NavBar.css" />
 <nav
 	class="navbar fixed-top navbar-inverse bg- navbar-expand-sm inline justify-content-center">
@@ -72,6 +73,7 @@
 			<form action="gotobucketlist.do" method="POST">
 				<button type="submit" class="btn btn-link">See Trips</button>
 			</form>
+
 		</c:if>
 	</div>
 	</div>
