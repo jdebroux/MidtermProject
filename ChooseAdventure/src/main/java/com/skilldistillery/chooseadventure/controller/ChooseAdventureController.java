@@ -84,23 +84,34 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public String linkToLoginPage(Account account, Model model, HttpSession session) {
-		account = dao.getAccountByUsername(account.getUsername());
-		if (dao.isValidAccount(account)) {
-			if(account.getActive() == true) {
-			account = dao.getAccountByUsername(account.getUsername());
-			session.setAttribute("loggedIn", account);
-			model.addAttribute("account", account);
-			return "nationalparks/userprofile";
+		if (account != null) {
+			if (dao.isValidAccount(account)) {
+				account = dao.getAccountByUsername(account.getUsername());
+				if (account.getActive() == true) {
+					account = dao.getAccountByUsername(account.getUsername());
+					session.setAttribute("loggedIn", account);
+					model.addAttribute("account", account);
+					return "nationalparks/userprofile";
+				}
 			}
 		}
 		return "nationalparks/login";
+	}
+	
+	@RequestMapping(path="seeprofile.do", method = RequestMethod.POST)
+	public String linkToProfile(Model model, HttpSession session) {
+		Account user = (Account)session.getAttribute("loggedIn");
+		model.addAttribute("account", user);
+		return "nationalparks/userprofile";
 	}
 
 	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
 		session.removeAttribute("loggedIn");
 		model.addAttribute("account", new Account());
-		model.addAttribute("activities", dao.getAllActivities());
+		List<Activity> activities = dao.getAllActivities();
+		activities = dao.sortActivities(activities);
+		model.addAttribute("activities", activities);
 
 		return "index";
 	}
@@ -127,22 +138,22 @@ public class ChooseAdventureController {
 		}
 		return "nationalparks/login";
 	}
-	
-	@RequestMapping(path="admin.do", method= RequestMethod.POST)
+
+	@RequestMapping(path = "admin.do", method = RequestMethod.POST)
 	public String linkToAdminPage(Model model, HttpSession session) {
 		List<Account> accounts = dao.getAllAccounts();
 		accounts = dao.sortAccounts(accounts);
 		model.addAttribute("accounts", accounts);
-		return"nationalparks/admin";
+		return "nationalparks/admin";
 	}
-	
-	@RequestMapping(path="toggleuseraccountactive.do", method=RequestMethod.POST)
+
+	@RequestMapping(path = "toggleuseraccountactive.do", method = RequestMethod.POST)
 	public String deleteAnAccount(@RequestParam("id") int userId, Model model) {
 		Account accountToDeactivate = dao.getAccountById(userId);
 		if (accountToDeactivate.getActive() == true) {
 			accountToDeactivate.setActive(false);
 			dao.createUpdateAccount(accountToDeactivate);
-		}else if (accountToDeactivate.getActive() == false) {
+		} else if (accountToDeactivate.getActive() == false) {
 			accountToDeactivate.setActive(true);
 			dao.createUpdateAccount(accountToDeactivate);
 		}
@@ -183,7 +194,7 @@ public class ChooseAdventureController {
 			List<Activity> activities = new ArrayList<>();
 			for (Integer id : activityIds) {
 				Activity a = dao.getActivityById(id);
-				if(a != null) {
+				if (a != null) {
 					activities.add(a);
 				}
 			}

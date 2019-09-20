@@ -953,7 +953,7 @@ INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) V
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (218, 36, 2);
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (219, 36, 3);
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (220, 36, 4);
-INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (221, 36, 1);
+INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (221, 36, 5);
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (222, 36, 13);
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (223, 37, 1);
 INSERT INTO `national_park_activity` (`id`, `national_park_id`, `activity_id`) VALUES (224, 37, 2);
