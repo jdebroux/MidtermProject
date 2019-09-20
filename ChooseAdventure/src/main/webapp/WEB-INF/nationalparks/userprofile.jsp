@@ -64,17 +64,15 @@
 				<c:if test="${!empty account.username }">
 					<br>
 					<button type="submit" name="account" value="${account}"
-						class="btn btn-default">Update Profile</button>
+						class="btn btn-link">Update Profile</button>
 				</c:if>
 				<input type="hidden" name="id" value="${account.id}" />
 			</form>
-			<c:if test="${account.privilege == false}">
-				<c:if test="${!empty account.username }">
-					<form action="delete.do" method="POST">
-						<button type="submit" class="btn btn-default">Delete
-							Profile</button>
-					</form>
-
+			<c:if test="${!empty account.username }">
+				<form action="delete.do" method="POST">
+					<button type="submit" class="btn btn-link">Delete
+						Profile</button>
+				</form>
 				</c:if>
 			</c:if>
 			<c:if test="${account.privilege == true}">
