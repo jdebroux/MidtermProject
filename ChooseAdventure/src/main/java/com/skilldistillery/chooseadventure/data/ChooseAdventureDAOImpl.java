@@ -1,6 +1,7 @@
 package com.skilldistillery.chooseadventure.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,7 @@ import com.skilldistillery.chooseadventure.entities.Account;
 import com.skilldistillery.chooseadventure.entities.Activity;
 import com.skilldistillery.chooseadventure.entities.NationalPark;
 import com.skilldistillery.chooseadventure.entities.Trip;
+import com.skilldistillery.chooseadventure.entities.TripActivity;
 import com.skilldistillery.chooseadventure.entities.TripComment;
 
 @Service
@@ -198,20 +200,20 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	@Override
 	public Trip createUpdateTrip(Trip trip, Account user) {
 		Trip managedTrip = null;
-		System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+System.err.println(trip.getId() + "   TRIP ID    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		if (trip.getId() != 0) {
 			Trip newTrip = em.find(Trip.class, trip.getId());
 			newTrip.setAccount(user);
 			newTrip.setName(trip.getName());
 			newTrip.setNationalPark(trip.getNationalPark());
-			newTrip.setActivities(trip.getActivities());
+			newTrip.setTripActivities(trip.getTripActivities());
 //			newTrip.setTripComments(trip.getTripComments());
 			em.persist(newTrip);
 			em.flush();
 			return newTrip;
 
 		} else {
-			System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+System.err.println(trip.getActivities().size() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 			em.persist(trip);
 			em.flush();
 			managedTrip = getTripByName(trip.getName());
@@ -313,6 +315,42 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		Trip trip = em.find(Trip.class, tripId);
 		List<Activity> tripActivities = trip.getActivities();
 		return tripActivities;
+	}
+
+	@Override
+	public Activity getActivityByName(String name) {
+		String qS = "SELECT a FROM Activity a WHERE a.name LIKE :input";
+		List<Activity> activities = em.createQuery(qS, Activity.class).setParameter("input", name).getResultList();
+		return activities.get(0);
+	}
+
+	@Override
+	public List<Activity> sortActivities(List<Activity> unsorted) {
+		List<String> activityNames = new ArrayList<>();
+		List<Activity> sortedActivities = new ArrayList<>();
+		for (Activity activity : unsorted) {
+			activityNames.add(activity.getName());
+		}
+		Collections.sort(activityNames);
+		for (String name : activityNames) {
+			sortedActivities.add(getActivityByName(name));
+		}
+		return sortedActivities;
+	}
+
+	@Override
+	public boolean removeTripActivities(Trip trip) {
+		List<TripActivity> tripActivities = trip.getTripActivities();
+		if(tripActivities != null && tripActivities.size() > 0) {
+			for (TripActivity tripActivity : tripActivities) {
+				em.remove(tripActivity);
+				em.flush();
+			}
+			if (tripActivities.size() == 0){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

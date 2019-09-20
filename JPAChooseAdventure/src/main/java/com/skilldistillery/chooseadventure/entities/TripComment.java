@@ -23,7 +23,7 @@ public class TripComment {
 	
 	private String description;
 	
-	private int completed;
+	private Boolean completed;
 	
 	@Column(name = "create_date")
 	private Date createDate;
@@ -45,11 +45,11 @@ public class TripComment {
 		return title;
 	}
 	
-	public int getCompleted() {
+	public Boolean getCompleted() {
 		return completed;
 	}
 
-	public void setCompleted(int completed) {
+	public void setCompleted(Boolean completed) {
 		this.completed = completed;
 	}
 

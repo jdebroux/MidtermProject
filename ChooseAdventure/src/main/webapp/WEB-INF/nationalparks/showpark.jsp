@@ -51,9 +51,18 @@ body, html {
 					<li><strong><a href="${park.link}">${park.name}</a> -
 							${park.location.state}</strong></li>
 					<li><em>${park.description}</em></li>
-					<c:forEach items="${park.activities}" var="activity">
-						<input type="checkbox" name="activityIds" value="${activity.id }" <%-- <c:if test="${trip.tripActivities[activity.id]}">checked="checked"</c:if>--%>>  ${activity.name} 
-                                        
+					<%-- <c:forEach items="${park.activities}" var="activity">
+						<input type="checkbox" name="activityIds" value="${activity.id }" <c:if test="${trip.tripActivities.contains('activity')}"> checked="checked" </c:if>>  ${activity.name}
+                    </c:forEach> --%>
+                    <c:forEach items="${park.activities}" var="activity">
+						<c:choose>
+							<c:when test="${trip.tripActivities.contains(activity)}">
+								<input type="checkbox" name="activityIds" value="${activity.id }" checked="checked">  ${activity.name}
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" name="activityIds" value="${activity.id }">  ${activity.name}
+                       	 	</c:otherwise>
+                      	</c:choose>   
                     </c:forEach>
 				</ul>
 				Trip Name: 
