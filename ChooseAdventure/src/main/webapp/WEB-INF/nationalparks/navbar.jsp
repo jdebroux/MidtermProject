@@ -4,8 +4,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel="stylesheet" href="NavBar.css" />
+
+<style>
+.navbar{
+    height: 50px;
+
+}
+
+.collapse navbar-collapse {
+font-size: 12px;
+color: white !important;
+}
+/* .navbar-inverse {
+    background: linear-gradient(#8c8c8c, #c4c4c4);
+} */
+
+.navbar-header a {
+    height: 120px;
+    width: auto;
+    padding-top: 3px;
+    color: white !important;
+}
+</style>
+
+
+
+
 <nav
-	class="navbar fixed-top navbar-inverse bg- navbar-expand-sm inline justify-content-center">
+	class="navbar fixed-top navbar-inverse bg-dark navbar-expand-sm inline justify-content-center">
 	<div class="collapse navbar-collapse">
 
 		<form action="index.do" method="GET">
