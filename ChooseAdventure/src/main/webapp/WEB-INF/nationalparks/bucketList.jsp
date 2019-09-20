@@ -24,10 +24,8 @@
 			<c:choose>
 				<c:when test="${not empty trips}">
 
-					<h3>Hello ${loggedIn.firstName}</h3>
-					<h4>Your Trips:</h4>
+					<h3>${loggedIn.firstName}'sTrips:</h3>
 					<br>
-
 
 					<c:forEach items="${trips}" var="singletrip">
 						<h4>Adventure Yet To Happen:</h4>
