@@ -112,6 +112,7 @@ public class ChooseAdventureController {
 	@RequestMapping(path = "userprofile.do", params = "account", method = RequestMethod.POST)
 	public String linkToUserProfile(Account account, Model model, HttpSession session) {
 		account.setActive(true);
+		account.setPrivilege(false);
 		boolean filled = false;
 		Account databaseAccount = dao.createUpdateAccount(account);
 		if (account.getId() != 0) {
@@ -123,6 +124,14 @@ public class ChooseAdventureController {
 			return "nationalparks/userprofile";
 		}
 		return "nationalparks/login";
+	}
+	
+	@RequestMapping(path="admin.do", method= RequestMethod.POST)
+	public String linkToAdminPage(Model model, HttpSession session) {
+		List<Account> accounts = dao.getAllAccounts();
+		accounts = dao.sortAccounts(accounts);
+		model.addAttribute("accounts", accounts);
+		return"nationalparks/admin";
 	}
 
 	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
@@ -157,7 +166,7 @@ public class ChooseAdventureController {
 			}
 			List<TripActivity> tripActivities = trip.getTripActivities();
 			System.err.println(tripActivities.size() + "         TRIP ACTIVITIES ###############################");
-			dao.removeTripActivities(trip);
+			dao.removeTripActivities(user, trip);
 			for (Activity activity : activities) {
 				trip.addTripActivity(new TripActivity(activity));
 			}
@@ -166,15 +175,15 @@ public class ChooseAdventureController {
 		trip.setAccount(user);
 		trip.setNationalPark(dao.getParkById(parkId));
 		Trip managedTrip = dao.createUpdateTrip(trip, user);
-		List<Trip> trips = dao.getTripsByUserId(user.getId());
 
 		System.err.println(managedTrip.getTripActivities().size() + "   MANAGEDTRIP $$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
 		model.addAttribute("activities", trip.getTripActivities());
 		model.addAttribute("trip", managedTrip);
+		List<Trip> trips = dao.getTripsByUserId(user.getId());
 		if (trips.size() > 0) {
 			model.addAttribute("trips", trips);
-		} // DELETE CURRENT TRIP ACTIVITIES FROM DATABASE
+		} 
 
 //		model.addAttribute("comment", new TripComment());
 //		model.addAttribute("comments", dao.getTripCommentsByTripId(trip.getId()));

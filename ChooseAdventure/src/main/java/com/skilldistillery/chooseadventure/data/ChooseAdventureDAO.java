@@ -21,6 +21,7 @@ public interface ChooseAdventureDAO {
 	public Account createAccount(Account user);
 	public boolean isEmailUnique(String email);
 	public Account getAccountByUsername(String username);
+	public List<Account> getAllAccounts();
 	public boolean isValidAccount(Account user);
 	public Account getAccountById(int id);
 	public boolean deleteAccount(Account user);
@@ -37,6 +38,8 @@ public interface ChooseAdventureDAO {
 	public List<Activity> getActivitiesByTripId (int tripId);
 	public Activity getActivityByName(String name);
 	public List<Activity> sortActivities(List<Activity> unsorted);
-	public boolean removeTripActivities(Trip trip);
+	public List<Account> sortAccounts(List<Account> unsorted);
+	public boolean removeTripActivities(Account user, Trip trip);
+	public Account getAccountByFirstName(String name);
 	
 }
