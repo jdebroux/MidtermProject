@@ -176,21 +176,29 @@ public class ChooseAdventureController {
 	public String linkToBucketlist(@RequestParam("activityIds") List<Integer> activityIds,
 			@RequestParam("id") int tripId, Trip trip, Model model, @RequestParam("parkId") int parkId,
 			HttpSession session) {
+		System.err.println(activityIds + "  43  ()()()()()()()()()()()");
+		trip.setCompleted(false);
 		Account user = (Account) session.getAttribute("loggedIn");
 		if (activityIds != null && activityIds.size() > 0) {
 			List<Activity> activities = new ArrayList<>();
 			for (Integer id : activityIds) {
-				activities.add(dao.getActivityById(id));
+				Activity a = dao.getActivityById(id);
+				if(a != null) {
+					activities.add(a);
+				}
 			}
-			List<TripActivity> tripActivities = trip.getTripActivities();
+			System.err.println(activities + "    ()()()()()()()()()()()");
+			System.err.println(trip + "     $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$");
 			dao.removeTripActivities(user, trip);
 			for (Activity activity : activities) {
 				trip.addTripActivity(new TripActivity(activity));
 			}
 		}
+		System.err.println(trip + "   2  $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$");
 		trip.setAccount(user);
 		trip.setNationalPark(dao.getParkById(parkId));
 		Trip managedTrip = dao.createUpdateTrip(trip, user);
+		System.err.println(managedTrip + "   3  $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$***************");
 		model.addAttribute("activities", trip.getTripActivities());
 		model.addAttribute("trip", managedTrip);
 		user = (Account) session.getAttribute("loggedIn");
@@ -213,7 +221,6 @@ public class ChooseAdventureController {
 	public String editATrip(@RequestParam("tripId") int tripId, Model model, HttpSession session) {
 		Trip trip = dao.getTripById(tripId);
 		List<TripActivity> tripActivities = trip.getTripActivities();
-		System.err.println(tripActivities.size() + "*&^%$#@#*&^%$%^&*&^%$#$%^&*&^%$%^&^%$#$%^&");
 		List<Activity> filteredActivities = new ArrayList<>(trip.getNationalPark().getActivities());
 		for (Activity activity : trip.getNationalPark().getActivities()) {
 			for (TripActivity tripActivity : tripActivities) {
@@ -222,6 +229,7 @@ public class ChooseAdventureController {
 				}
 			}
 		}
+		model.addAttribute("size", trip.getTripActivities().size());
 		model.addAttribute("remainingParkActivities", filteredActivities);
 		model.addAttribute("tripactivities", trip.getTripActivities());
 		model.addAttribute("trip", trip);

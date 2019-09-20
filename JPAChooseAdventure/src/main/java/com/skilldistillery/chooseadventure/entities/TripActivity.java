@@ -93,6 +93,6 @@ public class TripActivity {
 
 	@Override
 	public String toString() {
-		return "TripActivity [id=" + id + "]";
+		return "TripActivity [id=" + id + ", activity=" + activity + "]";
 	}
 }
