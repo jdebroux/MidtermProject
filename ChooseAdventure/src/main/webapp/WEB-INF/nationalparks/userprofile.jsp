@@ -28,8 +28,9 @@
 					Update Account
 				</c:if>
 			</div>
-			<form action="userprofile.do" method="POST">
-
+			<c:choose>
+				<c:when test="${! empty account }">
+					<form action="userprofile.do" method="POST">
 				<table>
 					<tr>
 						<td>User Name</td>
@@ -77,10 +78,12 @@
 			</c:if>
 			<c:if test="${account.privilege == true}">
 				<form action="admin.do" method="POST">
-						<button type="submit" class="btn btn-default">Manage Users</button>
-					</form>
+					<button type="submit" class="btn btn-default btn-sm">Manage
+						Users</button>
+				</form>
 			</c:if>
 		</div>
+
 		<div class="col-sm-2"></div>
 	</div>
 	<jsp:include page="footer.jsp" />
