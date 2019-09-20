@@ -68,12 +68,19 @@
 				</c:if>
 				<input type="hidden" name="id" value="${account.id}" />
 			</form>
-			<c:if test="${!empty account.username }">
-				<form action="delete.do" method="POST">
-					<button type="submit" class="btn btn-default">Delete
-						Profile</button>
-				</form>
+			<c:if test="${account.privilege == false}">
+				<c:if test="${!empty account.username }">
+					<form action="delete.do" method="POST">
+						<button type="submit" class="btn btn-default">Delete
+							Profile</button>
+					</form>
 
+				</c:if>
+			</c:if>
+			<c:if test="${account.privilege == true}">
+				<form action="admin.do" method="POST">
+						<button type="submit" class="btn btn-default">Manage Users</button>
+					</form>
 			</c:if>
 		</div>
 		<div class="col-sm-2"></div>
