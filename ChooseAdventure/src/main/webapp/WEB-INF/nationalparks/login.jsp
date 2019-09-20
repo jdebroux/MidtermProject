@@ -12,28 +12,32 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<div>
-		<h2>Login</h2>
 
-		<form action="login.do" method="POST">
-			<input type="text" name="username" placeholder="username" /> <br>
-			<input type="password" name="password" placeholder="password" /> <br>
-			<input type="submit" value="Submit" />
-		</form>
-	</div>
-	<div>
-		<hr>
-		<form action="userprofile.do" method="GET">
-			<button type="submit" class="btn btn-primary"
-				value="Create New Profile">Create New Profile</button>
-		</form>
-	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div >
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8, index">
+				<h2>Login</h2>
 
+				<form action="login.do" method="POST">
+					<input type="text" name="username" placeholder="username" /> <br>
+					<input type="password" name="password" placeholder="password" /> <br>
+					<input id="button" type="submit" value="Submit" />
+				</form>
+				<br>
+				<form action="userprofile.do" method="GET">
+					<button type="submit" class="btn btn-outline-light btn-sm"
+						value="Create New Profile">Create New Profile</button>
+				</form>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
 </html>
