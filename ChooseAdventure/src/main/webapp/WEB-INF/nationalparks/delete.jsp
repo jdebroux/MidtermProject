@@ -12,23 +12,30 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	<c:if test="${not empty loggedIn}">
 
-		<h4>Are you sure you'd like to delete ${user.userName}?</h4>
-		<form action="delete.do" method="POST">
-			<input type="hidden" name="aid" value="${loggedIn.id}" /> <input type="submit"
-				value="Delete"/>
-		</form>
-	</c:if>
-	<c:if test="${empty loggedIn}">
-		<h4>Account Deleted</h4>
-	</c:if>
+	<br>
+	<br>
+	<br>
+	<br>
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8, index">
+		<c:choose>
+			<c:when test="${not empty loggedIn}">
+
+				<h4>Are you sure you'd like to delete ${user.userName}?</h4>
+				<form action="delete.do" method="POST">
+					<input type="hidden" name="aid" value="${loggedIn.id}" /> <input
+						id="button" type="submit" value="Delete" />
+				</form>
+			</c:when>
+			<c:otherwise>
+				<h4>Account Deleted</h4>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	<div class="col-sm-2"></div>
+	</div>
 
 	<jsp:include page="bootstrapLower.jsp" />
 

@@ -30,7 +30,7 @@
 				</form>
 				<br>
 				<form action="userprofile.do" method="GET">
-					<button type="submit" class="btn btn-outline-light btn-sm"
+					<button type="submit" class="btn btn-default btn-sm"
 						value="Create New Profile">Create New Profile</button>
 				</form>
 			</div>

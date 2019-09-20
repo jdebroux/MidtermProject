@@ -28,50 +28,58 @@
 					Update Account
 				</c:if>
 			</div>
-			<form action="userprofile.do" method="POST">
+			<c:choose>
+				<c:when test="${! empty account }">
+					<form action="userprofile.do" method="POST">
 
-				<table>
-					<tr>
-						<td>User Name</td>
-						<td><input type="text" required="required" name="username"
-							value="${account.username }"></td>
-					</tr>
-					<tr>
-						<td>Password</td>
-						<td><input type="password" required="required"
-							name="password" value="${account.password }"></td>
-					</tr>
-					<tr>
-						<td>First Name</td>
-						<td><input type="text" required="required" name="firstName"
-							value="${account.firstName }"></td>
-					</tr>
-					<tr>
-						<td>Last Name</td>
-						<td><input type="text" required="required" name="lastName"
-							value="${account.lastName }"></td>
-					</tr>
-					<tr>
-						<td>Email</td>
-						<td><input type="text" name="email" value="${account.email }"></td>
-					</tr>
-				</table>
-				<c:if test="${empty account.username }">
-					<br>
-					<button type="submit" name="account" value="${account}"
-						class="btn btn-default">Create New Profile</button>
-				</c:if>
-				<c:if test="${!empty account.username }">
-					<br>
-					<button type="submit" name="account" value="${account}"
-						class="btn btn-default">Update Profile</button>
-				</c:if>
-				<input type="hidden" name="id" value="${account.id}" />
-			</form>
+						<table>
+							<tr>
+								<td>User Name</td>
+								<td><input type="text" required="required" name="username"
+									value="${account.username }"></td>
+							</tr>
+							<tr>
+								<td>Password</td>
+								<td><input type="password" required="required"
+									name="password" value="${account.password }"></td>
+							</tr>
+							<tr>
+								<td>First Name</td>
+								<td><input type="text" required="required" name="firstName"
+									value="${account.firstName }"></td>
+							</tr>
+							<tr>
+								<td>Last Name</td>
+								<td><input type="text" required="required" name="lastName"
+									value="${account.lastName }"></td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td><input type="text" name="email"
+									value="${account.email }"></td>
+							</tr>
+						</table>
+						<c:if test="${empty account.username }">
+							<br>
+							<button type="submit" name="account" value="${account}"
+								class="btn btn-default">Create New Profile</button>
+						</c:if>
+						<c:if test="${!empty account.username }">
+							<br>
+							<button type="submit" name="account" value="${account}"
+								class="btn btn-default btn-sm">Update Profile</button>
+						</c:if>
+						<input type="hidden" name="id" value="${account.id}" />
+					</form>
+				</c:when>
+				<c:otherwise>
+				Please create an account.
+				</c:otherwise>
+			</c:choose>
 			<c:if test="${account.privilege == false}">
 				<c:if test="${!empty account.username }">
 					<form action="delete.do" method="POST">
-						<button type="submit" class="btn btn-default">Delete
+						<button type="submit" class="btn btn-default btn-sm">Delete
 							Profile</button>
 					</form>
 
@@ -79,10 +87,12 @@
 			</c:if>
 			<c:if test="${account.privilege == true}">
 				<form action="admin.do" method="POST">
-						<button type="submit" class="btn btn-default">Manage Users</button>
-					</form>
+					<button type="submit" class="btn btn-default btn-sm">Manage
+						Users</button>
+				</form>
 			</c:if>
 		</div>
+
 		<div class="col-sm-2"></div>
 	</div>
 	<jsp:include page="footer.jsp" />
