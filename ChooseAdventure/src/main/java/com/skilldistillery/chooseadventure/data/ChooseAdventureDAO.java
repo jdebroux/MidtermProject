@@ -35,5 +35,8 @@ public interface ChooseAdventureDAO {
 	public List<TripComment> getTripCommentsByTripId(int tripId);
 	public Activity getActivityById(int activityId);
 	public List<Activity> getActivitiesByTripId (int tripId);
+	public Activity getActivityByName(String name);
+	public List<Activity> sortActivities(List<Activity> unsorted);
+	public boolean removeTripActivities(Trip trip);
 	
 }

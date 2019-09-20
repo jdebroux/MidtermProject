@@ -23,11 +23,11 @@ public class Trip {
 
 	private String name;
 
-	@OneToMany(mappedBy = "trip", cascade= {CascadeType.PERSIST})
-	private List<TripActivity> tripActivities;
+	@OneToMany(mappedBy = "trip", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<TripActivity> tripActivities = new ArrayList<>();
 
 	@OneToMany(mappedBy = "trip")
-	private List<TripComment> tripComments;
+	private List<TripComment> tripComments = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "national_park_id")

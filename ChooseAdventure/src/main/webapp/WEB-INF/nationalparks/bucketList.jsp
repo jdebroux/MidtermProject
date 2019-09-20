@@ -29,27 +29,26 @@
 			<c:forEach items="${trips}" var="singletrip">
 				<ul>
 
-					<li>${trip.id}</li>				
 					<!-- not yet right - just a shell of info to be filled in w/ right one -->
 
 					<li><a href="getTrip.do?tid=${singletrip.id}"> Trip
 							${singletrip.nationalPark} ${singletrip.activities} </a></li>
 					<li>${singletrip.name}</li>
 
-					
+
 				</ul>
-			<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
-				<ul>
-				<li><c:out value="${tripActivity.activity}"></c:out></li>
-				</ul>
-			</c:forEach>
+				<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
+					<ul>
+						<li><c:out value="${tripActivity.activity}"></c:out></li>
+					</ul>
+				</c:forEach>
 				<form action="deletetrip.do" method="POST">
-					<input type="hidden" name="tripId" value="${singletrip.id}" /> 
-					<input type="submit" class="btn btn-danger" value="Delete Trip"/>
+					<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
+						type="submit" class="btn btn-danger" value="Delete Trip" />
 				</form>
 				<form action="edittrip.do" method="POST">
-					<input type="hidden" name="tripId" value="${singletrip.id}" /> 
-					<input type="submit" class="btn btn-primary" value="Update Trip"/>
+					<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
+						type="submit" class="btn btn-primary" value="Update Trip" />
 				</form>
 				<br>
 				<br>
