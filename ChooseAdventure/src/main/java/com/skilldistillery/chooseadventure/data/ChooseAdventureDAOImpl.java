@@ -173,15 +173,29 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public Boolean validateUsername(String username) {
+		List<Account> accounts = getAllAccounts();
+		
+		for (Account account : accounts) {
+			if (account.getUsername().equals(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public boolean isValidAccount(Account user) {
 		List<Account> accounts = getAllAccounts();
-		if (getAccountByUsername(user.getUsername()) == null) {
+		if (validateUsername(user.getUsername()) == false) {
 			return false;
 		}
 		for (Account account : accounts) {
 			if (account.getUsername().equals(user.getUsername())) {
+				System.err.println(account.getPassword() + "  PASSWORD FOR DATABASE USER");
+				System.err.println(user.getPassword() + "  PASSWORD FOR PARAMETER USER");
 				if (account.getPassword().equals(user.getPassword())) {
 					return true;
 				}
