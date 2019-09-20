@@ -21,8 +21,7 @@
 	<c:choose>
 		<c:when test="${not empty trips}">
 
-			<h3>Hello ${loggedIn.firstName}</h3>
-			<h4>Your Trips:</h4>
+			<h3>${loggedIn.firstName}'s Trips:</h3>
 			<br>
 
 
