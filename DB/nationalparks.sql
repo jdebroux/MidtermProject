@@ -24,10 +24,11 @@ CREATE TABLE IF NOT EXISTS `account` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `active` TINYINT NOT NULL DEFAULT 1,
+  `active` TINYINT NOT NULL DEFAULT 0,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email_address` VARCHAR(45) NULL,
+  `privilege` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
@@ -99,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `national_park_id` INT NOT NULL,
   `account_id` INT NOT NULL,
   `completed` TINYINT NOT NULL DEFAULT 1,
+  `tripcol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_trip_national_park1_idx` (`national_park_id` ASC),
   INDEX `fk_trip_user_idx` (`account_id` ASC),
@@ -323,7 +325,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`) VALUES (1, 'admin', 'admin', true, 'Skill', 'Distillery', 'admin@skilldistillery.com');
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (1, 'admin', 'admin', true, 'Skill', 'Distillery', 'admin@skilldistillery.com', 1);
 
 COMMIT;
 
@@ -484,8 +486,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (1, 'Yosemite', 58, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`, `tripcol`) VALUES (1, 'Yosemite', 58, 1, 1, NULL);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`, `tripcol`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT, NULL);
 
 COMMIT;
 
