@@ -9,8 +9,7 @@ body, html {
 	font-family: sans-serif;
 	/* text-align: center; */
 	text-shadow: 2px 2px #000000;
-	font-size: 2vw
-/* *Default Formatting* */
+	font-size: 2vw /* *Default Formatting* */
 }
 
 #activityList {
@@ -45,8 +44,6 @@ body, html {
 	width: 50%;
 }
 /* results */
-
-
 .index {
 	text-align: center;
 	margin: auto;
@@ -88,18 +85,18 @@ body, html {
 	-ms-transform: translate(-50%, -50%);
 	text-align: center;
 }
-.outsidemiddle{
+
+.outsidemiddle {
 	text-align: right;
 	position: absolute;
 	border-radius: 10px;
 	top: 2%;
 	right: 5%;
 	background-color: #58584c;
-	opacity:0.9;
+	opacity: 0.9;
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
 
 .container:hover .image {
 	opacity: 1;
@@ -113,4 +110,5 @@ body, html {
 	color: white;
 	font-size: 16px;
 }
+
 /* results */
