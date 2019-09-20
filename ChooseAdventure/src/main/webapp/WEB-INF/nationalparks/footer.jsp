@@ -3,7 +3,7 @@
 
 
 <style>
-img {
+img#lntl {
 	width: 120px;
 	height: 67px;
 	box-shadow: 10px 10px 5px black;
@@ -12,6 +12,6 @@ img {
 	left:0;
 }
 </style>
-<a href="https://lnt.org"> <img src="LNTlogo.png"
+<a href="https://lnt.org"> <img id="lntl" src="LNTlogo.png"
 	alt="Leave No Trace Logo">
 </a>
