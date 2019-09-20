@@ -102,7 +102,9 @@ public class ChooseAdventureController {
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
 		session.removeAttribute("loggedIn");
 		model.addAttribute("account", new Account());
-		model.addAttribute("activities", dao.getAllActivities());
+		List<Activity> activities = dao.getAllActivities();
+		activities = dao.sortActivities(activities);
+		model.addAttribute("activities", activities);
 
 		return "index";
 	}
