@@ -29,7 +29,7 @@
 					<input id="button" type="submit" value="Submit" />
 				</form>
 				<br>
-				<form action="userprofile.do" method="GET">
+				<form action="userprofile.do" method="POST">
 					<button type="submit" class="btn btn-default btn-sm"
 						value="Create New Profile">Create New Profile</button>
 				</form>

@@ -97,6 +97,13 @@ public class ChooseAdventureController {
 		}
 		return "nationalparks/login";
 	}
+	
+	@RequestMapping(path="seeprofile.do", method = RequestMethod.POST)
+	public String linkToProfile(Model model, HttpSession session) {
+		Account user = (Account)session.getAttribute("loggedIn");
+		model.addAttribute("account", user);
+		return "nationalparks/userprofile";
+	}
 
 	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
 	public String linkToLogoutPage(Account account, Model model, HttpSession session) {
