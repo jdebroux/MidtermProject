@@ -28,8 +28,6 @@
 					Update Account
 				</c:if>
 			</div>
-			<c:choose>
-				<c:when test="${! empty account }">
 					<form action="userprofile.do" method="POST">
 				<table>
 					<tr>
@@ -74,7 +72,6 @@
 					<button type="submit" class="btn btn-link">Delete
 						Profile</button>
 				</form>
-				</c:if>
 			</c:if>
 			<c:if test="${account.privilege == true}">
 				<form action="admin.do" method="POST">
