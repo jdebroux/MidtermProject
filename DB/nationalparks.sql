@@ -324,7 +324,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nationalparks`;
-INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (1, 'admin', 'admin', true, 'Skill', 'Distillery', 'admin@skilldistillery.com', 1);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (1, 'admin', 'admin', true, 'Skill Distillery', 'Batky-Howell', 'admin@skilldistillery.com', 1);
 
 COMMIT;
 

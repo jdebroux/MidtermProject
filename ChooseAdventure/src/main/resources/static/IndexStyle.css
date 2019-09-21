@@ -7,9 +7,9 @@ body, html {
 	background-attachment: fixed;
 	color: white;
 	font-family: sans-serif;
-	/* text-align: center; */
 	text-shadow: 2px 2px #000000;
-	font-size: 2vw /* *Default Formatting* */
+	font-size: 2vw 
+	/* *Default Formatting* */
 }
 
 #activityList {
@@ -52,6 +52,16 @@ body, html {
 	background: rgba(180, 180, 180, 0.5);
 	box-shadow: 10px 10px 5px black;
 	border-radius: 25px;
+}
+
+.showparkeroo {
+	text-align: left;
+	margin-left: 50px;
+	margin-right: 50px;
+	padding: 15px;
+	border-radius: 25px;
+	background: rgba(180, 180, 180, 0.5);
+	box-shadow: 10px 10px 5px black;
 }
 
 /* index */
