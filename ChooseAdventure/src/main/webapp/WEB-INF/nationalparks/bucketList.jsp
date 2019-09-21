@@ -39,7 +39,7 @@
 				</ul>
 				<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
 					<ul>
-						<li><c:out value="${tripActivity.activity}"></c:out></li>
+						<li><c:out value="${tripActivity.activity.name}"></c:out></li>
 					</ul>
 				</c:forEach>
 				<form action="deletetrip.do" method="POST">

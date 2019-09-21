@@ -42,5 +42,6 @@ public interface ChooseAdventureDAO {
 	public boolean removeTripActivities(Account user, Trip trip);
 	public Account getAccountByFirstName(String name);
 	public Boolean validateUsername(String username);
+	Account disableAccount(Account user);
 	
 }
