@@ -24,7 +24,7 @@
 			<c:choose>
 				<c:when test="${not empty trips}">
 					<div class="index">
-						<h3>${loggedIn.firstName}'sBucket List</h3>
+						<h3>${loggedIn.firstName}'s Bucket List</h3>
 					</div>
 					<br>
 					<c:forEach items="${trips}" var="singletrip">
@@ -70,7 +70,7 @@
 								<form action="completetrip.do" method="POST">
 									<input type="hidden" name="tripId" value="${singletrip.id}" />
 									<input type="submit" class="btn btn-dark btn-sm"
-										value="Undo Complete Trip" />
+										value="Undo Completed Trip" />
 								</form>
 							</c:if>
 						</div>
