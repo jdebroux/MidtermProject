@@ -21,9 +21,9 @@
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8, index">
 		<c:choose>
-			<c:when test="${not empty loggedIn}">
+			<c:when test="${user.active == true}">
 
-				<h4>Are you sure you'd like to delete ${user.userName}?</h4>
+				<h4>Are you sure you'd like to delete your account, ${user.firstName}?</h4>
 				<form action="delete.do" method="POST">
 					<input type="hidden" name="aid" value="${loggedIn.id}" /> <input
 						id="button" type="submit" value="Delete" />

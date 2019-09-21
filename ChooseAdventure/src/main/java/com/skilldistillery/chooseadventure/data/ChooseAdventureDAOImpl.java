@@ -114,6 +114,20 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 	public Account getAccountById(int id) {
 		return em.find(Account.class, id);
 	}
+	
+	@Override
+	public Account disableAccount(Account user) {
+		Account newAccount = em.find(Account.class, user.getId());
+		newAccount.setFirstName(user.getFirstName());
+		newAccount.setLastName(user.getLastName());
+		newAccount.setEmail(user.getEmail());
+		newAccount.setPassword(user.getPassword());
+		newAccount.setUsername(user.getUsername());
+		newAccount.setActive(false);
+		em.persist(newAccount);
+		em.flush();
+		return newAccount;
+	}
 
 	@Override
 	public Account createUpdateAccount(Account user) {
@@ -194,8 +208,6 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 		}
 		for (Account account : accounts) {
 			if (account.getUsername().equals(user.getUsername())) {
-				System.err.println(account.getPassword() + "  PASSWORD FOR DATABASE USER");
-				System.err.println(user.getPassword() + "  PASSWORD FOR PARAMETER USER");
 				if (account.getPassword().equals(user.getPassword())) {
 					return true;
 				}
@@ -221,6 +233,7 @@ public class ChooseAdventureDAOImpl implements ChooseAdventureDAO {
 			newTrip.setName(trip.getName());
 			newTrip.setNationalPark(trip.getNationalPark());
 			newTrip.setTripActivities(trip.getTripActivities());
+			newTrip.setCompleted(trip.getCompleted());
 //			newTrip.setTripComments(trip.getTripComments());
 			em.persist(newTrip);
 			em.flush();

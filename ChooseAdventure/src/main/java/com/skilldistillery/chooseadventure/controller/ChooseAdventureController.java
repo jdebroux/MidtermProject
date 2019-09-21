@@ -127,7 +127,15 @@ public class ChooseAdventureController {
 		account.setActive(true);
 		account.setPrivilege(false);
 		boolean filled = false;
+		boolean updateSession = false;
+		if(account.getId() != 0) {
+			session.removeAttribute("loggedIn");
+			updateSession = true;
+		}
 		Account databaseAccount = dao.createUpdateAccount(account);
+		if(updateSession) {
+			session.setAttribute("loggedIn", databaseAccount);
+		}
 		if (account.getId() != 0) {
 			filled = true;
 		}
@@ -165,6 +173,8 @@ public class ChooseAdventureController {
 
 	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
 	public String confirmDelete(Model model, HttpSession session) {
+		Account user = (Account) session.getAttribute("loggedIn");
+		model.addAttribute("user", user);
 		return "nationalparks/delete";
 	}
 
@@ -172,7 +182,9 @@ public class ChooseAdventureController {
 	public String deleteUser(Model model, HttpSession session) {
 		Account user = (Account) session.getAttribute("loggedIn");
 		session.removeAttribute("loggedIn");
-		dao.deleteAccount(user);
+		dao.disableAccount(user);
+		user = dao.getAccountByFirstName(user.getFirstName());
+		model.addAttribute("user", user);
 		return "nationalparks/delete";
 	}
 
@@ -187,7 +199,6 @@ public class ChooseAdventureController {
 	public String linkToBucketlist(@RequestParam("activityIds") List<Integer> activityIds,
 			@RequestParam("id") int tripId, Trip trip, Model model, @RequestParam("parkId") int parkId,
 			HttpSession session) {
-		System.err.println(activityIds + "  43  ()()()()()()()()()()()");
 		trip.setCompleted(false);
 		Account user = (Account) session.getAttribute("loggedIn");
 		if (activityIds != null && activityIds.size() > 0) {
@@ -198,18 +209,14 @@ public class ChooseAdventureController {
 					activities.add(a);
 				}
 			}
-			System.err.println(activities + "    ()()()()()()()()()()()");
-			System.err.println(trip + "     $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$");
 			dao.removeTripActivities(user, trip);
 			for (Activity activity : activities) {
 				trip.addTripActivity(new TripActivity(activity));
 			}
 		}
-		System.err.println(trip + "   2  $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$");
 		trip.setAccount(user);
 		trip.setNationalPark(dao.getParkById(parkId));
 		Trip managedTrip = dao.createUpdateTrip(trip, user);
-		System.err.println(managedTrip + "   3  $%^&*(*&^%$%^&*(*&^%$#$%^&*&^%$***************");
 		model.addAttribute("activities", trip.getTripActivities());
 		model.addAttribute("trip", managedTrip);
 		user = (Account) session.getAttribute("loggedIn");
@@ -225,6 +232,20 @@ public class ChooseAdventureController {
 		Account user = (Account) session.getAttribute("loggedIn");
 		List<Trip> trips = dao.getTripsByUserId(user.getId());
 		model.addAttribute("trips", trips);
+		return "nationalparks/bucketList";
+	}
+	
+	@RequestMapping(path="completetrip.do", method = RequestMethod.POST)
+	public String completeATrip(@RequestParam("tripId") int tripId, Model model, HttpSession session) {
+		Trip trip = dao.getTripById(tripId);
+		Account user = trip.getAccount();
+		if (trip.getCompleted() == true) {
+			trip.setCompleted(false);
+			dao.createUpdateTrip(trip, user);
+		} else if (trip.getCompleted() == false) {
+			trip.setCompleted(true);
+			dao.createUpdateTrip(trip, user);
+		}
 		return "nationalparks/bucketList";
 	}
 
@@ -272,5 +293,10 @@ public class ChooseAdventureController {
 	public String deleteATripComment(TripComment tripComment, Model model, HttpSession session) {
 		dao.deleteTripComment(tripComment);
 		return "nationalparks/bucketList";
+	}
+	
+	@RequestMapping(path ="about.do", method = RequestMethod.POST)
+	public String linkToAboutPage() {
+		return "nationalparks/about";
 	}
 }
