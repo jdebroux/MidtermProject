@@ -58,6 +58,9 @@
 	text-shadow: 0px 0px #000000;
 }
 
+.dropdown-menu {
+background-color: #353A3F; }
+
 </style>
 
 
@@ -114,7 +117,7 @@
 					role="button" id="dropdownMenuLink" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Login </a>
 
-				<div class="dropdown-menu dropdwon-menu-right"
+				<div class="dropdown-menu dropdwon-menu-left"
 					aria-labelledby="dropdownMenuLink">
 
 					<a class="dropdown-item" href="#">
