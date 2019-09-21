@@ -6,7 +6,6 @@
 img#lntl {
 	width: 120px;
 	height: 67px;
-	box-shadow: 10px 10px 5px black;
 	position: fixed;
 	bottom: 0;
 	left:0;
