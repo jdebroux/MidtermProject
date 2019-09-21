@@ -20,54 +20,47 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-2"></div>
-		<div class="col-sm-8, index">
+		<div class="col-sm-8">
 			<c:choose>
 				<c:when test="${not empty trips}">
-
-					<h3>${loggedIn.firstName}'sTrips:</h3>
+			<div class="index">
+					<h3>${loggedIn.firstName}'s Bucket List</h3>
+					</div>
 					<br>
+						<c:forEach items="${trips}" var="singletrip">
+						<div class="index">
 
-					<c:forEach items="${trips}" var="singletrip">
-						<h4>Adventure Yet To Happen:</h4>
-						<ul>
-
-							<!-- not yet right - just a shell of info to be filled in w/ right one -->
-
-							<li><a href="getTrip.do?tid=${singletrip.id}"> Trip
-									${singletrip.nationalPark} ${singletrip.activities} </a></li>
-							<li>${singletrip.name}</li>
+							<c:out value="${singletrip.name}"></c:out><br> 
+							<c:out value="${singletrip.nationalPark.name}"></c:out><br> 
+							Activities: <br>
+							<c:forEach items="${singletrip.tripActivities}"
+								var="tripActivity">
+									<c:out value="${tripActivity.activity.name} " ></c:out>
+							</c:forEach>
 
 
-						</ul>
-						<c:forEach items="${singletrip.tripActivities}" var="tripActivity">
-							<ul>
-								<li><c:out value="${tripActivity.activity}"></c:out></li>
-							</ul>
-						</c:forEach>
-						<form action="deletetrip.do" method="POST">
-							<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
-								type="submit" class="btn btn-danger" value="Delete Trip" />
-						</form>
-						<form action="edittrip.do" method="POST">
-							<input type="hidden" name="tripId" value="${singletrip.id}" /> <input
-								type="submit" class="btn btn-primary" value="Update Trip" />
-						</form>
-						<br>
-						<br>
-						<br>
+							<form action="deletetrip.do" method="POST">
+								<input type="hidden" name="tripId" value="${singletrip.id}" />
+								<input type="submit" class="btn btn-default btn-sm" value="Delete Trip" />
+							</form>
+							<form action="edittrip.do" method="POST">
+								<input type="hidden" name="tripId" value="${singletrip.id}" />
+								<input type="submit" class="btn btn-default btn-sm" value="Update Trip" />
+							</form>
+							<form action="completetrip.do" method="POST">
+								<input type="hidden" name="tripId" value="${singletrip.id}" />
+								<input type="submit" class="btn btn-default btn-sm" value="Trip Completed" />
+							</form>
+							</div>
+							<br>
 					</c:forEach>
-
-
-
 				</c:when>
-
 				<c:otherwise>
 
-
-					<h3>Hello ${loggedIn.firstName}, you should plan an exciting
-						trip!! Click on home above to begin planning.</h3>
-
-
+					<h3>
+						Hello ${loggedIn.firstName}, you should plan an exciting trip!! <br>Click
+						on home above to begin planning.
+					</h3>
 
 				</c:otherwise>
 			</c:choose>
