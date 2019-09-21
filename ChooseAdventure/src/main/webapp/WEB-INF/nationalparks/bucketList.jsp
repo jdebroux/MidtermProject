@@ -67,7 +67,6 @@
 		</div>
 		<div class="col-sm-2"></div>
 	</div>
-
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
 </html>
