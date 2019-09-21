@@ -40,7 +40,7 @@
 					</table>
 				</div>
 				<div id="button">
-					<br> <input id="button" type="submit" value="Find Parks" />
+					<br> <button type="submit" class="btn btn-dark btn-sm" value="Find Parks">Find Parks</button>
 				</div>
 			</form>
 		</div>
