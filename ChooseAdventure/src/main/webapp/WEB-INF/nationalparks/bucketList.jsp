@@ -29,10 +29,18 @@
 					<br>
 						<c:forEach items="${trips}" var="singletrip">
 						<div class="index">
-
-							<c:out value="${singletrip.name}"></c:out><br> 
-							<c:out value="${singletrip.nationalPark.name}"></c:out><br> 
-							Activities: <br>
+						<c:if test="${singletrip.completed == true}">
+							- Completed Adventure - 
+							<br>
+						</c:if>
+						<c:if test="${singletrip.completed == false}">
+							- Awaiting Adventure -
+							<br>
+						</c:if>
+						
+							Trip Name: <c:out value="${singletrip.name}"></c:out><br> 
+							Park Name: <c:out value="${singletrip.nationalPark.name}"></c:out><br> 
+							Activities:
 							<c:forEach items="${singletrip.tripActivities}"
 								var="tripActivity">
 									<c:out value="${tripActivity.activity.name} " ></c:out>
@@ -47,10 +55,18 @@
 								<input type="hidden" name="tripId" value="${singletrip.id}" />
 								<input type="submit" class="btn btn-default btn-sm" value="Update Trip" />
 							</form>
+							<c:if test="${singletrip.completed == false}">
 							<form action="completetrip.do" method="POST">
 								<input type="hidden" name="tripId" value="${singletrip.id}" />
-								<input type="submit" class="btn btn-default btn-sm" value="Trip Completed" />
+								<input type="submit" class="btn btn-default btn-sm" value="Complete Trip" />
 							</form>
+							</c:if>
+							<c:if test="${singletrip.completed == true}">
+							<form action="completetrip.do" method="POST">
+								<input type="hidden" name="tripId" value="${singletrip.id}" />
+								<input type="submit" class="btn btn-default btn-sm" value="Undo Complete Trip" />
+							</form>
+							</c:if>
 							</div>
 							<br>
 					</c:forEach>
@@ -58,7 +74,7 @@
 				<c:otherwise>
 
 					<h3>
-						Hello ${loggedIn.firstName}, you should plan an exciting trip!! <br>Click
+						${loggedIn.firstName}, you should plan an exciting trip!! <br>Click
 						on home above to begin planning.
 					</h3>
 
