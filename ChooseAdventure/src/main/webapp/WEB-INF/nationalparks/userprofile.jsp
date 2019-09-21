@@ -58,7 +58,7 @@
 				<c:if test="${empty account.username }">
 					<br>
 					<button type="submit" name="account" value="${account}"
-						class="btn btn-light">Create New Profile</button>
+						class="btn btn-dark">Create New Profile</button>
 				</c:if>
 				<c:if test="${!empty account.username }">
 					<br>
@@ -70,7 +70,7 @@
 			<c:if test="${account.privilege == false}">
 			<c:if test="${!empty account.username }">
 				<form action="delete.do" method="POST">
-					<button type="submit" class="btn btn-danger">Delete
+					<button type="submit" class="btn btn-dark">Delete
 						Profile</button>
 				</form>
 				</c:if>

@@ -19,28 +19,28 @@
 	<br>
 	<br>
 
-			<div class="row">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8, index">
-					<form action="showpark.do" method="GET">
-						Search For a National Park<br> By State: <select name="state">
-							<c:forEach items="${states}" var="state">
-								<option value="${state}">${state}</option>
-							</c:forEach>
-						</select> <input id="button" type="submit" value="Submit" />
-					</form>
-					<div>
-						<form action="results.do" method="GET">
-							By Keyword: <input id="button" type="text" name="keyword"
-								placeholder="keyword search" /> <input id="button" type="submit"
-								value="Submit" />
-						</form>
-					</div>
-				</div>
-				<div class="col-sm-2"></div>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8, index">
+			<form action="showpark.do" method="GET">
+				Search For a National Park<br> By State: <select name="state">
+					<c:forEach items="${states}" var="state">
+						<option value="${state}">${state}</option>
+					</c:forEach>
+				</select>
+				<button type="submit" class="btn btn-dark btn-sm" value="Submit">Submit</button>
+			</form>
+			<div>
+				<form action="results.do" method="GET">
+					By Keyword: <input id="button" type="text" name="keyword"
+						placeholder="keyword search" />
+					<button type="submit" class="btn btn-dark btn-sm" value="Submit">Submit</button>
+				</form>
 			</div>
-		<div class="row">
-			</div>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="row"></div>
 	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
