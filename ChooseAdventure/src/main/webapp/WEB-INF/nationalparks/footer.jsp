@@ -8,7 +8,7 @@ img#lntl {
 	height: 67px;
 	position: fixed;
 	bottom: 0;
-	left:0;
+	right:0;
 }
 </style>
 <a href="https://lnt.org"> <img id="lntl" src="LNTlogo.png"
