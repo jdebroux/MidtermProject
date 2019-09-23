@@ -17,20 +17,22 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8, index">
 		<c:choose>
 			<c:when test="${user.active == true}">
 
-				<h4>Are you sure you'd like to delete your account, ${user.firstName}?</h4>
+				<p>Are you sure you'd like to delete your account, ${user.firstName}?</p>
 				<form action="delete.do" method="POST">
 					<input type="hidden" name="aid" value="${loggedIn.id}" /> <input
-						id="button" type="submit" value="Delete" />
+						id="button" class="btn btn-danger" type="submit" value="Delete" />
 				</form>
 			</c:when>
 			<c:otherwise>
-				<h4>Account Deleted</h4>
+				<h4 style="color:maroon;">Account Deleted</h4>
 			</c:otherwise>
 		</c:choose>
 	</div>

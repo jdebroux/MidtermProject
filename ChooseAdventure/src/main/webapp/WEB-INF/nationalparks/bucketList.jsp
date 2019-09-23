@@ -16,15 +16,13 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
 	<div class="row">
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8">
 			<c:choose>
 				<c:when test="${not empty trips}">
 					<div class="index">
-						<h3>${loggedIn.firstName}'s Bucket List</h3>
+						<h3 style="color:dodgerblue;">${loggedIn.firstName}'s Bucket List</h3>
 					</div>
 					<br>
 					<c:forEach items="${trips}" var="singletrip">
@@ -42,10 +40,11 @@
 							<c:out value="${singletrip.name}"></c:out>
 							<br> Park Name:
 							<c:out value="${singletrip.nationalPark.name}"></c:out>
-							<br> Activities:
+							<br> Activities:<br> -
 							<c:forEach items="${singletrip.tripActivities}"
 								var="tripActivity">
-								<c:out value="${tripActivity.activity.name} "></c:out>
+								<c:out value="${tripActivity.activity.name} - "></c:out>
+								
 							</c:forEach>
 
 

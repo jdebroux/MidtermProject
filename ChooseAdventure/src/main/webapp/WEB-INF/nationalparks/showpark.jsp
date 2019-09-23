@@ -25,11 +25,10 @@ body, html {
 
 	<br>
 	<br>
-	<br>
 	<div class="col-sm-12, showparkeroo">
 		<c:if test="${ empty loggedIn.username}">
 			<div class="parkNameState">
-				<strong>${park.name} - ${park.location.state}</strong>
+				<h3><strong>${park.name} - ${park.location.state}</strong></h3>
 			</div>
 			<em>${park.description}</em>
 			<span>
@@ -52,25 +51,33 @@ body, html {
 		<c:if test="${! empty loggedIn.username}">
 			<form action="bucketlist.do" method="POST">
 			<div class="parkNameState">
-				<strong>${park.name} - ${park.location.state}</strong>
+				<h3><strong>${park.name} - ${park.location.state}</strong></h3>
 			</div>
 			<em>${park.description}</em>
 <br>
 				<c:choose>
 					<c:when test="${size > 0}">
+                    		Activities: 
+                    		<br>
 						<c:forEach items="${tripactivities}" var="tripactivity">
 							<input type="checkbox" name="activityIds"
 								value="${tripactivity.activity.id }" checked="checked">  ${tripactivity.activity.name}
+								<br>
                     		</c:forEach>
 						<c:forEach items="${remainingParkActivities}"
 							var="remainingActivity">
+							
 							<input type="checkbox" name="activityIds"
 								value="${remainingActivity.id }">  ${remainingActivity.name}
+								<br>
                     		</c:forEach>
 					</c:when>
 					<c:otherwise>
+                    		Activities: 
+                    		<br>
 						<c:forEach items="${park.activities}" var="activity">
 							<input type="checkbox" name="activityIds" value="${activity.id }">  ${activity.name}
+							<br>
                     		</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -86,6 +93,8 @@ body, html {
 			</form>
 		</c:if>
 	</div>
+	<br>
+	<br>
 	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
