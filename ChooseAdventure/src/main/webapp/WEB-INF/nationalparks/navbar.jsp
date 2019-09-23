@@ -35,14 +35,16 @@
 	font-size: 22px;
 	text-shadow: 2px 2px #000000;
 	cursor: pointer;
-}
+} 
 
 .navbar-brand {
 	color: Dodger-Blue;
 	font-size: 26;
+	padding: 30px; 
 }
 
 .dropdown-item {
+	background-color: #353A3F;
 	border: none;
 	color: Dodger-Blue;
 	/* padding: 12px 16px; */
@@ -70,38 +72,30 @@ background-color: #353A3F; }
 	class="navbar fixed-top navbar-inverse bg-dark navbar-expand-sm inline justify-content-center">
 	<div class="collapse navbar-collapse">
 
-
-
-		<a class="navbar-brand" href="#">Your Adventure Planner</a>
-
-		<form action="index.do" method="GET">
-
-			<button type="submit" class="btn btn-link" value="Home"></button>
-		</form>
-
-
-		<form action="index.do" method="GET">
-			<button type="submit" class="btn btn-link" value="Home"></button>
-		</form>
-
-
-		<form action="index.do" method="GET">
+<form action="index.do" method="GET">
 			<button type="submit" class="btn btn-link" value="Home">Home
 			</button>
 		</form>
+		
+
+		<a class="navbar-brand" >Your Adventure Planner</a>
+
+
+
+		
 
 		<div class="dropdown show">
-			<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+			<a class="btn btn-dropdownMenuLink dropdown-toggle" 
 				role="button" id="dropdownMenuLink" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false"> Parks </a>
 
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-				<a class="dropdown-item" href="#"><form action="results.do"
+				<a class="dropdown-item" ><form action="results.do"
 						method="GET">
 						<button type="submit" class="btn2 btn-link" name="keyword">See
 							All Parks</button>
-					</form></a> <a class="dropdown-item" href="#"><form action="search.do"
+					</form></a> <a class="dropdown-item" ><form action="search.do"
 						method="GET">
 						<button type="submit" class="btn2 btn-link"
 							value="Search For Parks">Search For Parks</button>
@@ -113,14 +107,14 @@ background-color: #353A3F; }
 
 
 			<div class="dropdown show">
-				<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+				<a class="btn btn-dropdownMenuLink dropdown-toggle" 
 					role="button" id="dropdownMenuLink" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Login </a>
 
 				<div class="dropdown-menu dropdwon-menu-left"
 					aria-labelledby="dropdownMenuLink">
 
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" >
 						<div class="dropdown-content">
 
 							<form action="login.do" method="POST" modelAttribute="account">
@@ -132,7 +126,7 @@ background-color: #353A3F; }
 							</form>
 
 
-							<a class="dropdown-item" href="#"><form
+							<a class="dropdown-item" ><form
 									action="userprofile.do" method="POST">
 									<button type="submit" class="btn2 btn-link"
 										value="Create Account">Create Account</button>
@@ -143,18 +137,18 @@ background-color: #353A3F; }
 		<c:if test="${! empty loggedIn }">
 
 			<div class="dropdown show">
-				<a class="btn btn-dropdownMenuLink dropdown-toggle" href="#"
+				<a class="btn btn-dropdownMenuLink dropdown-toggle" 
 					role="button" id="dropdownMenuLink" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Account </a>
 
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" >
 
 						<form action="logout.do" method="POST">
 							<button type="submit" class="btn btn-link" value="Logout">Logout</button>
 						</form>
-					</a> <a class="dropdown-item" href="#"><form action="seeprofile.do"
+					</a> <a class="dropdown-item" ><form action="seeprofile.do"
 							method="POST">
 							<button type="submit" class="btn btn-link" value="Profile">Profile
 							</button>
@@ -162,12 +156,15 @@ background-color: #353A3F; }
 				</div>
 			</div>
 			<form action="gotobucketlist.do" method="POST">
-
-
 				<button type="submit" class="btn btn-link">Bucket List</button>
 			</form>
 
 		</c:if>
+		
+		<%-- <form action="about.do" method="POST">
+				<button type="submit" class="btn btn-link">About</button>
+			</form> --%>
+		
 
 	</div>
 
