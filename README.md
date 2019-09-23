@@ -43,3 +43,14 @@ Database Structure
 * Set the project up in a way that provides for an equal-ish distribution of labor. One way to do this is split the controller into a few different files, allowing more people to work on it without merge conflicts.
 
 ### Stretch Goals
+* Search parks by geo-feature, wildlife, and visitor type.
+* Google Maps Integration.
+* Share trips via social media.
+* Leave comments for trips and parks.
+* Printer-friendly view.
+
+#### Icebox
+* Content for the activities, wildlife, and geo-features tables that accurately reflects the diversity of the parks.
+* Predictive autocomplete in the search fields.
+* Review trips and parks.
+* Expansion of park scope to include more than US National Parks.
