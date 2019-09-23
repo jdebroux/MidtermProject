@@ -4,10 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<link rel="stylesheet" href="NavBar.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
 .navbar {
 	height: 50px;
@@ -78,28 +74,28 @@ background-color: #353A3F; }
 		</form>
 		
 
-		<a class="navbar-brand" >Your Adventure Planner</a>
+		<div class="navbar-brand" >Your Adventure Planner</div>
 
 
 
 		
 
 		<div class="dropdown show">
-			<a class="btn btn-dropdownMenuLink dropdown-toggle" 
+			<div class="btn btn-dropdownMenuLink dropdown-toggle" 
 				role="button" id="dropdownMenuLink" data-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"> Parks </a>
+				aria-haspopup="true" aria-expanded="false"> Parks </div>
 
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-				<a class="dropdown-item" ><form action="results.do"
+				<div class="dropdown-item"><form action="results.do"
 						method="GET">
 						<button type="submit" class="btn2 btn-link" name="keyword">See
 							All Parks</button>
-					</form></a> <a class="dropdown-item" ><form action="search.do"
+					</form></div> <div class="dropdown-item" ><form action="search.do"
 						method="GET">
 						<button type="submit" class="btn2 btn-link"
 							value="Search For Parks">Search For Parks</button>
-					</form></a>
+					</form></div>
 			</div>
 		</div>
 
@@ -107,14 +103,14 @@ background-color: #353A3F; }
 
 
 			<div class="dropdown show">
-				<a class="btn btn-dropdownMenuLink dropdown-toggle" 
+				<div class="btn btn-dropdownMenuLink dropdown-toggle" 
 					role="button" id="dropdownMenuLink" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> Login </a>
+					aria-haspopup="true" aria-expanded="false"> Login </div>
 
 				<div class="dropdown-menu dropdwon-menu-left"
 					aria-labelledby="dropdownMenuLink">
 
-					<a class="dropdown-item" >
+					<div class="dropdown-item" >
 						<div class="dropdown-content">
 
 							<form action="login.do" method="POST" modelAttribute="account">
@@ -126,33 +122,35 @@ background-color: #353A3F; }
 							</form>
 
 
-							<a class="dropdown-item" ><form
+							<div class="dropdown-item" ><form
 									action="userprofile.do" method="POST">
 									<button type="submit" class="btn2 btn-link"
 										value="Create Account">Create Account</button>
-								</form></a>
+								</form></div>
 						</div>
 				</div>
+				</div>
+			</div>
 		</c:if>
 		<c:if test="${! empty loggedIn }">
 
 			<div class="dropdown show">
-				<a class="btn btn-dropdownMenuLink dropdown-toggle" 
+				<div class="btn btn-dropdownMenuLink dropdown-toggle" 
 					role="button" id="dropdownMenuLink" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> Account </a>
+					aria-haspopup="true" aria-expanded="false"> Account </div>
 
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-					<a class="dropdown-item" >
+					<div class="dropdown-item" >
 
 						<form action="logout.do" method="POST">
-							<button type="submit" class="btn btn-link" value="Logout">Logout</button>
+							<button type="submit" class="btn2 btn-link" value="Logout">Logout</button>
 						</form>
-					</a> <a class="dropdown-item" ><form action="seeprofile.do"
+					</div> <div class="dropdown-item" ><form action="seeprofile.do"
 							method="POST">
-							<button type="submit" class="btn btn-link" value="Profile">Profile
+							<button type="submit" class="btn2 btn-link" value="Profile">Profile
 							</button>
-						</form></a>
+						</form></div>
 				</div>
 			</div>
 			<form action="gotobucketlist.do" method="POST">

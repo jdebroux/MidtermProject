@@ -16,8 +16,6 @@
 
 	<br>
 	<br>
-	<br>
-	<br>
 
 	<c:choose>
 		<c:when test="${not empty parks}">
@@ -48,6 +46,8 @@
 			<h4>None</h4>
 		</c:otherwise>
 	</c:choose>
+	<br>
+	<br>
 	<jsp:include page="footer.jsp" />
 	<jsp:include page="bootstrapLower.jsp" />
 </body>
