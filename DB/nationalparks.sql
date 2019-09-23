@@ -325,6 +325,28 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `nationalparks`;
 INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (1, 'admin', 'admin', true, 'Skill Distillery', 'Batky-Howell', 'admin@skilldistillery.com', 1);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (2, 'AdamOnwan', 'Onwan', false, 'Adam', 'Onwan', ' ', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (3, 'andrewcwong5', 'Wong', false, 'Andrew', 'Wong', ' ', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (4, 'Briman-Jag', 'Jag', FALSE, 'Briman', 'Jag', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (5, 'calooper', 'Looper', FALSE, 'Colt', 'Looper', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (6, 'CMoreno04', 'Moreno', FALSE, 'Cesar', 'Moreno', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (7, 'Erin-Renee', 'Renee', FALSE, 'Erin', 'Renee', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (8, 'Jacobshorterivey', 'Ivey', FALSE, 'Jacob', 'Shorter-Ivey', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (9, 'Jaredm3', 'McGowan', FALSE, 'Jared', 'McGowan', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (10, 'jerryrogersjr', 'Rogers', FALSE, 'Jerry', 'Rogers', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (11, 'JesseTrew', 'Trew', FALSE, 'Jesse', 'Trew', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (12, 'Kvothik', 'Cromeans', FALSE, 'Kelly', 'Cromeans', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (13, 'Merot1', 'Iturralde', FALSE, 'James', 'Iturralde', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (14, 'noel-castillo', 'Castillo', FALSE, 'Noel', 'Castillo', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (15, 'richardanewman', 'Newman', FALSE, 'Richard', 'Newman', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (16, 'Shaviland', 'Haviland', FALSE, 'Samantha', 'Haviland', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (17, 'Sroach1028', 'Roach', FALSE, 'Shaun', 'Roach', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (18, 'StevenConteras', 'Conteras', FALSE, 'Steven', 'Conteras', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (19, 'tduplantis83', 'Duplantis', FALSE, 'Travis', 'Duplantis', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (20, 'VentusSynergy', 'Kee', FALSE, 'Kullen', 'Kee', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (21, 'Vint3r', 'Norris', FALSE, 'David', 'Norris', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (22, 'Vintonl', 'Lee', FALSE, 'Vinton', 'Lee', '', 0);
+INSERT INTO `account` (`id`, `username`, `password`, `active`, `first_name`, `last_name`, `email_address`, `privilege`) VALUES (23, 'zsaylors', 'Saylors', FALSE, 'Zak', 'Saylors', '', 0);
 
 COMMIT;
 
@@ -486,7 +508,10 @@ COMMIT;
 START TRANSACTION;
 USE `nationalparks`;
 INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (1, 'Yosemite', 58, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (2, 'Wind Cave', 55, 1, DEFAULT);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (2, 'Wind Cave', 55, 1, 0);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (3, 'Adam\'s Relaxing Weekend Extravaganza', 48, 2, 0);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (4, 'That one trip of a lifetime', 20, 2, 1);
+INSERT INTO `trip` (`id`, `name`, `national_park_id`, `account_id`, `completed`) VALUES (5, 'Samatha\'s Alien Trees', 29, 16, 0);
 
 COMMIT;
 

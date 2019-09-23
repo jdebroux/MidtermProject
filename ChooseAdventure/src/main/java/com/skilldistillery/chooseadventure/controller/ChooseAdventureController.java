@@ -199,7 +199,7 @@ public class ChooseAdventureController {
 	public String linkToBucketlist(@RequestParam("activityIds") List<Integer> activityIds,
 			@RequestParam("id") int tripId, Trip trip, Model model, @RequestParam("parkId") int parkId,
 			HttpSession session) {
-		trip.setCompleted(false);
+			trip.setCompleted(false);
 		Account user = (Account) session.getAttribute("loggedIn");
 		if (activityIds != null && activityIds.size() > 0) {
 			List<Activity> activities = new ArrayList<>();
@@ -246,6 +246,9 @@ public class ChooseAdventureController {
 			trip.setCompleted(true);
 			dao.createUpdateTrip(trip, user);
 		}
+		Account user2 = (Account) session.getAttribute("loggedIn");
+		List<Trip> trips = dao.getTripsByUserId(user2.getId());
+		model.addAttribute("trips", trips);
 		return "nationalparks/bucketList";
 	}
 

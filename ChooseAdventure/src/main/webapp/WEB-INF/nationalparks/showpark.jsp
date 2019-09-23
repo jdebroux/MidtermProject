@@ -49,7 +49,7 @@ body, html {
 			*To plan a trip, please create an account or login.
 		</c:if>
 
-		<c:if test="${! empty loggedIn.username}">s
+		<c:if test="${! empty loggedIn.username}">
 			<form action="bucketlist.do" method="POST">
 			<div class="parkNameState">
 				<strong>${park.name} - ${park.location.state}</strong>

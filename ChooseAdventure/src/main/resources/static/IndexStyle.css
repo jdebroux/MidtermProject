@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/* *Default Formatting* */
+body, html {
+	background: url("MountRainier.jpg") no-repeat center center scroll;
+	height: 100%;
+	background-size: cover;
+	background-attachment: fixed;
+	color: white;
+	font-family: sans-serif;
+	text-shadow: 2px 2px #000000;
+	font-size: 2vw 
+	/* *Default Formatting* */
+}
+
+#activityList {
+	list-style: none;
+}
+
+/* index */
+#YAP {
+	font-size: 3vw;
+	color: #fcfcfc;
+	font-family: Verdana, Geneva, sans-serif;
+	text-align: center;
+}
+/* index */
+
+/* index */
+.activitiesforeach {
+	position: relative;
+	width: 85%;
+	column-count: 3;
+	column-gap: 50px;
+	text-align: left;
+	font-size: 2vw;
+	margin: auto;
+	font-size: 2vw;
+}
+/* index */
+
+/* results */
+.container {
+	position: relative;
+	width: 50%;
+}
+/* results */
+.index {
+	text-align: center;
+	margin: auto;
+	padding: 15px;
+	border-radius: 25px;
+	background: rgba(180, 180, 180, 0.5);
+	box-shadow: 10px 10px 5px black;
+	border-radius: 25px;
+}
+
+.showparkeroo {
+	text-align: left;
+	margin-left: 50px;
+	margin-right: 50px;
+	padding: 15px;
+	border-radius: 25px;
+	background: rgba(180, 180, 180, 0.5);
+	box-shadow: 10px 10px 5px black;
+}
+
+/* index */
+#button {
+	text-align: center;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+/* index */
+
+
+/* results */
+.image {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: .5s ease;
+	backface-visibility: hidden;
+	border-radius: 5%;
+	box-shadow: 10px 10px 5px black;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	border-radius: 10px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.outsidemiddle {
+	text-align: right;
+	position: absolute;
+	border-radius: 10px;
+	top: 2%;
+	right: 5%;
+	background-color: #58584c;
+	opacity: 0.9;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.container:hover .image {
+	opacity: 1;
+}
+
+.container:hover .middle {
+	opacity: 1;
+}
+
+.text {
+	color: white;
+	font-size: 16px;
+}
+
+/* results */
