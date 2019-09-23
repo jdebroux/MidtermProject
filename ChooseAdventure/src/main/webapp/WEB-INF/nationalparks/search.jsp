@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Choose Adventure</title>
+<title>Adventure Planner</title>
 <meta charset="utf-8">
 
 <jsp:include page="bootstrapUpper.jsp" />
